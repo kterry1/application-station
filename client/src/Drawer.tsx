@@ -1,6 +1,4 @@
-import { AddIcon } from "@chakra-ui/icons";
 import {
-  useDisclosure,
   Button,
   Drawer,
   DrawerOverlay,
@@ -22,14 +20,12 @@ function DrawerExample(props: any) {
     companyName,
     awaitingResponse,
     rejected,
-    ontoNextRound,
+    nextRound,
     receivedOffer,
     acceptedOffer,
     openDrawer,
     setOpenDrawer,
   } = props;
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log(openDrawer);
   const firstField = React.useRef();
 
   //   useEffect(() => {

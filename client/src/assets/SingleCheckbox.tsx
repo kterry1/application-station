@@ -1,4 +1,4 @@
-import { Checkbox } from "@chakra-ui/react";
+import { Box, Checkbox } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
 type SingleCheckboxProps = {
@@ -14,11 +14,13 @@ const SingleCheckbox = ({ colorScheme, allChecked }: SingleCheckboxProps) => {
   }, [allChecked]);
 
   return (
-    <Checkbox
-      colorScheme={colorScheme}
-      isChecked={isChecked}
-      onChange={() => setIsChecked(!isChecked)}
-    />
+    <Box onClick={(e) => e.stopPropagation()}>
+      <Checkbox
+        colorScheme={colorScheme}
+        isChecked={isChecked}
+        onChange={() => setIsChecked(!isChecked)}
+      />
+    </Box>
   );
 };
 
