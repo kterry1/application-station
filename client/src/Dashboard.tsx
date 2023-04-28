@@ -15,6 +15,7 @@ import { fakeTableData } from "./fake-table-data";
 import CompanyLogo from "./assets/company-logo.svg";
 import { useState } from "react";
 import SingleCheckbox from "./assets/SingleCheckbox";
+import Drawer from "./Drawer";
 
 type Props = {};
 
@@ -24,6 +25,8 @@ const tableTestFunc = (property: boolean) => {
 
 const Dashboard = (props: Props) => {
   const [allChecked, setAllChecked] = useState(false);
+  const [editRow, setEditRow] = useState({});
+  const [openDrawer, setOpenDrawer] = useState(false);
   return (
     <Flex py="20px" bg="#f6f6f6a3" flexDir="column" width="100%" height="100vh">
       <Flex
@@ -38,6 +41,7 @@ const Dashboard = (props: Props) => {
       <Center width="100%" height="100%">
         <TableContainer
           boxShadow="0 4px 12px 0 rgba(0,0,0, 0.4)"
+          // @ts-ignore-next-line
           variant="simple"
           colorScheme="teal"
           width="95%"
@@ -87,6 +91,10 @@ const Dashboard = (props: Props) => {
                 return (
                   <Tr
                     _hover={{ backgroundColor: "#AEC8CA", cursor: "pointer" }}
+                    onClick={() => {
+                      setEditRow({ ...tableRow });
+                      setOpenDrawer(true);
+                    }}
                   >
                     <Td>
                       <SingleCheckbox
@@ -107,6 +115,11 @@ const Dashboard = (props: Props) => {
           </Table>
         </TableContainer>
       </Center>
+      <Drawer
+        {...editRow}
+        openDrawer={openDrawer}
+        setOpenDrawer={setOpenDrawer}
+      />
     </Flex>
   );
 };
