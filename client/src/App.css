@@ -5,6 +5,11 @@ body {
   scroll-behavior: smooth;
 }
 
+.chakra-switch span:focus-visible {
+  box-shadow: none !important;
+  outline: none;
+}
+
 /* Let's get this party started */
 ::-webkit-scrollbar {
   width: 12px;

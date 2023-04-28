@@ -82,11 +82,12 @@ const Dashboard = (props: Props) => {
           <TableContainer
             boxShadow="0 4px 12px 0 rgba(0,0,0, 0.4)"
             mt=".5rem"
+            mb="1rem"
             // @ts-ignore-next-line
             variant="simple"
             colorScheme="teal"
             width="100%"
-            height="70.7%"
+            height="60%"
             maxH="625px"
             bgColor="#fff"
             overflowY="unset"

@@ -17,6 +17,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: any) => {
   return (
     <HStack spacing={4} justifyContent="center" alignItems="center">
       <Button
+        width="120px"
         colorScheme="green"
         onClick={handlePrevious}
         isDisabled={currentPage === 1}
@@ -28,6 +29,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: any) => {
         Page {currentPage} of {totalPages}
       </Box>
       <Button
+        width="120px"
         colorScheme="green"
         onClick={handleNext}
         isDisabled={currentPage === totalPages}
