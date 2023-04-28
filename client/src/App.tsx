@@ -1,6 +1,6 @@
-import { ChakraProvider, Flex } from "@chakra-ui/react";
+import { Box, ChakraProvider, Flex } from "@chakra-ui/react";
 import Sidebar from "./Sidebar";
-import Dashboard from "./Table";
+import Dashboard from "./Dashboard";
 import "./App.css";
 
 function App() {
