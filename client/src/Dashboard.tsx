@@ -1,23 +1,20 @@
 import {
-  Box,
   Center,
-  Divider,
+  Checkbox,
   Flex,
   Table,
   TableContainer,
   Tbody,
   Td,
-  Tfoot,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import React from "react";
 import "./App.css";
 import { fakeTableData } from "./fake-table-data";
-import Logo from "./assets/company-logo.svg";
-import Background from "./assets/background.jpg";
 import CompanyLogo from "./assets/company-logo.svg";
+import { useState } from "react";
+import SingleCheckbox from "./assets/SingleCheckbox";
 
 type Props = {};
 
@@ -26,6 +23,7 @@ const tableTestFunc = (property: boolean) => {
 };
 
 const Dashboard = (props: Props) => {
+  const [allChecked, setAllChecked] = useState(false);
   return (
     <Flex py="20px" bg="#f6f6f6a3" flexDir="column" width="100%" height="100vh">
       <Flex
@@ -59,6 +57,13 @@ const Dashboard = (props: Props) => {
               bgColor="#eff4f4"
             >
               <Tr>
+                <Th>
+                  <Checkbox
+                    colorScheme="customColor"
+                    isChecked={allChecked}
+                    onChange={() => setAllChecked(!allChecked)}
+                  />
+                </Th>
                 <Th>Company</Th>
                 <Th>Awaiting Response</Th>
                 <Th>Rejected</Th>
@@ -83,6 +88,12 @@ const Dashboard = (props: Props) => {
                   <Tr
                     _hover={{ backgroundColor: "#AEC8CA", cursor: "pointer" }}
                   >
+                    <Td>
+                      <SingleCheckbox
+                        colorScheme="customColor"
+                        allChecked={allChecked}
+                      />
+                    </Td>
                     <Td>{companyName}</Td>
                     <Td>{tableTestFunc(awaitingResponse)}</Td>
                     <Td>{tableTestFunc(rejected)}</Td>
