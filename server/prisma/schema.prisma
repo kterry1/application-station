@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Represents a user in the system
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  isAuthenticated Boolean 
+  companyApplications CompanyApplication[]
+}
+
+/// Represents a company application for a specific user
+model CompanyApplication {
+  id Int @id @default(autoincrement())
+  companyName String
+  position String
+  awaitingResponse Boolean
+  rejected Boolean
+  nextRound Boolean
+  receivedOffer Boolean 
+  acceptedOffer Boolean
+  notes String?
+  appliedAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+}
