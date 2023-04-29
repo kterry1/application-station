@@ -42,7 +42,7 @@ const resolvers = {
       if (!users[0]) throw new Error("No user with that email");
       return users[0];
     },
-    companyApplications: (_, _, { db }) => {
+    companyApplications: (_, __, { db }) => {
       return db.companyApplications;
     },
   },
