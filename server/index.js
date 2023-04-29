@@ -3,13 +3,14 @@ const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./schema");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const { db } = require("./fake-table-data");
 const app = express();
-
 async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: () => ({ prisma }),
+    context: () => ({ db }),
+    // context: () => ({ prisma }),
   });
 
   await server.start();

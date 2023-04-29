@@ -1,35 +1,63 @@
 const { gql } = require("apollo-server-express");
+const { DateTime, DateTimeResolver } = require("graphql-scalars");
 
 const typeDefs = gql`
+  scalar DateTime
+
   type Query {
-    users: [User!]!
+    user(email: String!): User!
+    companyApplications: [CompanyApplication]!
   }
 
   type User {
     id: ID!
     name: String!
+    email: String!
+    isAuthenticated: Boolean!
+    companyApplications: [CompanyApplication]!
   }
 
-  type Mutation {
-    addUser(name: String!): User!
+  type CompanyApplication {
+    id: ID!
+    companyName: String!
+    position: String!
+    awaitingResponse: Boolean!
+    rejected: Boolean!
+    nextRound: Boolean!
+    receivedOffer: Boolean!
+    acceptedOffer: Boolean!
+    notes: String
+    appliedAt: DateTime!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    user: User!
   }
 `;
 
 const resolvers = {
+  DateTime: DateTimeResolver,
   Query: {
-    users: async (parent, args, { prisma }) => {
-      return await prisma.user.findMany();
+    user: async (_, { email }, { db }) => {
+      const users = db.users.filter((user) => user.email === email);
+      if (!users[0]) throw new Error("No user with that email");
+      return users[0];
+    },
+    companyApplications: (_, _, { db }) => {
+      return db.companyApplications;
     },
   },
-  Mutation: {
-    addUser: async (parent, { name }, { prisma }) => {
-      const newUser = await prisma.user.create({
-        data: {
-          name: name,
-        },
-      });
-
-      return newUser;
+  User: {
+    companyApplications: (parent, _, { db }) => {
+      return db.companyApplications.filter(
+        (companyApplication) => companyApplication.userId === parent.id
+      );
+    },
+  },
+  CompanyApplication: {
+    user: (parent, _, { db }) => {
+      const users = db.users.filter((user) => user.id === parent.userId);
+      if (!users[0]) throw new Error("No user with that email");
+      return users[0];
     },
   },
 };
