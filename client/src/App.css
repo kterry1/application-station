@@ -5,8 +5,9 @@ body {
   scroll-behavior: smooth;
 }
 
-.chakra-switch span:focus-visible {
-  box-shadow: none !important;
+.chakra-switch span:focus-visible,
+.chakra-switch span[data-focus-visible] {
+  box-shadow: none;
   outline: none;
 }
 

@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Center,
   Checkbox,
@@ -67,6 +66,10 @@ const Dashboard = (props: Props) => {
               rightIcon={<AddIcon />}
               colorScheme="blue"
               variant="outline"
+              onClick={() => {
+                setEditRow({});
+                setOpenDrawer(true);
+              }}
             >
               Add
             </Button>
@@ -136,7 +139,6 @@ const Dashboard = (props: Props) => {
                       onClick={() => {
                         setEditRow({ ...tableRow });
                         setOpenDrawer(true);
-                        console.log("Parent Clicked");
                       }}
                     >
                       <Td>

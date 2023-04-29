@@ -17,7 +17,7 @@ import {
   SimpleGrid,
   Switch,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 
 function DrawerExample(props: any) {
   const {
