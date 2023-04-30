@@ -31,6 +31,7 @@ function DrawerExample(props: any) {
     setOpenDrawer,
   } = props;
   const firstField = React.useRef();
+  console.log(awaitingResponse);
 
   return (
     <>
@@ -78,7 +79,11 @@ function DrawerExample(props: any) {
               <Box>
                 <FormControl as={SimpleGrid} columns={{ base: 2, lg: 4 }}>
                   <FormLabel htmlFor="isChecked">Awaiting Response:</FormLabel>
-                  <Switch colorScheme="green" id="isChecked" />
+                  <Switch
+                    isChecked={awaitingResponse}
+                    colorScheme="green"
+                    id="isChecked"
+                  />
 
                   <FormLabel htmlFor="isDisabled">Rejected:</FormLabel>
                   <Switch colorScheme="green" id="isDisabled" />

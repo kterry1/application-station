@@ -13,13 +13,14 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import "./App.css";
-import { fakeTableData } from "./fake-table-data";
 import CompanyLogo from "./assets/company-logo.svg";
 import { useState } from "react";
 import SingleCheckbox from "./assets/SingleCheckbox";
 import Drawer from "./Drawer";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import Pagination from "./Pagination";
+import { useQuery } from "@apollo/client";
+import { GET_USER_COMPANY_APPLICATIONS } from "./getUserCompanyApplications";
 
 type Props = {};
 
@@ -32,6 +33,11 @@ const Dashboard = (props: Props) => {
   const [editRow, setEditRow] = useState({});
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const { loading, error, data } = useQuery(GET_USER_COMPANY_APPLICATIONS, {
+    variables: {
+      email: "aliceJ55@gmail.com",
+    },
+  });
   const totalPages = 10;
 
   const handlePageChange = (newPage: number) => {
@@ -114,6 +120,7 @@ const Dashboard = (props: Props) => {
                     />
                   </Th>
                   <Th>Company</Th>
+                  <Th>Position</Th>
                   <Th>Awaiting Response</Th>
                   <Th>Rejected</Th>
                   <Th>Next Round</Th>
@@ -121,41 +128,47 @@ const Dashboard = (props: Props) => {
                   <Th>Accepted Offer</Th>
                 </Tr>
               </Thead>
-
               <Tbody>
-                {fakeTableData.map((tableRow) => {
-                  const {
-                    companyName,
-                    awaitingResponse,
-                    rejected,
-                    nextRound,
-                    receivedOffer,
-                    acceptedOffer,
-                  } = tableRow;
+                {data?.user.companyApplications.map(
+                  (companyApplication: any) => {
+                    const {
+                      companyName,
+                      position,
+                      awaitingResponse,
+                      rejected,
+                      nextRound,
+                      receivedOffer,
+                      acceptedOffer,
+                    } = companyApplication;
 
-                  return (
-                    <Tr
-                      _hover={{ backgroundColor: "#AEC8CA", cursor: "pointer" }}
-                      onClick={() => {
-                        setEditRow({ ...tableRow });
-                        setOpenDrawer(true);
-                      }}
-                    >
-                      <Td>
-                        <SingleCheckbox
-                          colorScheme="red"
-                          allChecked={allChecked}
-                        />
-                      </Td>
-                      <Td>{companyName}</Td>
-                      <Td>{tableTestFunc(awaitingResponse)}</Td>
-                      <Td>{tableTestFunc(rejected)}</Td>
-                      <Td>{tableTestFunc(nextRound)}</Td>
-                      <Td>{tableTestFunc(receivedOffer)}</Td>
-                      <Td>{tableTestFunc(acceptedOffer)}</Td>
-                    </Tr>
-                  );
-                })}
+                    return (
+                      <Tr
+                        _hover={{
+                          backgroundColor: "#AEC8CA",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          setEditRow({ ...companyApplication });
+                          setOpenDrawer(true);
+                        }}
+                      >
+                        <Td>
+                          <SingleCheckbox
+                            colorScheme="red"
+                            allChecked={allChecked}
+                          />
+                        </Td>
+                        <Td>{companyName}</Td>
+                        <Td>{position}</Td>
+                        <Td>{tableTestFunc(awaitingResponse)}</Td>
+                        <Td>{tableTestFunc(rejected)}</Td>
+                        <Td>{tableTestFunc(nextRound)}</Td>
+                        <Td>{tableTestFunc(receivedOffer)}</Td>
+                        <Td>{tableTestFunc(acceptedOffer)}</Td>
+                      </Tr>
+                    );
+                  }
+                )}
               </Tbody>
             </Table>
           </TableContainer>
