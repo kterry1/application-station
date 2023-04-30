@@ -27,11 +27,19 @@ function DrawerExample(props: any) {
     nextRound,
     receivedOffer,
     acceptedOffer,
+    appliedAt,
+    notes,
     openDrawer,
     setOpenDrawer,
   } = props;
   const firstField = React.useRef();
-  console.log(awaitingResponse);
+
+  const appliedAtTransformer = () => {
+    if (appliedAt) {
+      return new Date(appliedAt).toISOString().substring(0, 10);
+    }
+    return;
+  };
 
   return (
     <>
@@ -66,6 +74,7 @@ function DrawerExample(props: any) {
                   <Box>
                     <FormLabel htmlFor="appliedDate">Applied Date</FormLabel>
                     <Input
+                      value={appliedAtTransformer()}
                       id="appliedDate"
                       placeholder="Select Date"
                       size="md"
@@ -86,21 +95,38 @@ function DrawerExample(props: any) {
                   />
 
                   <FormLabel htmlFor="isDisabled">Rejected:</FormLabel>
-                  <Switch colorScheme="green" id="isDisabled" />
+                  <Switch
+                    isChecked={rejected}
+                    colorScheme="green"
+                    id="isDisabled"
+                  />
 
                   <FormLabel htmlFor="isFocusable">Next Round:</FormLabel>
-                  <Switch colorScheme="green" id="isFocusable" />
+                  <Switch
+                    isChecked={nextRound}
+                    colorScheme="green"
+                    id="isFocusable"
+                  />
 
                   <FormLabel htmlFor="isInvalid">Received Offer:</FormLabel>
-                  <Switch colorScheme="green" id="isInvalid" />
+                  <Switch
+                    isChecked={receivedOffer}
+                    colorScheme="green"
+                    id="isInvalid"
+                  />
 
                   <FormLabel htmlFor="isReadOnly">Accepted Offer:</FormLabel>
-                  <Switch colorScheme="green" id="isReadOnly" />
+                  <Switch
+                    isChecked={receivedOffer}
+                    colorScheme="green"
+                    id="isReadOnly"
+                  />
                 </FormControl>
               </Box>
               <Box>
                 <FormLabel htmlFor="notes">Notes</FormLabel>
                 <Textarea
+                  value={notes}
                   focusBorderColor="gray.400"
                   errorBorderColor="red.500"
                   id="notes"

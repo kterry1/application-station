@@ -14,6 +14,7 @@ const typeDefs = gql`
     name: String!
     email: String!
     isAuthenticated: Boolean!
+    lastLoggedIn: DateTime
     companyApplications: [CompanyApplication]!
   }
 
