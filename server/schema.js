@@ -10,6 +10,10 @@ const typeDefs = gql`
     companyApplications: [CompanyApplication]!
   }
 
+  type Mutation {
+    companyApplication(input: CompanyApplicationInput!): CompanyApplication!
+  }
+
   type User {
     id: ID!
     name: String!
@@ -34,6 +38,19 @@ const typeDefs = gql`
     updatedAt: DateTime!
     user: User!
   }
+
+  input CompanyApplicationInput {
+    companyName: String!
+    position: String!
+    awaitingResponse: Boolean!
+    rejected: Boolean!
+    nextRound: Boolean!
+    receivedOffer: Boolean!
+    acceptedOffer: Boolean!
+    notes: String
+    appliedAt: DateTime!
+    userId: Int!
+  }
 `;
 
 const resolvers = {
@@ -54,6 +71,14 @@ const resolvers = {
     companyApplications: async (_, __, { prisma }) => {
       const companyApplications = await prisma.companyApplication.findMany();
       return companyApplications;
+    },
+  },
+  Mutation: {
+    companyApplication: async (_, { input }, { prisma }) => {
+      const newCompanyApplication = await prisma.companyApplication.create({
+        data: { ...input },
+      });
+      return newCompanyApplication;
     },
   },
   User: {

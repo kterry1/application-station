@@ -35,7 +35,7 @@ const Dashboard = (props: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { loading, error, data } = useQuery(GET_USER_COMPANY_APPLICATIONS, {
     variables: {
-      email: "aliceJ55@gmail.com",
+      email: "bob_smith_farmer@gmail.com",
     },
   });
   const totalPages = 10;

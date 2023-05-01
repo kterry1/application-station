@@ -17,11 +17,12 @@ import {
   SimpleGrid,
   Switch,
 } from "@chakra-ui/react";
-import React from "react";
+import { useState, useRef } from "react";
 
 function DrawerExample(props: any) {
   const {
     companyName,
+    position,
     awaitingResponse,
     rejected,
     nextRound,
@@ -32,8 +33,8 @@ function DrawerExample(props: any) {
     openDrawer,
     setOpenDrawer,
   } = props;
-  const firstField = React.useRef();
-
+  const firstField = useRef();
+  const [companyApplicationDraft, setCompanyApplicationDraft] = useState({});
   const appliedAtTransformer = () => {
     if (appliedAt) {
       return new Date(appliedAt).toISOString().substring(0, 10);
@@ -54,7 +55,6 @@ function DrawerExample(props: any) {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader borderBottomWidth="1px">Edit</DrawerHeader>
-
           <DrawerBody>
             <Stack spacing="12px">
               <Box>
@@ -68,6 +68,19 @@ function DrawerExample(props: any) {
                       // @ts-ignore-next-line
                       ref={firstField}
                       value={companyName}
+                      id="companyName"
+                      placeholder="Company Name"
+                    />
+                  </Box>
+                  <Box mr="12px">
+                    <FormLabel htmlFor="position">Position</FormLabel>
+                    <Input
+                      isRequired={true}
+                      focusBorderColor="gray.400"
+                      errorBorderColor="red.500"
+                      // @ts-ignore-next-line
+                      ref={firstField}
+                      value={position}
                       id="companyName"
                       placeholder="Company Name"
                     />
@@ -88,18 +101,20 @@ function DrawerExample(props: any) {
               </Box>
               <Box>
                 <FormControl as={SimpleGrid} columns={{ base: 2, lg: 4 }}>
-                  <FormLabel htmlFor="isChecked">Awaiting Response:</FormLabel>
+                  <FormLabel htmlFor="awaitingResponse">
+                    Awaiting Response:
+                  </FormLabel>
                   <Switch
                     isChecked={awaitingResponse}
                     colorScheme="greenSwitch"
-                    id="isChecked"
+                    id="awaitingResponse"
                   />
 
-                  <FormLabel htmlFor="isDisabled">Rejected:</FormLabel>
+                  <FormLabel htmlFor="rejected">Rejected:</FormLabel>
                   <Switch
                     isChecked={rejected}
                     colorScheme="greenSwitch"
-                    id="isDisabled"
+                    id="rejected"
                   />
 
                   <FormLabel htmlFor="isFocusable">Next Round:</FormLabel>
@@ -109,18 +124,18 @@ function DrawerExample(props: any) {
                     id="isFocusable"
                   />
 
-                  <FormLabel htmlFor="isInvalid">Received Offer:</FormLabel>
+                  <FormLabel htmlFor="receivedOffer">Received Offer:</FormLabel>
                   <Switch
                     isChecked={receivedOffer}
                     colorScheme="greenSwitch"
-                    id="isInvalid"
+                    id="receivedOffer"
                   />
 
-                  <FormLabel htmlFor="isReadOnly">Accepted Offer:</FormLabel>
+                  <FormLabel htmlFor="acceptedOffer">Accepted Offer:</FormLabel>
                   <Switch
-                    isChecked={receivedOffer}
+                    isChecked={acceptedOffer}
                     colorScheme="greenSwitch"
-                    id="isReadOnly"
+                    id="acceptedOffer"
                   />
                 </FormControl>
               </Box>
