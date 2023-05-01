@@ -1,12 +1,28 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+// npx prisma studio
+// prisma migrate dev
+// prisma db push
+
+// For test-database
+// npx prisma migrate dev --preview-feature
+
+// To seed the test-database
+// npx prisma db seed --preview-feature
+
+
 
 generator client {
   provider = "prisma-client-js"
+    seed   = "node prisma/seed.js"
 }
 
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 

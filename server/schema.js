@@ -6,6 +6,7 @@ const typeDefs = gql`
 
   type Query {
     user(email: String!): User!
+    users: [User]!
     companyApplications: [CompanyApplication]!
   }
 
@@ -38,27 +39,41 @@ const typeDefs = gql`
 const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
-    user: async (_, { email }, { db }) => {
-      const users = db.users.filter((user) => user.email === email);
-      if (!users[0]) throw new Error("No user with that email");
-      return users[0];
+    user: async (_, { email }, { prisma }) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          email: email,
+        },
+      });
+      return user;
     },
-    companyApplications: (_, __, { db }) => {
-      return db.companyApplications;
+    users: async (_, __, { prisma }) => {
+      const users = await prisma.user.findMany();
+      return users;
+    },
+    companyApplications: async (_, __, { prisma }) => {
+      const companyApplications = await prisma.companyApplication.findMany();
+      return companyApplications;
     },
   },
   User: {
-    companyApplications: (parent, _, { db }) => {
-      return db.companyApplications.filter(
-        (companyApplication) => companyApplication.userId === parent.id
-      );
+    companyApplications: async (parent, _, { prisma }) => {
+      const companyApplications = await prisma.companyApplication.findMany({
+        where: {
+          userId: parent.id,
+        },
+      });
+      return companyApplications;
     },
   },
   CompanyApplication: {
-    user: (parent, _, { db }) => {
-      const users = db.users.filter((user) => user.id === parent.userId);
-      if (!users[0]) throw new Error("No user with that email");
-      return users[0];
+    user: async (parent, _, { prisma }) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          id: parent.userId,
+        },
+      });
+      return user;
     },
   },
 };

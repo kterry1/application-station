@@ -62,6 +62,7 @@ function DrawerExample(props: any) {
                   <Box mr="12px">
                     <FormLabel htmlFor="companyName">Company</FormLabel>
                     <Input
+                      isRequired={true}
                       focusBorderColor="gray.400"
                       errorBorderColor="red.500"
                       // @ts-ignore-next-line
@@ -90,35 +91,35 @@ function DrawerExample(props: any) {
                   <FormLabel htmlFor="isChecked">Awaiting Response:</FormLabel>
                   <Switch
                     isChecked={awaitingResponse}
-                    colorScheme="green"
+                    colorScheme="greenSwitch"
                     id="isChecked"
                   />
 
                   <FormLabel htmlFor="isDisabled">Rejected:</FormLabel>
                   <Switch
                     isChecked={rejected}
-                    colorScheme="green"
+                    colorScheme="greenSwitch"
                     id="isDisabled"
                   />
 
                   <FormLabel htmlFor="isFocusable">Next Round:</FormLabel>
                   <Switch
                     isChecked={nextRound}
-                    colorScheme="green"
+                    colorScheme="greenSwitch"
                     id="isFocusable"
                   />
 
                   <FormLabel htmlFor="isInvalid">Received Offer:</FormLabel>
                   <Switch
                     isChecked={receivedOffer}
-                    colorScheme="green"
+                    colorScheme="greenSwitch"
                     id="isInvalid"
                   />
 
                   <FormLabel htmlFor="isReadOnly">Accepted Offer:</FormLabel>
                   <Switch
                     isChecked={receivedOffer}
-                    colorScheme="green"
+                    colorScheme="greenSwitch"
                     id="isReadOnly"
                   />
                 </FormControl>
@@ -137,14 +138,14 @@ function DrawerExample(props: any) {
 
           <DrawerFooter borderTopWidth="1px">
             <Button
-              colorScheme="black"
+              colorScheme="red"
               variant="outline"
               mr={3}
               onClick={() => setOpenDrawer(false)}
             >
               Cancel
             </Button>
-            <Button colorScheme="green">Submit</Button>
+            <Button colorScheme="greenSwitch">Submit</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
