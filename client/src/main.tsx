@@ -7,9 +7,12 @@ const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
 });
+// const clientId = process.env.GOOGLE_OAUTH_CLIENT_ID;
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ApolloProvider client={client}>
-    <App />
+    <GoogleOAuthProvider clientId={clientId}>
+      <App />
+    </GoogleOAuthProvider>
   </ApolloProvider>
 );
