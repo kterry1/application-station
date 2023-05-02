@@ -5,14 +5,16 @@ const app = express();
 const port = 3001;
 const { decode } = require("js-base64");
 const fs = require("fs");
+const { extractCompanyAndPositions } = require("./extractCompanyAndPositions");
+const { productionClassifier } = require("./stableClassifier");
 
 app.use(cors());
-app.use(express.json()); // Enable JSON body parsing
+app.use(express.json());
 
 async function getEmails(accessToken) {
   try {
     const baseUrl = "https://www.googleapis.com/gmail/v1/users/me/messages";
-    const queryParams = "?maxResults=40&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
+    const queryParams = "?maxResults=10&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",
@@ -28,55 +30,53 @@ async function getEmails(accessToken) {
 
     //  Fetch email details for each message ID
     const emails = [];
-    let messages = [];
     for (const messageId of messageIds) {
       const messageResponse = await axios.get(`${baseUrl}/${messageId}`, {
         headers,
       });
-      // const bodyData = () => {
-      //   if (messageResponse?.data?.payload?.parts?.[0]?.body?.data) {
-      //     return messageResponse.data.payload.parts[0].body.data;
-      //   } else {
-      //     return null;
-      //   }
-      // };
       const bodyData = messageResponse?.data?.payload?.parts?.[0]?.body?.data;
-      // const decodedBody = bodyData.length > 0 && decode(bodyData.toString());
       if (bodyData !== null && bodyData !== undefined) {
         const decodedBody = decode(bodyData);
-        // Add the new message to the array
-        const newMessage = { text: decodedBody, label: "" };
-        messages.push(newMessage);
-        // Write the updated messages back to the file
-        fs.writeFileSync("message.js", JSON.stringify(messages));
-        console.log(decodedBody);
-      } else {
-        console.log("Message body is not available");
+        const truncatedMessage = decodedBody.slice(0, 220);
+        const extractedCompanyAndPosition = await extractCompanyAndPositions(
+          truncatedMessage
+        );
+        console.log(extractedCompanyAndPosition);
+        const extractReasonForMessage = await productionClassifier(
+          truncatedMessage
+        );
+        const transformExtractedReasonForMessage = (
+          extractReasonForMessage
+        ) => {
+          if (extractReasonForMessage !== "unknown") {
+            return {
+              awaitingResponse: false,
+              rejected: false,
+              recievedOffer: false,
+              acceptedOffer: false,
+              [extractReasonForMessage]: true,
+            };
+          } else {
+            return {
+              awaitingResponse: false,
+              rejected: false,
+              recievedOffer: false,
+              acceptedOffer: false,
+            };
+          }
+        };
+        const email = {
+          id: messageResponse.data.id,
+          // snippet: truncatedMessage,
+          ...transformExtractedReasonForMessage(extractReasonForMessage),
+          ...extractedCompanyAndPosition,
+          // Add date of email
+        };
+        emails.push(email);
       }
-      // const decodedBody = Buffer.from(bodyData, "base64").toString("utf-8");
-      // console.log("decoded", decodedBody);
-      // const body = messageResponse.data.payload.parts.find(
-      //   (part) => part.mimeType === "text/html"
-      // ).body.data;
-      // const decodedBody = Buffer.from(body, "base64").toString();
-      // const $ = cheerio.load(decodedBody);
-      // email.body = $("body").text();
-      // console.log(bodyData);
-      const email = {
-        // ...messageResponse.data,
-        id: messageResponse.data.id,
-        snippet: messageResponse.data.snippet,
-        subject: messageResponse.data.payload.headers.find(
-          (h) => h.name === "Subject"
-        ).value,
-        // body: decodedBody,
-        // Extract additional data (such as 'From', 'To', 'Subject') from the message payload here if needed
-      };
-      emails.push(email);
     }
 
     return emails;
-    // return messageListResponse.data.messages;
   } catch (error) {
     console.error("Error fetching emails:", error);
     throw error;
@@ -88,8 +88,8 @@ app.post("/fetch-emails", async (req, res) => {
     const accessToken = req.body.accessToken;
     const emails = await getEmails(accessToken);
 
-    // console.log(emails);
     res.json(emails);
+    console.log(emails);
   } catch (error) {
     console.error("Error fetching emails:", error);
     res.status(500).send("Error fetching emails");
