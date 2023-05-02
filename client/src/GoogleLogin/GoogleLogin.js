@@ -24,7 +24,7 @@ async function fetchEmailsFromBackend(accessToken) {
   }
 }
 
-const GoogleLogins = () => {
+const GoogleLogin = () => {
   const login = useGoogleLogin({
     prompt: "consent",
     scope:
@@ -37,4 +37,4 @@ const GoogleLogins = () => {
   return <button onClick={() => login()}>Sign in with Google 🚀 </button>;
 };
 
-export default GoogleLogins;
+export default GoogleLogin;
