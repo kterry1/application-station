@@ -8,7 +8,7 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: () => ({ prisma }),
+    context: () => ({ prisma, userId: 5 }),
   });
 
   await server.start();

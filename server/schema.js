@@ -4,6 +4,11 @@ const { DateTime, DateTimeResolver } = require("graphql-scalars");
 const typeDefs = gql`
   scalar DateTime
 
+  enum UserRole {
+    ADMIN
+    USER
+  }
+
   type Query {
     user(email: String!): User!
     users: [User]!
@@ -11,45 +16,62 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    companyApplication(input: CompanyApplicationInput!): CompanyApplication!
+    AddSingleCompanyApplication(
+      input: CompanyApplicationInput!
+    ): CompanyApplication!
+    AddMultipleCompanyApplications(
+      input: [CompanyApplicationInput]!
+    ): [CompanyApplication]!
+    createUser(input: CreateUserInput!): User!
   }
 
   type User {
     id: ID!
     name: String!
     email: String!
-    isAuthenticated: Boolean!
     lastLoggedIn: DateTime
-    companyApplications: [CompanyApplication]!
+    role: UserRole
+    companyApplications: [CompanyApplication]
   }
 
   type CompanyApplication {
     id: ID!
+    externalId: Int
     companyName: String!
     position: String!
-    awaitingResponse: Boolean!
-    rejected: Boolean!
-    nextRound: Boolean!
-    receivedOffer: Boolean!
-    acceptedOffer: Boolean!
+    awaitingResponse: Boolean
+    rejected: Boolean
+    nextRound: Boolean
+    receivedOffer: Boolean
+    acceptedOffer: Boolean
     notes: String
     appliedAt: DateTime!
     createdAt: DateTime!
     updatedAt: DateTime!
+    unableToClassify: Boolean
     user: User!
   }
 
+  input CreateUserInput {
+    name: String!
+    email: String!
+    role: UserRole
+    companyApplications: [CompanyApplicationInput]
+  }
+
   input CompanyApplicationInput {
+    id: Int
+    externalId: Int
     companyName: String!
     position: String!
-    awaitingResponse: Boolean!
-    rejected: Boolean!
-    nextRound: Boolean!
-    receivedOffer: Boolean!
-    acceptedOffer: Boolean!
+    awaitingResponse: Boolean
+    rejected: Boolean
+    nextRound: Boolean
+    receivedOffer: Boolean
+    acceptedOffer: Boolean
     notes: String
     appliedAt: DateTime!
-    userId: Int!
+    unableToClassify: Boolean
   }
 `;
 
@@ -74,11 +96,56 @@ const resolvers = {
     },
   },
   Mutation: {
-    companyApplication: async (_, { input }, { prisma }) => {
+    createUser: async (_, { input }, { prisma }) => {
+      try {
+        const newUser = await prisma.user.create({
+          data: {
+            ...input,
+          },
+        });
+        return newUser;
+      } catch (error) {
+        if (error.code === "P2002" && error.meta.target.includes("email")) {
+          throw new Error(
+            "User with this email already exists. Please create an account with a new email address."
+          );
+        }
+      }
+    },
+    AddSingleCompanyApplication: async (_, { input }, { prisma }) => {
       const newCompanyApplication = await prisma.companyApplication.create({
         data: { ...input },
       });
       return newCompanyApplication;
+    },
+    AddMultipleCompanyApplications: async (_, { input }, { prisma }) => {
+      // 'createMany' is not supported with SQLite
+      // const newCompanyApplications = await prisma.companyApplication.createMany(
+      //   {
+      //     data: input.map((companyApplication) => ({
+      //       ...companyApplication,
+      //     })),
+      //     user: {
+      //       connect: { id: userId },
+      //     },
+      //   }
+      // );
+      const newCompanyApplications = await Promise.all(
+        input.map(async (companyApplication, index) => {
+          await new Promise((resolve) => setTimeout(resolve, index * 500));
+          return await prisma.companyApplication.create({
+            data: {
+              ...companyApplication,
+              user: {
+                // connect: { id: userId },
+                connect: { id: 5 },
+              },
+            },
+          });
+        })
+      );
+
+      return newCompanyApplications;
     },
   },
   User: {

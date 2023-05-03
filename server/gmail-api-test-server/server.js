@@ -52,36 +52,22 @@ async function getEmails(accessToken) {
           parseInt(messageResponse.data.internalDate, 10)
         );
         const appliedAt = internalDate.toISOString();
+        const extractClassificationForMessageTransformer =
+          extractClassificationForMessage === "unknown"
+            ? "unableToClasify"
+            : extractClassificationForMessage;
         const transformExtractedClassificationForMessage = (
           extractClassificationForMessage
         ) => {
-          if (extractClassificationForMessage === "unknown") {
-            return {
-              awaitingResponse: false,
-              rejected: false,
-              nextRound: false,
-              recievedOffer: false,
-              acceptedOffer: false,
-              appliedAt: appliedAt,
-              unableToClassify: true,
-            };
-          } else {
-            return {
-              awaitingResponse: false,
-              rejected: false,
-              nextRound: false,
-              recievedOffer: false,
-              acceptedOffer: false,
-              appliedAt: appliedAt,
-              unableToClassify: false,
-              [extractClassificationForMessage]: true,
-            };
-          }
+          return {
+            appliedAt: appliedAt,
+            [extractClassificationForMessage]: true,
+          };
         };
         const email = {
-          id: messageResponse.data.id,
+          externalId: messageResponse.data.id,
           ...transformExtractedClassificationForMessage(
-            extractClassificationForMessage
+            extractClassificationForMessageTransformer
           ),
           ...extractedCompanyAndPosition,
         };
@@ -111,3 +97,5 @@ app.post("/fetch-emails", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
+
+module.exports = { getEmails };
