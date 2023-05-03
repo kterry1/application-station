@@ -24,17 +24,16 @@ async function fetchEmailsFromBackend(accessToken) {
   }
 }
 
-const GoogleLogin = () => {
+const GoogleLoginButton = () => {
   const login = useGoogleLogin({
     prompt: "consent",
     scope:
       "https://www.googleapis.com/auth/gmail.readonly email profile https://www.googleapis.com/auth/userinfo.email openid https://www.googleapis.com/auth/userinfo.profile",
     onSuccess: (tokenResponse) => {
       fetchEmailsFromBackend(tokenResponse.access_token);
-      console.log("Frontend", tokenResponse);
     },
   });
   return <button onClick={() => login()}>Sign in with Google 🚀 </button>;
 };
 
-export default GoogleLogin;
+export default GoogleLoginButton;

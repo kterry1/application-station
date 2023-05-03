@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import NavItem from "./NavItem";
 import { FaChartBar, FaHome } from "react-icons/fa";
+import GoogleLoginButton from "./GoogleLoginButton/GoogleLoginButton.js";
 
 type Props = {};
 
@@ -67,7 +68,8 @@ const Sidebar = (props: Props) => {
             <Heading as="h3" size="sm">
               Kevin Terry
             </Heading>
-            <Text color="#465051">Admin</Text>
+            <GoogleLoginButton />
+            {/* <Text color="#465051">Admin</Text> */}
           </Flex>
         </Flex>
       </Flex>

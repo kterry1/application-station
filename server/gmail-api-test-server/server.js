@@ -6,7 +6,9 @@ const port = 3001;
 const { decode } = require("js-base64");
 const fs = require("fs");
 const { extractCompanyAndPositions } = require("./extractCompanyAndPositions");
-const { productionClassifier } = require("./stableClassifier");
+const {
+  productionClassifier,
+} = require("../natural-language-processing/stableClassifier");
 
 app.use(cors());
 app.use(express.json());
@@ -14,7 +16,7 @@ app.use(express.json());
 async function getEmails(accessToken) {
   try {
     const baseUrl = "https://www.googleapis.com/gmail/v1/users/me/messages";
-    const queryParams = "?maxResults=10&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
+    const queryParams = "?maxResults=3&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",
@@ -34,6 +36,7 @@ async function getEmails(accessToken) {
       const messageResponse = await axios.get(`${baseUrl}/${messageId}`, {
         headers,
       });
+
       const bodyData = messageResponse?.data?.payload?.parts?.[0]?.body?.data;
       if (bodyData !== null && bodyData !== undefined) {
         const decodedBody = decode(bodyData);
@@ -41,36 +44,46 @@ async function getEmails(accessToken) {
         const extractedCompanyAndPosition = await extractCompanyAndPositions(
           truncatedMessage
         );
-        console.log(extractedCompanyAndPosition);
-        const extractReasonForMessage = await productionClassifier(
+
+        const extractClassificationForMessage = await productionClassifier(
           truncatedMessage
         );
-        const transformExtractedReasonForMessage = (
-          extractReasonForMessage
+        const internalDate = new Date(
+          parseInt(messageResponse.data.internalDate, 10)
+        );
+        const appliedAt = internalDate.toISOString();
+        const transformExtractedClassificationForMessage = (
+          extractClassificationForMessage
         ) => {
-          if (extractReasonForMessage !== "unknown") {
+          if (extractClassificationForMessage === "unknown") {
             return {
               awaitingResponse: false,
               rejected: false,
+              nextRound: false,
               recievedOffer: false,
               acceptedOffer: false,
-              [extractReasonForMessage]: true,
+              appliedAt: appliedAt,
+              unableToClassify: true,
             };
           } else {
             return {
               awaitingResponse: false,
               rejected: false,
+              nextRound: false,
               recievedOffer: false,
               acceptedOffer: false,
+              appliedAt: appliedAt,
+              unableToClassify: false,
+              [extractClassificationForMessage]: true,
             };
           }
         };
         const email = {
           id: messageResponse.data.id,
-          // snippet: truncatedMessage,
-          ...transformExtractedReasonForMessage(extractReasonForMessage),
+          ...transformExtractedClassificationForMessage(
+            extractClassificationForMessage
+          ),
           ...extractedCompanyAndPosition,
-          // Add date of email
         };
         emails.push(email);
       }
@@ -89,7 +102,6 @@ app.post("/fetch-emails", async (req, res) => {
     const emails = await getEmails(accessToken);
 
     res.json(emails);
-    console.log(emails);
   } catch (error) {
     console.error("Error fetching emails:", error);
     res.status(500).send("Error fetching emails");

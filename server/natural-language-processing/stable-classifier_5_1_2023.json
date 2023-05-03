@@ -3543,7 +3543,7 @@
       ]
     },
     {
-      "name": "awaiting response",
+      "name": "awaitingResponse",
       "tokens": [
         [
           "thank",
@@ -7406,7 +7406,7 @@
       ]
     },
     {
-      "name": "next round",
+      "name": "nextRound",
       "tokens": [
         [
           "thanks",
@@ -11311,7 +11311,7 @@
       ]
     },
     {
-      "name": "received offer",
+      "name": "receivedOffer",
       "tokens": [
         [
           "congratulations!",
