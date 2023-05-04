@@ -11,20 +11,18 @@ const typeDefs = gql`
   }
 
   type Query {
-    user: User!
-    # users: [User]!
     companyApplications: [CompanyApplication]!
   }
 
-  # type Mutation {
-  #   AddSingleCompanyApplication(
-  #     input: CompanyApplicationInput!
-  #   ): CompanyApplication!
-  #   AddMultipleCompanyApplications(
-  #     input: [CompanyApplicationInput]!
-  #   ): [CompanyApplication]!
-  #   login(input: GetUserInput!): User!
-  # }
+  type Mutation {
+    authenticateWithGoogle: User!
+    AddSingleCompanyApplication(
+      input: CompanyApplicationInput!
+    ): CompanyApplication!
+    AddMultipleCompanyApplications(
+      input: [CompanyApplicationInput]!
+    ): [CompanyApplication]!
+  }
 
   type User {
     id: ID!
@@ -79,7 +77,13 @@ const typeDefs = gql`
 const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
-    user: async (_, __, { prisma, accessToken }) => {
+    companyApplications: async (_, __, { prisma }) => {
+      const companyApplications = await prisma.companyApplication.findMany();
+      return companyApplications;
+    },
+  },
+  Mutation: {
+    authenticateWithGoogle: async (_, __, { prisma, accessToken }) => {
       const userInfo = await axios
         .get(
           `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`
@@ -109,73 +113,66 @@ const resolvers = {
 
       return user;
     },
-    // users: async (_, __, { prisma }) => {
-    //   const users = await prisma.user.findMany();
-    //   return users;
-    // },
-    companyApplications: async (_, __, { prisma }) => {
-      const companyApplications = await prisma.companyApplication.findMany();
-      return companyApplications;
+    AddSingleCompanyApplication: async (_, { input }, { prisma, req }) => {
+      console.log(req);
+      const newCompanyApplication = await prisma.companyApplication.create({
+        data: { ...input },
+      });
+      return newCompanyApplication;
+    },
+    importMultipleCompanyApplications: async (
+      _,
+      __,
+      { prisma, accessToken }
+    ) => {
+      const input = getEmails(accessToken);
+      const newCompanyApplications = await Promise.all(
+        input.map(async (companyApplication, index) => {
+          await new Promise((resolve) => setTimeout(resolve, index * 500));
+          return await prisma.companyApplication.create({
+            data: {
+              ...companyApplication,
+              user: {
+                // connect: { id: userId },
+                connect: { id: 5 },
+              },
+            },
+          });
+        })
+      );
+      return;
+      return newCompanyApplications;
+    },
+    AddMultipleCompanyApplications: async (_, { input }, { prisma }) => {
+      // 'createMany' is not supported with SQLite
+      // const newCompanyApplications = await prisma.companyApplication.createMany(
+      //   {
+      //     data: input.map((companyApplication) => ({
+      //       ...companyApplication,
+      //     })),
+      //     user: {
+      //       connect: { id: userId },
+      //     },
+      //   }
+      // );
+      const newCompanyApplications = await Promise.all(
+        input.map(async (companyApplication, index) => {
+          await new Promise((resolve) => setTimeout(resolve, index * 500));
+          return await prisma.companyApplication.create({
+            data: {
+              ...companyApplication,
+              user: {
+                // connect: { id: userId },
+                connect: { id: 5 },
+              },
+            },
+          });
+        })
+      );
+
+      return newCompanyApplications;
     },
   },
-  // Mutation: {
-  //   AddSingleCompanyApplication: async (_, { input }, { prisma, req }) => {
-  //     console.log(req);
-  //     const newCompanyApplication = await prisma.companyApplication.create({
-  //       data: { ...input },
-  //     });
-  //     return newCompanyApplication;
-  //   },
-  // ImportMultipleCompanyApplications: async (_, __, { prisma, req }) => {
-  //   // const input = getEmails(accessToken);
-  //   // const newCompanyApplications = await Promise.all(
-  //   //   input.map(async (companyApplication, index) => {
-  //   //     await new Promise((resolve) => setTimeout(resolve, index * 500));
-  //   //     return await prisma.companyApplication.create({
-  //   //       data: {
-  //   //         ...companyApplication,
-  //   //         user: {
-  //   //           // connect: { id: userId },
-  //   //           connect: { id: 5 },
-  //   //         },
-  //   //       },
-  //   //     });
-  //   //   })
-  //   // );
-  //   console.log("req", req);
-  //   return;
-  //   // return newCompanyApplications;
-  // },
-  // AddMultipleCompanyApplications: async (_, { input }, { prisma }) => {
-  //   // 'createMany' is not supported with SQLite
-  //   // const newCompanyApplications = await prisma.companyApplication.createMany(
-  //   //   {
-  //   //     data: input.map((companyApplication) => ({
-  //   //       ...companyApplication,
-  //   //     })),
-  //   //     user: {
-  //   //       connect: { id: userId },
-  //   //     },
-  //   //   }
-  //   // );
-  //   const newCompanyApplications = await Promise.all(
-  //     input.map(async (companyApplication, index) => {
-  //       await new Promise((resolve) => setTimeout(resolve, index * 500));
-  //       return await prisma.companyApplication.create({
-  //         data: {
-  //           ...companyApplication,
-  //           user: {
-  //             // connect: { id: userId },
-  //             connect: { id: 5 },
-  //           },
-  //         },
-  //       });
-  //     })
-  //   );
-
-  //   return newCompanyApplications;
-  // },
-  // },
   User: {
     companyApplications: async (parent, _, { prisma }) => {
       const companyApplications = await prisma.companyApplication.findMany({
