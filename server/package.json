@@ -3,6 +3,7 @@
     "@prisma/client": "^4.13.0",
     "apollo-server-express": "^3.12.0",
     "axios": "^1.4.0",
+    "classifier.js": "^1.2.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -11,7 +12,9 @@
     "graphql": "^16.6.0",
     "graphql-scalars": "^1.21.3",
     "js-base64": "^3.7.5",
+    "jsonwebtoken": "^9.0.0",
     "natural": "^6.3.0",
+    "openai": "^3.2.1",
     "prisma": "^4.13.0"
   },
   "name": "server",

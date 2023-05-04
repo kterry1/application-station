@@ -39,7 +39,7 @@ model User {
 /// Represents a company application for a specific user
 model CompanyApplication {
   id Int @id @default(autoincrement())
-  externalId Int?
+  externalId String?
   companyName String
   position String
   awaitingResponse Boolean @default(false)
@@ -56,4 +56,8 @@ model CompanyApplication {
   userId Int
 }
 
+
+  model AuthenticateWithGoogle {
+    jwt String @unique
+  }
  

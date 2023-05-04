@@ -1,6 +1,9 @@
 const { gql } = require("apollo-server-express");
 const { DateTime, DateTimeResolver } = require("graphql-scalars");
 const axios = require("axios");
+const jwt = require("jsonwebtoken");
+const { getEmails } = require("./gmail-api-test-server/server");
+require("dotenv").config();
 
 const typeDefs = gql`
   scalar DateTime
@@ -15,13 +18,18 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    authenticateWithGoogle: User!
-    AddSingleCompanyApplication(
+    authenticateWithGoogle(
+      input: AuthenticateWithGoogleInput!
+    ): AuthenticateWithGoogle!
+    addSingleCompanyApplication(
       input: CompanyApplicationInput!
     ): CompanyApplication!
-    AddMultipleCompanyApplications(
-      input: [CompanyApplicationInput]!
-    ): [CompanyApplication]!
+    # importMultipleCompanyApplications(
+    #   input: [CompanyApplicationInput]!
+    # ): [CompanyApplication]!
+    importMultipleCompanyApplications(
+      input: AuthenticateWithGoogleInput!
+    ): String
   }
 
   type User {
@@ -33,9 +41,17 @@ const typeDefs = gql`
     companyApplications: [CompanyApplication]
   }
 
+  input AuthenticateWithGoogleInput {
+    accessToken: String!
+  }
+
+  type AuthenticateWithGoogle {
+    jwt: String!
+  }
+
   type CompanyApplication {
     id: ID!
-    externalId: Int
+    externalId: ID
     companyName: String!
     position: String!
     awaitingResponse: Boolean
@@ -83,10 +99,19 @@ const resolvers = {
     },
   },
   Mutation: {
-    authenticateWithGoogle: async (_, __, { prisma, accessToken }) => {
+    authenticateWithGoogle: async (_, { input }, { prisma }) => {
+      const createToken = (user) => {
+        return jwt.sign(
+          { id: user.id, email: user.email },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "1h",
+          }
+        );
+      };
       const userInfo = await axios
         .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`
+          `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${input.accessToken}`
         )
         .then((response) => {
           return response;
@@ -94,7 +119,7 @@ const resolvers = {
         .catch((error) => {
           console.log(error);
         });
-      console.log(userInfo.data);
+
       const user = await prisma.user.findUnique({
         where: {
           email: userInfo.data.email,
@@ -108,13 +133,11 @@ const resolvers = {
             name: userInfo.data.name,
           },
         });
-        return newUser;
+        return { jwt: createToken(newUser) };
       }
-
-      return user;
+      return { jwt: createToken(user) };
     },
-    AddSingleCompanyApplication: async (_, { input }, { prisma, req }) => {
-      console.log(req);
+    addSingleCompanyApplication: async (_, { input }, { prisma, req }) => {
       const newCompanyApplication = await prisma.companyApplication.create({
         data: { ...input },
       });
@@ -122,28 +145,21 @@ const resolvers = {
     },
     importMultipleCompanyApplications: async (
       _,
-      __,
-      { prisma, accessToken }
+      { input },
+      { prisma, jwtEncoded }
     ) => {
-      const input = getEmails(accessToken);
-      const newCompanyApplications = await Promise.all(
-        input.map(async (companyApplication, index) => {
-          await new Promise((resolve) => setTimeout(resolve, index * 500));
-          return await prisma.companyApplication.create({
-            data: {
-              ...companyApplication,
-              user: {
-                // connect: { id: userId },
-                connect: { id: 5 },
-              },
-            },
-          });
-        })
-      );
-      return;
-      return newCompanyApplications;
-    },
-    AddMultipleCompanyApplications: async (_, { input }, { prisma }) => {
+      jwtDecoded = jwt.verify(jwtEncoded, process.env.JWT_SECRET);
+      // try {
+      //   jwtDecoded = jwt.verify(jwtEncoded, process.env.JWT_SECRET);
+      // } catch (err) {
+      //   if (err instanceof jwt.TokenExpiredError) {
+      //     console.error("Token expired:", err.message);
+      //   } else {
+      //     console.error("Token verification failed:", err.message);
+      //   }
+      // }
+      const emails = await getEmails(input.accessToken);
+      console.log("emails", emails);
       // 'createMany' is not supported with SQLite
       // const newCompanyApplications = await prisma.companyApplication.createMany(
       //   {
@@ -156,21 +172,21 @@ const resolvers = {
       //   }
       // );
       const newCompanyApplications = await Promise.all(
-        input.map(async (companyApplication, index) => {
+        emails.map(async (companyApplication, index) => {
           await new Promise((resolve) => setTimeout(resolve, index * 500));
           return await prisma.companyApplication.create({
             data: {
               ...companyApplication,
               user: {
                 // connect: { id: userId },
-                connect: { id: 5 },
+                connect: { id: jwtDecoded.id },
               },
             },
           });
         })
       );
-
-      return newCompanyApplications;
+      // return newCompanyApplications;
+      return "Success";
     },
   },
   User: {

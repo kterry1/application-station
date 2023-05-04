@@ -19,8 +19,6 @@ import SingleCheckbox from "./assets/SingleCheckbox";
 import Drawer from "./Drawer";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import Pagination from "./Pagination";
-import { useQuery } from "@apollo/client";
-import { GET_USER_COMPANY_APPLICATIONS } from "./getUserCompanyApplications";
 
 type Props = {};
 
@@ -33,11 +31,7 @@ const Dashboard = (props: Props) => {
   const [editRow, setEditRow] = useState({});
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const { loading, error, data } = useQuery(GET_USER_COMPANY_APPLICATIONS, {
-    variables: {
-      email: "bob_smith_farmer@gmail.com",
-    },
-  });
+  // const { loading, error, data } = useQuery(GET_USER_COMPANY_APPLICATIONS);
   const totalPages = 10;
 
   const handlePageChange = (newPage: number) => {

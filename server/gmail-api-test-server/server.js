@@ -5,7 +5,7 @@ const app = express();
 const port = 3001;
 const { decode } = require("js-base64");
 const fs = require("fs");
-const { extractCompanyAndPositions } = require("./extractCompanyAndPositions");
+const { extractCompanyAndPositions } = require("./extractedCompanyAndPosition");
 const {
   productionClassifier,
 } = require("../natural-language-processing/stableClassifier");

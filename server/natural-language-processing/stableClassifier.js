@@ -1,6 +1,7 @@
 const { Classifier } = require("classifier.js");
 const { trainingData } = require("./training-data");
 const { testClassifier } = require("./test-data");
+const path = require("path");
 const classifier = new Classifier({ percentualReturn: true });
 
 const getHighestPercentageKey = (percentageObj) => {
@@ -19,7 +20,7 @@ const getHighestPercentageKey = (percentageObj) => {
 };
 
 const testingClassifier = async () => {
-  await classifier.fromJSON("stable-classifier_5_1_2023.json");
+  await classifier.fromJSON("./stable-classifier_5_1_2023.json");
   // Add test file for this function
   // Manually confirm the percentages check out
   // Adjust training data and re-run trainData.js file if needed
@@ -27,7 +28,8 @@ const testingClassifier = async () => {
 };
 
 const productionClassifier = async (decodedMessageBody) => {
-  await classifier.fromJSON("stable-classifier_5_1_2023.json");
+  const filePath = path.join(__dirname, "stable-classifier_5_1_2023.json");
+  await classifier.fromJSON(filePath);
   const classifiedObj = classifier.classify(decodedMessageBody);
   return getHighestPercentageKey(classifiedObj);
 };

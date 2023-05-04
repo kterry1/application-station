@@ -4,8 +4,10 @@ const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./schema");
 const { PrismaClient } = require("@prisma/client");
 const cookieParser = require("cookie-parser");
+
 const prisma = new PrismaClient();
 const app = express();
+
 // enable cors
 var corsOptions = {
   origin: ["http://localhost:3000", "https://studio.apollographql.com"],
@@ -17,7 +19,14 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req }) => ({ prisma, accessToken: req.cookies.access_token }),
+    context: ({ req }) => {
+      const authHeader = req.headers.authorization || "";
+      const jwtEncoded = authHeader.startsWith("Bearer ")
+        ? authHeader.split(" ")[1]
+        : "";
+
+      return { prisma, jwtEncoded };
+    },
   });
 
   await server.start();
