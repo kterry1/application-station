@@ -1,17 +1,10 @@
-const express = require("express");
 const axios = require("axios");
-const cors = require("cors");
-const app = express();
-const port = 3001;
 const { decode } = require("js-base64");
 const fs = require("fs");
 const { extractCompanyAndPositions } = require("./extractedCompanyAndPosition");
 const {
   productionClassifier,
 } = require("../natural-language-processing/stableClassifier");
-
-app.use(cors());
-app.use(express.json());
 
 async function getEmails(accessToken) {
   try {
@@ -46,7 +39,8 @@ async function getEmails(accessToken) {
         );
 
         const extractClassificationForMessage = await productionClassifier(
-          truncatedMessage
+          // truncatedMessage
+          decodedBody
         );
         const internalDate = new Date(
           parseInt(messageResponse.data.internalDate, 10)
@@ -81,21 +75,5 @@ async function getEmails(accessToken) {
     throw error;
   }
 }
-
-app.post("/fetch-emails", async (req, res) => {
-  try {
-    const accessToken = req.body.accessToken;
-    const emails = await getEmails(accessToken);
-
-    res.json(emails);
-  } catch (error) {
-    console.error("Error fetching emails:", error);
-    res.status(500).send("Error fetching emails");
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
-});
 
 module.exports = { getEmails };
