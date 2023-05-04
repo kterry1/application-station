@@ -40,7 +40,6 @@ const GoogleLoginButton = () => {
           },
         },
       });
-      console.log(importResult);
 
       // Handle the response (e.g., store the JWT in a cookie, update the UI)
     } catch (error) {
@@ -60,7 +59,7 @@ const GoogleLoginButton = () => {
     <>
       <button onClick={() => login()}>Sign in with Google 🚀 </button>
       <button onClick={() => handleLogin(token)}>run later </button>
-      <div></div>
+      <div>{load && "LOADING!!!"}</div>
       <button onClick={() => handleImport(token)}>Import </button>
     </>
   );

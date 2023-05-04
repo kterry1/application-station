@@ -93,8 +93,14 @@ const typeDefs = gql`
 const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
-    companyApplications: async (_, __, { prisma }) => {
-      const companyApplications = await prisma.companyApplication.findMany();
+    companyApplications: async (_, __, { prisma, jwtEncoded }) => {
+      const jwtDecoded = jwt.verify(jwtEncoded, process.env.JWT_SECRET);
+
+      const companyApplications = await prisma.companyApplication.findMany({
+        where: {
+          userId: jwtDecoded.id,
+        },
+      });
       return companyApplications;
     },
   },
@@ -159,7 +165,7 @@ const resolvers = {
       //   }
       // }
       const emails = await getEmails(input.accessToken);
-      console.log("emails", emails);
+
       // 'createMany' is not supported with SQLite
       // const newCompanyApplications = await prisma.companyApplication.createMany(
       //   {

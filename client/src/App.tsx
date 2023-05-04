@@ -76,7 +76,7 @@ function App() {
     <ChakraProvider theme={customTheme}>
       <Flex>
         <Sidebar />
-        {/* <Dashboard /> */}
+        <Dashboard />
       </Flex>
     </ChakraProvider>
   );

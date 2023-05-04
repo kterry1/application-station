@@ -13,3 +13,24 @@ export const IMPORT_MULTIPLE_COMPANY_APPLICATIONS = gql`
     importMultipleCompanyApplications(input: $input)
   }
 `;
+
+export const GET_COMPANY_APPLICATIONS = gql`
+  query Query {
+    companyApplications {
+      id
+      externalId
+      companyName
+      position
+      awaitingResponse
+      rejected
+      nextRound
+      receivedOffer
+      acceptedOffer
+      notes
+      appliedAt
+      createdAt
+      updatedAt
+      unableToClassify
+    }
+  }
+`;

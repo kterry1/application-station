@@ -19,6 +19,8 @@ import SingleCheckbox from "./assets/SingleCheckbox";
 import Drawer from "./Drawer";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import Pagination from "./Pagination";
+import { GET_COMPANY_APPLICATIONS } from "./getUserCompanyApplications";
+import { useQuery } from "@apollo/client";
 
 type Props = {};
 
@@ -31,7 +33,7 @@ const Dashboard = (props: Props) => {
   const [editRow, setEditRow] = useState({});
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  // const { loading, error, data } = useQuery(GET_USER_COMPANY_APPLICATIONS);
+  const { loading, error, data } = useQuery(GET_COMPANY_APPLICATIONS);
   const totalPages = 10;
 
   const handlePageChange = (newPage: number) => {
@@ -123,46 +125,44 @@ const Dashboard = (props: Props) => {
                 </Tr>
               </Thead>
               <Tbody>
-                {data?.user.companyApplications.map(
-                  (companyApplication: any) => {
-                    const {
-                      companyName,
-                      position,
-                      awaitingResponse,
-                      rejected,
-                      nextRound,
-                      receivedOffer,
-                      acceptedOffer,
-                    } = companyApplication;
+                {data?.companyApplications.map((companyApplication: any) => {
+                  const {
+                    companyName,
+                    position,
+                    awaitingResponse,
+                    rejected,
+                    nextRound,
+                    receivedOffer,
+                    acceptedOffer,
+                  } = companyApplication;
 
-                    return (
-                      <Tr
-                        _hover={{
-                          backgroundColor: "#AEC8CA",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => {
-                          setEditRow({ ...companyApplication });
-                          setOpenDrawer(true);
-                        }}
-                      >
-                        <Td>
-                          <SingleCheckbox
-                            colorScheme="red"
-                            allChecked={allChecked}
-                          />
-                        </Td>
-                        <Td>{companyName}</Td>
-                        <Td>{position}</Td>
-                        <Td>{tableTestFunc(awaitingResponse)}</Td>
-                        <Td>{tableTestFunc(rejected)}</Td>
-                        <Td>{tableTestFunc(nextRound)}</Td>
-                        <Td>{tableTestFunc(receivedOffer)}</Td>
-                        <Td>{tableTestFunc(acceptedOffer)}</Td>
-                      </Tr>
-                    );
-                  }
-                )}
+                  return (
+                    <Tr
+                      _hover={{
+                        backgroundColor: "#AEC8CA",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        setEditRow({ ...companyApplication });
+                        setOpenDrawer(true);
+                      }}
+                    >
+                      <Td>
+                        <SingleCheckbox
+                          colorScheme="red"
+                          allChecked={allChecked}
+                        />
+                      </Td>
+                      <Td>{companyName}</Td>
+                      <Td>{position}</Td>
+                      <Td>{tableTestFunc(awaitingResponse)}</Td>
+                      <Td>{tableTestFunc(rejected)}</Td>
+                      <Td>{tableTestFunc(nextRound)}</Td>
+                      <Td>{tableTestFunc(receivedOffer)}</Td>
+                      <Td>{tableTestFunc(acceptedOffer)}</Td>
+                    </Tr>
+                  );
+                })}
               </Tbody>
             </Table>
           </TableContainer>

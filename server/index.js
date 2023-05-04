@@ -21,6 +21,7 @@ async function startServer() {
     resolvers,
     context: ({ req }) => {
       const authHeader = req.headers.authorization || "";
+
       const jwtEncoded = authHeader.startsWith("Bearer ")
         ? authHeader.split(" ")[1]
         : "";
