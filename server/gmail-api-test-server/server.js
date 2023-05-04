@@ -54,7 +54,7 @@ async function getEmails(accessToken) {
         const appliedAt = internalDate.toISOString();
         const extractClassificationForMessageTransformer =
           extractClassificationForMessage === "unknown"
-            ? "unableToClasify"
+            ? "unableToClassify"
             : extractClassificationForMessage;
         const transformExtractedClassificationForMessage = (
           extractClassificationForMessage
