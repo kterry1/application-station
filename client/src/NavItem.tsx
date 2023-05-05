@@ -26,15 +26,11 @@ const NavItem = ({ navSize, icon, title, active }: Props) => {
         >
           <MenuButton w="100%">
             <Flex alignItems="center">
-              <Icon
-                fontSize="xl"
-                as={icon}
-                color={active ? "#000000d1" : "#00000047"}
-              />
+              <Icon fontSize="xl" as={icon} color={"#000000d1"} />
               <Text
                 ml={5}
                 display={navSize === "small" ? "none" : "flex"}
-                color={active ? "#000000d1" : "#00000047"}
+                color={"#000000d1"}
               >
                 {title}
               </Text>

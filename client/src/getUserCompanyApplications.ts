@@ -38,3 +38,14 @@ export const GET_COMPANY_APPLICATIONS = gql`
     }
   }
 `;
+
+export const GET_LOGGED_IN_USER = gql`
+  query LoggedInUser {
+    loggedInUser {
+      id
+      name
+      email
+      role
+    }
+  }
+`;

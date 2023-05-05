@@ -1,12 +1,5 @@
-import { CalendarIcon, HamburgerIcon } from "@chakra-ui/icons";
-import {
-  Avatar,
-  Divider,
-  Flex,
-  Heading,
-  IconButton,
-  Text,
-} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { Divider, Flex, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import NavItem from "./NavItem";
 import { FaChartBar, FaHome } from "react-icons/fa";
@@ -30,7 +23,7 @@ const Sidebar = (props: Props) => {
       minW={navSize === "small" ? "70px" : "178px"}
       flexDir="column"
       justifyContent="space-between"
-      bg="#687879"
+      bg="#536061"
       color="#232828"
     >
       <Flex
@@ -58,20 +51,7 @@ const Sidebar = (props: Props) => {
         mb={4}
       >
         <Divider />
-        <Flex mt={4} align={navSize === "small" ? "center" : "flex-start"}>
-          <Avatar size="sm" src="" />
-          <Flex
-            flexDir="column"
-            ml={4}
-            display={navSize === "small" ? "none" : "flex"}
-          >
-            <Heading as="h3" size="sm">
-              Kevin Terry
-            </Heading>
-            <GoogleLoginButton />
-            {/* <Text color="#465051">Admin</Text> */}
-          </Flex>
-        </Flex>
+        <GoogleLoginButton navSize={navSize} />
       </Flex>
     </Flex>
   );

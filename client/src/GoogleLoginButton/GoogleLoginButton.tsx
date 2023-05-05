@@ -1,19 +1,32 @@
-import { useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
-import { useMutation } from "@apollo/client";
-import { useToast } from "@chakra-ui/react";
+import { useMutation, useQuery } from "@apollo/client";
+import {
+  useToast,
+  Heading,
+  Text,
+  Avatar,
+  Flex,
+  Button,
+} from "@chakra-ui/react";
 import {
   AUTHENTICATE_WITH_GOOGLE_MUTATION,
-  IMPORT_MULTIPLE_COMPANY_APPLICATIONS,
+  GET_LOGGED_IN_USER,
 } from "../getUserCompanyApplications";
 
-const GoogleLoginButton = () => {
+const transformEnum = (str: string = "") =>
+  str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+const GoogleLoginButton = ({ navSize }: { navSize: string }) => {
   const toast = useToast();
+  const {
+    loading: loggedInUserLoading,
+    error: loggedInUserError,
+    data: loggedInUserData,
+    refetch: loggedInUserRefetch,
+  } = useQuery(GET_LOGGED_IN_USER);
   const [authenticateWithGoogle, { loading, error }] = useMutation(
     AUTHENTICATE_WITH_GOOGLE_MUTATION
   );
-  const [importCompanyApplications, { loading: load, error: err }] =
-    useMutation(IMPORT_MULTIPLE_COMPANY_APPLICATIONS);
 
   const handleLogin = async (accessToken: string) => {
     try {
@@ -24,30 +37,23 @@ const GoogleLoginButton = () => {
           },
         },
       });
-
-      // Create Toast Notification
-      console.log(
-        result.data.authenticateWithGoogle.status === 200 ? "true" : "false"
-      );
       const statusCode = await result.data.authenticateWithGoogle.status;
+      const message = await result.data.authenticateWithGoogle.message;
       if (statusCode === 200) {
+        try {
+          await loggedInUserRefetch();
+          // Do any additional actions you need after the refetch is complete
+        } catch (error) {
+          // Handle any errors that occurred during the refetch
+          console.error("Error occurred during refetch:", error);
+        }
         return toast({
-          title: "Account created.",
-          description: "We've created your account for you.",
+          title: message,
           status: "success",
           duration: 9000,
           isClosable: true,
         });
       }
-    } catch (error) {
-      // Handle any errors that occurred during the mutation
-    }
-  };
-
-  const handleImport = async () => {
-    try {
-      const importResult = await importCompanyApplications();
-      console.log(importResult);
     } catch (error) {
       // Handle any errors that occurred during the mutation
     }
@@ -61,11 +67,32 @@ const GoogleLoginButton = () => {
       handleLogin(tokenResponse.access_token);
     },
   });
+
+  const isLoggedIn = loggedInUserData?.loggedInUser !== null;
   return (
     <>
-      <button onClick={() => login()}>Sign in with Google 🚀 </button>
-      <div>{load && "LOADING!!!"}</div>
-      <button onClick={() => handleImport()}>Import </button>
+      {isLoggedIn ? (
+        <Flex mt={4} align={navSize === "small" ? "center" : "flex-start"}>
+          <Avatar size="sm" src="" />
+          <Flex
+            flexDir="column"
+            ml={4}
+            display={navSize === "small" ? "none" : "flex"}
+            color="#fff"
+          >
+            <Heading as="h3" size="sm">
+              {loggedInUserData?.loggedInUser.name}
+            </Heading>
+            <Text fontSize="xs" as="em">
+              {transformEnum(loggedInUserData?.loggedInUser?.role)}
+            </Text>
+          </Flex>
+        </Flex>
+      ) : (
+        <Button size="sm" onClick={() => login()}>
+          Sign in with Google
+        </Button>
+      )}
     </>
   );
 };

@@ -18,7 +18,11 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: any) => {
     <HStack spacing={4} justifyContent="center" alignItems="center">
       <Button
         width="120px"
-        colorScheme="green"
+        colorScheme="gray"
+        border="5px"
+        size="md"
+        border="1px"
+        borderColor="green.600"
         onClick={handlePrevious}
         isDisabled={currentPage === 1}
         leftIcon={<ChevronLeftIcon />}
@@ -30,7 +34,11 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: any) => {
       </Box>
       <Button
         width="120px"
-        colorScheme="green"
+        colorScheme="gray"
+        border="5px"
+        size="md"
+        border="1px"
+        borderColor="green.600"
         onClick={handleNext}
         isDisabled={currentPage === totalPages}
         rightIcon={<ChevronRightIcon />}

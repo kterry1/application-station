@@ -15,6 +15,7 @@ const typeDefs = gql`
 
   type Query {
     companyApplications: [CompanyApplication]!
+    loggedInUser: User
   }
 
   type Mutation {
@@ -92,6 +93,15 @@ const typeDefs = gql`
 const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
+    loggedInUser: async (_, __, { jwtDecoded, prisma }) => {
+      if (jwtDecoded) {
+        const user = await prisma.user.findUnique({
+          where: { id: jwtDecoded.id },
+        });
+        return user;
+      }
+      return null;
+    },
     companyApplications: async (_, __, { prisma, jwtDecoded }) => {
       const companyApplications = await prisma.companyApplication.findMany({
         where: {
