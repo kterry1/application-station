@@ -133,7 +133,7 @@ const resolvers = {
           return response;
         })
         .catch((error) => {
-          console.log(error);
+          console.log("Error authenticating user", error);
         });
 
       res.cookie("access_token", input.accessToken, {
@@ -176,7 +176,7 @@ const resolvers = {
       });
       return { status: 200, message: "Authorization Successful" };
     },
-    addSingleCompanyApplication: async (_, { input }, { prisma, req }) => {
+    addSingleCompanyApplication: async (_, { input }, { prisma }) => {
       const newCompanyApplication = await prisma.companyApplication.create({
         data: { ...input },
       });
@@ -187,6 +187,8 @@ const resolvers = {
       __,
       { prisma, jwtDecoded, accessToken }
     ) => {
+      console.log("jwt", jwtDecoded);
+      console.log("token", accessToken);
       const emails = await getGmailEmails(accessToken);
 
       // 'createMany' is not supported with SQLite
@@ -200,7 +202,7 @@ const resolvers = {
       //     },
       //   }
       // );
-      const newCompanyApplications = await Promise.all(
+      await Promise.all(
         emails.map(async (companyApplication, index) => {
           await new Promise((resolve) => setTimeout(resolve, index * 500));
           return await prisma.companyApplication.create({

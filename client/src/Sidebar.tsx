@@ -36,7 +36,7 @@ const Sidebar = (props: Props) => {
           background="none"
           mt={5}
           _hover={{ background: "#f9efcc" }}
-          aria-label="icon button"
+          aria-label=" hamburger icon button"
           icon={<HamburgerIcon />}
           onClick={handleNavIconClick}
         />

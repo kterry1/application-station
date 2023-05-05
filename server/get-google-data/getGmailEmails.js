@@ -10,7 +10,7 @@ const {
 async function getGmailEmails(accessToken) {
   try {
     const baseUrl = "https://www.googleapis.com/gmail/v1/users/me/messages";
-    const queryParams = "?maxResults=40&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
+    const queryParams = "?maxResults=5&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",
@@ -43,7 +43,7 @@ async function getGmailEmails(accessToken) {
           const extractedCompanyAndPosition = await extractCompanyAndPositions(
             truncatedMessage
           );
-
+          console.log(extractedCompanyAndPosition);
           const extractClassificationForMessage =
             await productionClassifierForEmailDecision(
               // truncatedMessage

@@ -6,7 +6,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const extractCompanyAndPositions = async (text) => {
-  const prompt = `Extract the company name and the position(job title) from the following text into a js object without a variable name: \n"${text}"\n`;
+  const prompt = `Extract the company name and the position from the following text into a js object without a variable name: \n"${text}"\n`;
   const extractedData = await openai
     .createCompletion({
       model: "text-davinci-003",

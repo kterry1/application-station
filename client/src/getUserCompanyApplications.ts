@@ -9,7 +9,7 @@ export const AUTHENTICATE_WITH_GOOGLE_MUTATION = gql`
   }
 `;
 
-export const IMPORT_MULTIPLE_COMPANY_APPLICATIONS = gql`
+export const IMPORT_COMPANY_APPLICATIONS = gql`
   mutation {
     importCompanyApplications {
       status

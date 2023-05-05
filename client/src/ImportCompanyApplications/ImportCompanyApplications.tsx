@@ -1,14 +1,15 @@
-import React from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import { IMPORT_MULTIPLE_COMPANY_APPLICATIONS } from "../getUserCompanyApplications";
-import { Button } from "@chakra-ui/react";
+import { useMutation } from "@apollo/client";
+import { IMPORT_COMPANY_APPLICATIONS } from "../getUserCompanyApplications";
+import { Button, useToast } from "@chakra-ui/react";
+import { FaFileImport } from "react-icons/fa";
 
 type Props = {};
 
-const ImportCompanyApplications = (props: Props) => {
+const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
   const toast = useToast();
-  const [importCompanyApplications, { loading: load, error: err }] =
-    useMutation(IMPORT_MULTIPLE_COMPANY_APPLICATIONS);
+  const [importCompanyApplications, { loading, error }] = useMutation(
+    IMPORT_COMPANY_APPLICATIONS
+  );
   const handleImport = async () => {
     try {
       const result = await importCompanyApplications();
@@ -16,11 +17,12 @@ const ImportCompanyApplications = (props: Props) => {
       const statusCode = await result.data.importCompanyApplications.status;
       const message = await result.data.importCompanyApplications.message;
       if (statusCode === 200) {
+        refetch();
         return toast({
           title: message,
           status: "success",
           variant: "solid",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
         });
       }
@@ -29,7 +31,18 @@ const ImportCompanyApplications = (props: Props) => {
     }
   };
 
-  return <Button>ImportCompanyApplications</Button>;
+  return (
+    <Button
+      isLoading={loading}
+      size="sm"
+      rightIcon={<FaFileImport />}
+      colorScheme="greenButton"
+      variant="outline"
+      onClick={() => handleImport()}
+    >
+      Import Emails
+    </Button>
+  );
 };
 
 export default ImportCompanyApplications;

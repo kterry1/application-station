@@ -21,6 +21,7 @@ import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import Pagination from "./Pagination";
 import { GET_COMPANY_APPLICATIONS } from "./getUserCompanyApplications";
 import { useQuery } from "@apollo/client";
+import ImportCompanyApplications from "./ImportCompanyApplications/ImportCompanyApplications";
 
 type Props = {};
 
@@ -33,7 +34,7 @@ const Dashboard = (props: Props) => {
   const [editRow, setEditRow] = useState({});
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const { loading, error, data } = useQuery(GET_COMPANY_APPLICATIONS);
+  const { loading, error, data, refetch } = useQuery(GET_COMPANY_APPLICATIONS);
   const totalPages = 10;
 
   const handlePageChange = (newPage: number) => {
@@ -57,33 +58,36 @@ const Dashboard = (props: Props) => {
           alignItems="center"
           height="100%"
         >
-          <Stack
-            width="100%"
-            direction="row"
-            spacing={4}
-            justifyContent="flex-start"
-          >
-            <Button
-              size="sm"
-              rightIcon={<AddIcon />}
-              colorScheme="blue"
-              variant="outline"
-              onClick={() => {
-                setEditRow({});
-                setOpenDrawer(true);
-              }}
+          <Flex width="100%" justifyContent="space-between">
+            <Stack
+              width="100%"
+              direction="row"
+              spacing={4}
+              justifyContent="flex-start"
             >
-              Add
-            </Button>
-            <Button
-              size="sm"
-              rightIcon={<DeleteIcon />}
-              colorScheme="red"
-              variant="outline"
-            >
-              Delete
-            </Button>
-          </Stack>
+              <Button
+                size="sm"
+                rightIcon={<AddIcon />}
+                colorScheme="blue"
+                variant="outline"
+                onClick={() => {
+                  setEditRow({});
+                  setOpenDrawer(true);
+                }}
+              >
+                Add
+              </Button>
+              <Button
+                size="sm"
+                rightIcon={<DeleteIcon />}
+                colorScheme="red"
+                variant="outline"
+              >
+                Delete
+              </Button>
+            </Stack>
+            <ImportCompanyApplications refetch={refetch} />
+          </Flex>
           <TableContainer
             boxShadow="0 4px 12px 0 rgba(0,0,0, 0.4)"
             mt=".5rem"
