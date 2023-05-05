@@ -4,5 +4,5 @@ node_modules
 dev.db
 
 # NLP - training data
-training-data.js
+email-decision-training-data.js
 is-job-application-email-training-data.js
