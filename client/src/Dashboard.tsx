@@ -94,9 +94,10 @@ const Dashboard = (props: Props) => {
             mb="1rem"
             // @ts-ignore-next-line
             variant="simple"
-            width="100%"
+            width="80vw"
             height="60%"
             maxH="625px"
+            maxW="80vw"
             bgColor="#fff"
             overflowY="unset"
           >
@@ -156,8 +157,12 @@ const Dashboard = (props: Props) => {
                           allChecked={allChecked}
                         />
                       </Td>
-                      <Td>{companyName}</Td>
-                      <Td>{position}</Td>
+                      <Td maxW="180px" overflow="hidden">
+                        {companyName}
+                      </Td>
+                      <Td maxW="180px" overflow="hidden">
+                        {position}
+                      </Td>
                       <Td>{tableTestFunc(awaitingResponse)}</Td>
                       <Td>{tableTestFunc(rejected)}</Td>
                       <Td>{tableTestFunc(nextRound)}</Td>
