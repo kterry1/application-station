@@ -2,7 +2,7 @@ const { gql } = require("apollo-server-express");
 const { DateTime, DateTimeResolver } = require("graphql-scalars");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-const { getEmails } = require("./gmail-api-test-server/server");
+const { getGmailEmails } = require("./get-google-data/getGmailEmails");
 require("dotenv").config();
 
 const typeDefs = gql`
@@ -24,9 +24,6 @@ const typeDefs = gql`
     addSingleCompanyApplication(
       input: CompanyApplicationInput!
     ): CompanyApplication!
-    # importMultipleCompanyApplications(
-    #   input: [CompanyApplicationInput]!
-    # ): [CompanyApplication]!
     importMultipleCompanyApplications(
       input: AuthenticateWithGoogleInput!
     ): String
@@ -164,7 +161,7 @@ const resolvers = {
       //     console.error("Token verification failed:", err.message);
       //   }
       // }
-      const emails = await getEmails(input.accessToken);
+      const emails = await getGmailEmails(input.accessToken);
 
       // 'createMany' is not supported with SQLite
       // const newCompanyApplications = await prisma.companyApplication.createMany(
@@ -184,15 +181,13 @@ const resolvers = {
             data: {
               ...companyApplication,
               user: {
-                // connect: { id: userId },
                 connect: { id: jwtDecoded.id },
               },
             },
           });
         })
       );
-      // return newCompanyApplications;
-      return "Success";
+      return "Successfully Imported New Company Applications";
     },
   },
   User: {

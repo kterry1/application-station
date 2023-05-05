@@ -9,49 +9,49 @@
         [
           "thank",
           {
-            "relevancy": 245
+            "relevancy": 244
           }
         ],
         [
           "you",
           {
-            "relevancy": 561
+            "relevancy": 572
           }
         ],
         [
           "for",
           {
-            "relevancy": 851
+            "relevancy": 892
           }
         ],
         [
           "applying",
           {
-            "relevancy": 102
+            "relevancy": 116
           }
         ],
         [
           "to",
           {
-            "relevancy": -851
+            "relevancy": -768
           }
         ],
         [
           "our",
           {
-            "relevancy": -1607
+            "relevancy": -1594
           }
         ],
         [
           "company.",
           {
-            "relevancy": 181
+            "relevancy": 188
           }
         ],
         [
           "we",
           {
-            "relevancy": 1309
+            "relevancy": 1357
           }
         ],
         [
@@ -63,31 +63,31 @@
         [
           "inform",
           {
-            "relevancy": 137
+            "relevancy": 144
           }
         ],
         [
           "that",
           {
-            "relevancy": -118
+            "relevancy": -104
           }
         ],
         [
           "have",
           {
-            "relevancy": 659
+            "relevancy": 658
           }
         ],
         [
           "decided",
           {
-            "relevancy": 385
+            "relevancy": 392
           }
         ],
         [
           "not",
           {
-            "relevancy": 71
+            "relevancy": 49
           }
         ],
         [
@@ -99,13 +99,13 @@
         [
           "with",
           {
-            "relevancy": 309
+            "relevancy": 351
           }
         ],
         [
           "your",
           {
-            "relevancy": -94
+            "relevancy": -54
           }
         ],
         [
@@ -117,7 +117,7 @@
         [
           "congratulations!",
           {
-            "relevancy": 18
+            "relevancy": 25
           }
         ],
         [
@@ -141,7 +141,7 @@
         [
           "been",
           {
-            "relevancy": -107
+            "relevancy": -100
           }
         ],
         [
@@ -153,13 +153,13 @@
         [
           "the",
           {
-            "relevancy": -132
+            "relevancy": -62
           }
         ],
         [
           "next",
           {
-            "relevancy": -244
+            "relevancy": -237
           }
         ],
         [
@@ -171,7 +171,7 @@
         [
           "of",
           {
-            "relevancy": -404
+            "relevancy": -397
           }
         ],
         [
@@ -183,13 +183,13 @@
         [
           "position",
           {
-            "relevancy": 423
+            "relevancy": 444
           }
         ],
         [
           "at",
           {
-            "relevancy": -14
+            "relevancy": 14
           }
         ],
         [
@@ -207,13 +207,13 @@
         [
           "and",
           {
-            "relevancy": -339
+            "relevancy": -276
           }
         ],
         [
           "will",
           {
-            "relevancy": 249
+            "relevancy": 263
           }
         ],
         [
@@ -247,27 +247,633 @@
           }
         ],
         [
-          "are",
+          "dear",
           {
-            "relevancy": 16
+            "relevancy": 7
           }
         ],
         [
-          "pleased",
+          "applicant,",
           {
-            "relevancy": 141
+            "relevancy": 7
           }
         ],
         [
-          "offer",
+          "submitting",
           {
-            "relevancy": 361
+            "relevancy": 52
+          }
+        ],
+        [
+          "application",
+          {
+            "relevancy": 785
+          }
+        ],
+        [
+          "web",
+          {
+            "relevancy": -38
+          }
+        ],
+        [
+          "developer",
+          {
+            "relevancy": 81
+          }
+        ],
+        [
+          "xyz",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "corp.",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "team",
+          {
+            "relevancy": 135
+          }
+        ],
+        [
+          "was",
+          {
+            "relevancy": -5
+          }
+        ],
+        [
+          "impressed",
+          {
+            "relevancy": 74
+          }
+        ],
+        [
+          "by",
+          {
+            "relevancy": -231
+          }
+        ],
+        [
+          "skills",
+          {
+            "relevancy": 23
+          }
+        ],
+        [
+          "background.",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "would",
+          {
+            "relevancy": 217
+          }
+        ],
+        [
+          "like",
+          {
+            "relevancy": 287
+          }
+        ],
+        [
+          "invite",
+          {
+            "relevancy": 184
+          }
+        ],
+        [
+          "an",
+          {
+            "relevancy": 176
+          }
+        ],
+        [
+          "interview",
+          {
+            "relevancy": 330
+          }
+        ],
+        [
+          "further",
+          {
+            "relevancy": 193
+          }
+        ],
+        [
+          "discuss",
+          {
+            "relevancy": 112
+          }
+        ],
+        [
+          "qualifications.",
+          {
+            "relevancy": 71
+          }
+        ],
+        [
+          "be",
+          {
+            "relevancy": -48
+          }
+        ],
+        [
+          "in",
+          {
+            "relevancy": 111
+          }
+        ],
+        [
+          "touch",
+          {
+            "relevancy": 211
+          }
+        ],
+        [
+          "shortly",
+          {
+            "relevancy": 52
+          }
+        ],
+        [
+          "schedule",
+          {
+            "relevancy": 128
           }
         ],
         [
           "a",
           {
-            "relevancy": -552
+            "relevancy": -510
+          }
+        ],
+        [
+          "time",
+          {
+            "relevancy": 70
+          }
+        ],
+        [
+          "works",
+          {
+            "relevancy": 21
+          }
+        ],
+        [
+          "both",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "parties.",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "appreciate",
+          {
+            "relevancy": 112
+          }
+        ],
+        [
+          "effort",
+          {
+            "relevancy": 5
+          }
+        ],
+        [
+          "put",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "into",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "data",
+          {
+            "relevancy": 68
+          }
+        ],
+        [
+          "analyst",
+          {
+            "relevancy": 53
+          }
+        ],
+        [
+          "role",
+          {
+            "relevancy": 97
+          }
+        ],
+        [
+          "abc",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "after",
+          {
+            "relevancy": 191
+          }
+        ],
+        [
+          "careful",
+          {
+            "relevancy": 51
+          }
+        ],
+        [
+          "consideration,",
+          {
+            "relevancy": 51
+          }
+        ],
+        [
+          "move",
+          {
+            "relevancy": 164
+          }
+        ],
+        [
+          "forward",
+          {
+            "relevancy": 203
+          }
+        ],
+        [
+          "candidate",
+          {
+            "relevancy": 54
+          }
+        ],
+        [
+          "whose",
+          {
+            "relevancy": 21
+          }
+        ],
+        [
+          "experience",
+          {
+            "relevancy": 17
+          }
+        ],
+        [
+          "more",
+          {
+            "relevancy": 83
+          }
+        ],
+        [
+          "closely",
+          {
+            "relevancy": 124
+          }
+        ],
+        [
+          "aligns",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "requirements",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "position.",
+          {
+            "relevancy": 422
+          }
+        ],
+        [
+          "wish",
+          {
+            "relevancy": 38
+          }
+        ],
+        [
+          "best",
+          {
+            "relevancy": -48
+          }
+        ],
+        [
+          "future",
+          {
+            "relevancy": -57
+          }
+        ],
+        [
+          "endeavors",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "encourage",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "apply",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "other",
+          {
+            "relevancy": 259
+          }
+        ],
+        [
+          "opportunities",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "us.",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "are",
+          {
+            "relevancy": 23
+          }
+        ],
+        [
+          "pleased",
+          {
+            "relevancy": 148
+          }
+        ],
+        [
+          "marketing",
+          {
+            "relevancy": 82
+          }
+        ],
+        [
+          "manager",
+          {
+            "relevancy": 215
+          }
+        ],
+        [
+          "widget",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "inc.",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "has",
+          {
+            "relevancy": -84
+          }
+        ],
+        [
+          "successful.",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "were",
+          {
+            "relevancy": 51
+          }
+        ],
+        [
+          "qualifications",
+          {
+            "relevancy": 149
+          }
+        ],
+        [
+          "believe",
+          {
+            "relevancy": 21
+          }
+        ],
+        [
+          "great",
+          {
+            "relevancy": 52
+          }
+        ],
+        [
+          "fit",
+          {
+            "relevancy": 114
+          }
+        ],
+        [
+          "team.",
+          {
+            "relevancy": -30
+          }
+        ],
+        [
+          "please",
+          {
+            "relevancy": -555
+          }
+        ],
+        [
+          "find",
+          {
+            "relevancy": -50
+          }
+        ],
+        [
+          "attached",
+          {
+            "relevancy": 89
+          }
+        ],
+        [
+          "offer",
+          {
+            "relevancy": 368
+          }
+        ],
+        [
+          "letter",
+          {
+            "relevancy": 114
+          }
+        ],
+        [
+          "detailing",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "compensation",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "package,",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "benefits,",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "important",
+          {
+            "relevancy": -6
+          }
+        ],
+        [
+          "information.",
+          {
+            "relevancy": 68
+          }
+        ],
+        [
+          "interest",
+          {
+            "relevancy": 239
+          }
+        ],
+        [
+          "customer",
+          {
+            "relevancy": -35
+          }
+        ],
+        [
+          "support",
+          {
+            "relevancy": -175
+          }
+        ],
+        [
+          "specialist",
+          {
+            "relevancy": 159
+          }
+        ],
+        [
+          "techsolutions.",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "reviewed",
+          {
+            "relevancy": 227
+          }
+        ],
+        [
+          "video",
+          {
+            "relevancy": 73
+          }
+        ],
+        [
+          "potential",
+          {
+            "relevancy": 38
+          }
+        ],
+        [
+          "respond",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "this",
+          {
+            "relevancy": -233
+          }
+        ],
+        [
+          "email",
+          {
+            "relevancy": -114
+          }
+        ],
+        [
+          "availability",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "over",
+          {
+            "relevancy": -18
+          }
+        ],
+        [
+          "week,",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "work",
+          {
+            "relevancy": -114
+          }
+        ],
+        [
+          "mutually",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "convenient",
+          {
+            "relevancy": 7
+          }
+        ],
+        [
+          "time.",
+          {
+            "relevancy": 38
           }
         ],
         [
@@ -277,69 +883,15 @@
           }
         ],
         [
-          "were",
-          {
-            "relevancy": 44
-          }
-        ],
-        [
-          "impressed",
-          {
-            "relevancy": 60
-          }
-        ],
-        [
-          "by",
-          {
-            "relevancy": -245
-          }
-        ],
-        [
-          "application",
-          {
-            "relevancy": 764
-          }
-        ],
-        [
-          "believe",
-          {
-            "relevancy": 14
-          }
-        ],
-        [
           "you'll",
           {
             "relevancy": -22
           }
         ],
         [
-          "be",
-          {
-            "relevancy": -62
-          }
-        ],
-        [
-          "great",
-          {
-            "relevancy": 45
-          }
-        ],
-        [
           "fit.",
           {
             "relevancy": 14
-          }
-        ],
-        [
-          "interest",
-          {
-            "relevancy": 232
-          }
-        ],
-        [
-          "in",
-          {
-            "relevancy": 83
           }
         ],
         [
@@ -355,63 +907,9 @@
           }
         ],
         [
-          "position.",
-          {
-            "relevancy": 408
-          }
-        ],
-        [
-          "qualifications",
-          {
-            "relevancy": 128
-          }
-        ],
-        [
-          "would",
-          {
-            "relevancy": 189
-          }
-        ],
-        [
-          "like",
-          {
-            "relevancy": 266
-          }
-        ],
-        [
-          "invite",
-          {
-            "relevancy": 163
-          }
-        ],
-        [
-          "an",
-          {
-            "relevancy": 169
-          }
-        ],
-        [
           "interview.",
           {
             "relevancy": 281
-          }
-        ],
-        [
-          "appreciate",
-          {
-            "relevancy": 105
-          }
-        ],
-        [
-          "marketing",
-          {
-            "relevancy": 75
-          }
-        ],
-        [
-          "manager",
-          {
-            "relevancy": 208
           }
         ],
         [
@@ -421,81 +919,9 @@
           }
         ],
         [
-          "after",
-          {
-            "relevancy": 184
-          }
-        ],
-        [
-          "careful",
-          {
-            "relevancy": 44
-          }
-        ],
-        [
-          "consideration,",
-          {
-            "relevancy": 44
-          }
-        ],
-        [
-          "move",
-          {
-            "relevancy": 157
-          }
-        ],
-        [
-          "forward",
-          {
-            "relevancy": 196
-          }
-        ],
-        [
           "candidacy.",
           {
             "relevancy": 16
-          }
-        ],
-        [
-          "data",
-          {
-            "relevancy": 61
-          }
-        ],
-        [
-          "analyst",
-          {
-            "relevancy": 46
-          }
-        ],
-        [
-          "please",
-          {
-            "relevancy": -547
-          }
-        ],
-        [
-          "find",
-          {
-            "relevancy": -57
-          }
-        ],
-        [
-          "attached",
-          {
-            "relevancy": 82
-          }
-        ],
-        [
-          "letter",
-          {
-            "relevancy": 107
-          }
-        ],
-        [
-          "further",
-          {
-            "relevancy": 179
           }
         ],
         [
@@ -508,12 +934,6 @@
           "project",
           {
             "relevancy": -44
-          }
-        ],
-        [
-          "has",
-          {
-            "relevancy": -91
           }
         ],
         [
@@ -547,12 +967,6 @@
           }
         ],
         [
-          "touch",
-          {
-            "relevancy": 204
-          }
-        ],
-        [
           "enjoyed",
           {
             "relevancy": 16
@@ -568,12 +982,6 @@
           "during",
           {
             "relevancy": 12
-          }
-        ],
-        [
-          "interview",
-          {
-            "relevancy": 309
           }
         ],
         [
@@ -607,51 +1015,9 @@
           }
         ],
         [
-          "customer",
-          {
-            "relevancy": -42
-          }
-        ],
-        [
-          "support",
-          {
-            "relevancy": -160
-          }
-        ],
-        [
-          "specialist",
-          {
-            "relevancy": 152
-          }
-        ],
-        [
-          "other",
-          {
-            "relevancy": 245
-          }
-        ],
-        [
           "who",
           {
             "relevancy": 117
-          }
-        ],
-        [
-          "more",
-          {
-            "relevancy": 76
-          }
-        ],
-        [
-          "closely",
-          {
-            "relevancy": 117
-          }
-        ],
-        [
-          "fit",
-          {
-            "relevancy": 100
           }
         ],
         [
@@ -670,12 +1036,6 @@
           "executive",
           {
             "relevancy": 47
-          }
-        ],
-        [
-          "team",
-          {
-            "relevancy": 128
           }
         ],
         [
@@ -711,7 +1071,7 @@
         [
           "if",
           {
-            "relevancy": 31
+            "relevancy": 9
           }
         ],
         [
@@ -723,7 +1083,7 @@
         [
           "recent",
           {
-            "relevancy": -110
+            "relevancy": -132
           }
         ],
         [
@@ -783,17 +1143,11 @@
         [
           "contact",
           {
-            "relevancy": 27
+            "relevancy": 5
           }
         ],
         [
           "background",
-          {
-            "relevancy": 16
-          }
-        ],
-        [
-          "skills",
           {
             "relevancy": 16
           }
@@ -859,24 +1213,6 @@
           }
         ],
         [
-          "information.",
-          {
-            "relevancy": 61
-          }
-        ],
-        [
-          "time",
-          {
-            "relevancy": 56
-          }
-        ],
-        [
-          "effort",
-          {
-            "relevancy": -2
-          }
-        ],
-        [
           "operations",
           {
             "relevancy": 16
@@ -892,12 +1228,6 @@
           "another",
           {
             "relevancy": 75
-          }
-        ],
-        [
-          "candidate",
-          {
-            "relevancy": 47
           }
         ],
         [
@@ -922,24 +1252,6 @@
           "each",
           {
             "relevancy": 78
-          }
-        ],
-        [
-          "schedule",
-          {
-            "relevancy": 114
-          }
-        ],
-        [
-          "web",
-          {
-            "relevancy": -45
-          }
-        ],
-        [
-          "developer",
-          {
-            "relevancy": 74
           }
         ],
         [
@@ -991,18 +1303,6 @@
           }
         ],
         [
-          "this",
-          {
-            "relevancy": -240
-          }
-        ],
-        [
-          "time.",
-          {
-            "relevancy": 31
-          }
-        ],
-        [
           "social",
           {
             "relevancy": 2
@@ -1017,7 +1317,7 @@
         [
           "hiring",
           {
-            "relevancy": 147
+            "relevancy": 154
           }
         ],
         [
@@ -1093,21 +1393,9 @@
           }
         ],
         [
-          "qualifications.",
-          {
-            "relevancy": 64
-          }
-        ],
-        [
           "digital",
           {
             "relevancy": 27
-          }
-        ],
-        [
-          "reviewed",
-          {
-            "relevancy": 213
           }
         ],
         [
@@ -1153,12 +1441,6 @@
           }
         ],
         [
-          "experience",
-          {
-            "relevancy": 10
-          }
-        ],
-        [
           "detail.",
           {
             "relevancy": 14
@@ -1171,15 +1453,9 @@
           }
         ],
         [
-          "role",
-          {
-            "relevancy": 90
-          }
-        ],
-        [
           "participate",
           {
-            "relevancy": 14
+            "relevancy": 21
           }
         ],
         [
@@ -1249,12 +1525,6 @@
           }
         ],
         [
-          "works",
-          {
-            "relevancy": 14
-          }
-        ],
-        [
           "logistics",
           {
             "relevancy": 45
@@ -1262,12 +1532,6 @@
         ],
         [
           "reviewed.",
-          {
-            "relevancy": 14
-          }
-        ],
-        [
-          "whose",
           {
             "relevancy": 14
           }
@@ -1311,7 +1575,7 @@
         [
           "any",
           {
-            "relevancy": -185
+            "relevancy": -207
           }
         ],
         [
@@ -1341,7 +1605,7 @@
         [
           "or",
           {
-            "relevancy": -184
+            "relevancy": -206
           }
         ],
         [
@@ -1351,21 +1615,9 @@
           }
         ],
         [
-          "video",
-          {
-            "relevancy": 59
-          }
-        ],
-        [
           "director",
           {
             "relevancy": 14
-          }
-        ],
-        [
-          "submitting",
-          {
-            "relevancy": 45
           }
         ],
         [
@@ -1432,12 +1684,6 @@
           "attention.",
           {
             "relevancy": 31
-          }
-        ],
-        [
-          "discuss",
-          {
-            "relevancy": 98
           }
         ],
         [
@@ -1537,18 +1783,6 @@
           }
         ],
         [
-          "potential",
-          {
-            "relevancy": 31
-          }
-        ],
-        [
-          "team.",
-          {
-            "relevancy": -29
-          }
-        ],
-        [
           "acknowledge",
           {
             "relevancy": 31
@@ -1615,12 +1849,6 @@
           }
         ],
         [
-          "shortly",
-          {
-            "relevancy": 45
-          }
-        ],
-        [
           "taking",
           {
             "relevancy": 31
@@ -1654,12 +1882,6 @@
           "need",
           {
             "relevancy": -10
-          }
-        ],
-        [
-          "wish",
-          {
-            "relevancy": 31
           }
         ],
         [
@@ -1738,6 +1960,12 @@
           "recently",
           {
             "relevancy": 13
+          }
+        ],
+        [
+          "open",
+          {
+            "relevancy": 7
           }
         ],
         [
@@ -1843,12 +2071,6 @@
           }
         ],
         [
-          "future",
-          {
-            "relevancy": -64
-          }
-        ],
-        [
           "opportunities.",
           {
             "relevancy": 39
@@ -1923,7 +2145,7 @@
         [
           "hope",
           {
-            "relevancy": -74
+            "relevancy": -96
           }
         ],
         [
@@ -1977,7 +2199,7 @@
         [
           "new",
           {
-            "relevancy": -508
+            "relevancy": -530
           }
         ],
         [
@@ -2128,12 +2350,6 @@
           "post",
           {
             "relevancy": -37
-          }
-        ],
-        [
-          "best",
-          {
-            "relevancy": -55
           }
         ],
         [
@@ -2325,7 +2541,7 @@
         [
           "enjoy",
           {
-            "relevancy": -153
+            "relevancy": -175
           }
         ],
         [
@@ -2599,12 +2815,6 @@
           }
         ],
         [
-          "over",
-          {
-            "relevancy": -25
-          }
-        ],
-        [
           "$99.",
           {
             "relevancy": -25
@@ -2872,12 +3082,6 @@
           "maintenance",
           {
             "relevancy": -145
-          }
-        ],
-        [
-          "work",
-          {
-            "relevancy": -121
           }
         ],
         [
@@ -3165,37 +3369,37 @@
         [
           "purchase!",
           {
-            "relevancy": -60
+            "relevancy": -82
           }
         ],
         [
           "product.",
           {
-            "relevancy": -60
+            "relevancy": -82
           }
         ],
         [
           "questions",
           {
-            "relevancy": -72
+            "relevancy": -94
           }
         ],
         [
           "concerns,",
           {
-            "relevancy": -60
+            "relevancy": -82
           }
         ],
         [
           "do",
           {
-            "relevancy": -60
+            "relevancy": -82
           }
         ],
         [
           "hesitate",
           {
-            "relevancy": -60
+            "relevancy": -82
           }
         ],
         [
@@ -3262,12 +3466,6 @@
           "receiving",
           {
             "relevancy": -61
-          }
-        ],
-        [
-          "email",
-          {
-            "relevancy": -121
           }
         ],
         [
@@ -4039,12 +4237,6 @@
           }
         ],
         [
-          "was",
-          {
-            "relevancy": -12
-          }
-        ],
-        [
           "declined.",
           {
             "relevancy": -12
@@ -4556,12 +4748,6 @@
         ],
         [
           "devices.",
-          {
-            "relevancy": -13
-          }
-        ],
-        [
-          "important",
           {
             "relevancy": -13
           }
@@ -5654,7 +5840,7 @@
         [
           "a",
           {
-            "relevancy": 552
+            "relevancy": 510
           }
         ],
         [
@@ -5678,7 +5864,7 @@
         [
           "our",
           {
-            "relevancy": 1607
+            "relevancy": 1594
           }
         ],
         [
@@ -5696,7 +5882,7 @@
         [
           "this",
           {
-            "relevancy": 240
+            "relevancy": 233
           }
         ],
         [
@@ -5708,13 +5894,13 @@
         [
           "hope",
           {
-            "relevancy": 74
+            "relevancy": 96
           }
         ],
         [
           "to",
           {
-            "relevancy": 851
+            "relevancy": 768
           }
         ],
         [
@@ -5726,7 +5912,7 @@
         [
           "you",
           {
-            "relevancy": -561
+            "relevancy": -572
           }
         ],
         [
@@ -5786,13 +5972,13 @@
         [
           "new",
           {
-            "relevancy": 508
+            "relevancy": 530
           }
         ],
         [
           "with",
           {
-            "relevancy": -309
+            "relevancy": -351
           }
         ],
         [
@@ -5876,7 +6062,7 @@
         [
           "the",
           {
-            "relevancy": 132
+            "relevancy": 62
           }
         ],
         [
@@ -5888,7 +6074,7 @@
         [
           "in",
           {
-            "relevancy": -83
+            "relevancy": -111
           }
         ],
         [
@@ -5972,7 +6158,7 @@
         [
           "your",
           {
-            "relevancy": 94
+            "relevancy": 54
           }
         ],
         [
@@ -6002,7 +6188,7 @@
         [
           "best",
           {
-            "relevancy": 55
+            "relevancy": 48
           }
         ],
         [
@@ -6020,13 +6206,13 @@
         [
           "we",
           {
-            "relevancy": -1309
+            "relevancy": -1357
           }
         ],
         [
           "are",
           {
-            "relevancy": -16
+            "relevancy": -23
           }
         ],
         [
@@ -6044,7 +6230,7 @@
         [
           "next",
           {
-            "relevancy": 244
+            "relevancy": 237
           }
         ],
         [
@@ -6116,13 +6302,13 @@
         [
           "have",
           {
-            "relevancy": -659
+            "relevancy": -658
           }
         ],
         [
           "been",
           {
-            "relevancy": 107
+            "relevancy": 100
           }
         ],
         [
@@ -6176,7 +6362,7 @@
         [
           "more",
           {
-            "relevancy": -76
+            "relevancy": -83
           }
         ],
         [
@@ -6200,7 +6386,7 @@
         [
           "for",
           {
-            "relevancy": -851
+            "relevancy": -892
           }
         ],
         [
@@ -6236,7 +6422,7 @@
         [
           "enjoy",
           {
-            "relevancy": 153
+            "relevancy": 175
           }
         ],
         [
@@ -6248,7 +6434,7 @@
         [
           "and",
           {
-            "relevancy": 339
+            "relevancy": 276
           }
         ],
         [
@@ -6434,7 +6620,7 @@
         [
           "of",
           {
-            "relevancy": 404
+            "relevancy": 397
           }
         ],
         [
@@ -6500,7 +6686,7 @@
         [
           "team.",
           {
-            "relevancy": 29
+            "relevancy": 30
           }
         ],
         [
@@ -6524,7 +6710,7 @@
         [
           "skills",
           {
-            "relevancy": -16
+            "relevancy": -23
           }
         ],
         [
@@ -6536,7 +6722,7 @@
         [
           "time",
           {
-            "relevancy": -56
+            "relevancy": -70
           }
         ],
         [
@@ -6566,7 +6752,7 @@
         [
           "over",
           {
-            "relevancy": 25
+            "relevancy": 18
           }
         ],
         [
@@ -6584,25 +6770,25 @@
         [
           "discuss",
           {
-            "relevancy": -98
+            "relevancy": -112
           }
         ],
         [
           "future",
           {
-            "relevancy": 64
+            "relevancy": 57
           }
         ],
         [
           "that",
           {
-            "relevancy": 118
+            "relevancy": 104
           }
         ],
         [
           "team",
           {
-            "relevancy": -128
+            "relevancy": -135
           }
         ],
         [
@@ -6626,7 +6812,7 @@
         [
           "at",
           {
-            "relevancy": 14
+            "relevancy": -14
           }
         ],
         [
@@ -6644,7 +6830,7 @@
         [
           "please",
           {
-            "relevancy": 547
+            "relevancy": 555
           }
         ],
         [
@@ -6674,7 +6860,7 @@
         [
           "by",
           {
-            "relevancy": 245
+            "relevancy": 231
           }
         ],
         [
@@ -6716,13 +6902,13 @@
         [
           "if",
           {
-            "relevancy": -31
+            "relevancy": -9
           }
         ],
         [
           "any",
           {
-            "relevancy": 185
+            "relevancy": 207
           }
         ],
         [
@@ -6770,13 +6956,13 @@
         [
           "recent",
           {
-            "relevancy": 110
+            "relevancy": 132
           }
         ],
         [
           "web",
           {
-            "relevancy": 45
+            "relevancy": 38
           }
         ],
         [
@@ -6800,7 +6986,7 @@
         [
           "time.",
           {
-            "relevancy": -31
+            "relevancy": -38
           }
         ],
         [
@@ -6812,7 +6998,7 @@
         [
           "has",
           {
-            "relevancy": 91
+            "relevancy": 84
           }
         ],
         [
@@ -6872,7 +7058,7 @@
         [
           "attached",
           {
-            "relevancy": -82
+            "relevancy": -89
           }
         ],
         [
@@ -6938,13 +7124,13 @@
         [
           "will",
           {
-            "relevancy": -249
+            "relevancy": -263
           }
         ],
         [
           "be",
           {
-            "relevancy": 62
+            "relevancy": 48
           }
         ],
         [
@@ -6962,7 +7148,7 @@
         [
           "work",
           {
-            "relevancy": 121
+            "relevancy": 114
           }
         ],
         [
@@ -7142,7 +7328,7 @@
         [
           "find",
           {
-            "relevancy": 57
+            "relevancy": 50
           }
         ],
         [
@@ -7226,13 +7412,13 @@
         [
           "customer",
           {
-            "relevancy": 42
+            "relevancy": 35
           }
         ],
         [
           "support",
           {
-            "relevancy": 160
+            "relevancy": 175
           }
         ],
         [
@@ -7292,61 +7478,61 @@
         [
           "thank",
           {
-            "relevancy": -245
+            "relevancy": -244
           }
         ],
         [
           "purchase!",
           {
-            "relevancy": 60
+            "relevancy": 82
           }
         ],
         [
           "product.",
           {
-            "relevancy": 60
+            "relevancy": 82
           }
         ],
         [
           "questions",
           {
-            "relevancy": 72
+            "relevancy": 94
           }
         ],
         [
           "or",
           {
-            "relevancy": 184
+            "relevancy": 206
           }
         ],
         [
           "concerns,",
           {
-            "relevancy": 60
+            "relevancy": 82
           }
         ],
         [
           "do",
           {
-            "relevancy": 60
+            "relevancy": 82
           }
         ],
         [
           "not",
           {
-            "relevancy": -71
+            "relevancy": -49
           }
         ],
         [
           "hesitate",
           {
-            "relevancy": 60
+            "relevancy": 82
           }
         ],
         [
           "contact",
           {
-            "relevancy": -27
+            "relevancy": -5
           }
         ],
         [
@@ -7406,7 +7592,7 @@
         [
           "would",
           {
-            "relevancy": -189
+            "relevancy": -217
           }
         ],
         [
@@ -7448,7 +7634,7 @@
         [
           "email",
           {
-            "relevancy": 121
+            "relevancy": 114
           }
         ],
         [
@@ -8096,7 +8282,7 @@
         [
           "an",
           {
-            "relevancy": -169
+            "relevancy": -176
           }
         ],
         [
@@ -8138,7 +8324,7 @@
         [
           "pleased",
           {
-            "relevancy": -141
+            "relevancy": -148
           }
         ],
         [
@@ -8162,7 +8348,7 @@
         [
           "experience",
           {
-            "relevancy": -10
+            "relevancy": -17
           }
         ],
         [
@@ -8306,7 +8492,7 @@
         [
           "was",
           {
-            "relevancy": 12
+            "relevancy": 5
           }
         ],
         [
@@ -8366,7 +8552,7 @@
         [
           "congratulations!",
           {
-            "relevancy": -18
+            "relevancy": -25
           }
         ],
         [
@@ -8774,7 +8960,7 @@
         [
           "invite",
           {
-            "relevancy": -163
+            "relevancy": -184
           }
         ],
         [
@@ -8894,7 +9080,7 @@
         [
           "important",
           {
-            "relevancy": 13
+            "relevancy": 6
           }
         ],
         [
@@ -9440,7 +9626,7 @@
         [
           "inform",
           {
-            "relevancy": -137
+            "relevancy": -144
           }
         ],
         [
@@ -9692,7 +9878,7 @@
         [
           "effort",
           {
-            "relevancy": 2
+            "relevancy": -5
           }
         ],
         [
@@ -10046,13 +10232,13 @@
         [
           "applying",
           {
-            "relevancy": -102
+            "relevancy": -116
           }
         ],
         [
           "company.",
           {
-            "relevancy": -181
+            "relevancy": -188
           }
         ],
         [
@@ -10064,7 +10250,7 @@
         [
           "decided",
           {
-            "relevancy": -385
+            "relevancy": -392
           }
         ],
         [
@@ -10094,7 +10280,7 @@
         [
           "position",
           {
-            "relevancy": -423
+            "relevancy": -444
           }
         ],
         [
@@ -10110,39 +10296,435 @@
           }
         ],
         [
-          "offer",
+          "dear",
           {
-            "relevancy": -361
+            "relevancy": -7
           }
         ],
         [
-          "were",
+          "applicant,",
           {
-            "relevancy": -44
+            "relevancy": -7
           }
         ],
         [
-          "impressed",
+          "submitting",
           {
-            "relevancy": -60
+            "relevancy": -52
           }
         ],
         [
           "application",
           {
-            "relevancy": -764
+            "relevancy": -785
+          }
+        ],
+        [
+          "developer",
+          {
+            "relevancy": -81
+          }
+        ],
+        [
+          "xyz",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "corp.",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "impressed",
+          {
+            "relevancy": -74
+          }
+        ],
+        [
+          "background.",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "like",
+          {
+            "relevancy": -287
+          }
+        ],
+        [
+          "interview",
+          {
+            "relevancy": -330
+          }
+        ],
+        [
+          "further",
+          {
+            "relevancy": -193
+          }
+        ],
+        [
+          "qualifications.",
+          {
+            "relevancy": -71
+          }
+        ],
+        [
+          "touch",
+          {
+            "relevancy": -211
+          }
+        ],
+        [
+          "shortly",
+          {
+            "relevancy": -52
+          }
+        ],
+        [
+          "schedule",
+          {
+            "relevancy": -128
+          }
+        ],
+        [
+          "works",
+          {
+            "relevancy": -21
+          }
+        ],
+        [
+          "both",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "parties.",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "appreciate",
+          {
+            "relevancy": -112
+          }
+        ],
+        [
+          "put",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "into",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "data",
+          {
+            "relevancy": -68
+          }
+        ],
+        [
+          "analyst",
+          {
+            "relevancy": -53
+          }
+        ],
+        [
+          "role",
+          {
+            "relevancy": -97
+          }
+        ],
+        [
+          "abc",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "after",
+          {
+            "relevancy": -191
+          }
+        ],
+        [
+          "careful",
+          {
+            "relevancy": -51
+          }
+        ],
+        [
+          "consideration,",
+          {
+            "relevancy": -51
+          }
+        ],
+        [
+          "move",
+          {
+            "relevancy": -164
+          }
+        ],
+        [
+          "forward",
+          {
+            "relevancy": -203
+          }
+        ],
+        [
+          "candidate",
+          {
+            "relevancy": -54
+          }
+        ],
+        [
+          "whose",
+          {
+            "relevancy": -21
+          }
+        ],
+        [
+          "closely",
+          {
+            "relevancy": -124
+          }
+        ],
+        [
+          "aligns",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "requirements",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "position.",
+          {
+            "relevancy": -422
+          }
+        ],
+        [
+          "wish",
+          {
+            "relevancy": -38
+          }
+        ],
+        [
+          "endeavors",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "encourage",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "apply",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "other",
+          {
+            "relevancy": -259
+          }
+        ],
+        [
+          "opportunities",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "us.",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "marketing",
+          {
+            "relevancy": -82
+          }
+        ],
+        [
+          "manager",
+          {
+            "relevancy": -215
+          }
+        ],
+        [
+          "widget",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "inc.",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "successful.",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "were",
+          {
+            "relevancy": -51
+          }
+        ],
+        [
+          "qualifications",
+          {
+            "relevancy": -149
           }
         ],
         [
           "believe",
           {
-            "relevancy": -14
+            "relevancy": -21
           }
         ],
         [
           "great",
           {
-            "relevancy": -45
+            "relevancy": -52
+          }
+        ],
+        [
+          "fit",
+          {
+            "relevancy": -114
+          }
+        ],
+        [
+          "offer",
+          {
+            "relevancy": -368
+          }
+        ],
+        [
+          "letter",
+          {
+            "relevancy": -114
+          }
+        ],
+        [
+          "detailing",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "compensation",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "package,",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "benefits,",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "information.",
+          {
+            "relevancy": -68
+          }
+        ],
+        [
+          "interest",
+          {
+            "relevancy": -239
+          }
+        ],
+        [
+          "specialist",
+          {
+            "relevancy": -159
+          }
+        ],
+        [
+          "techsolutions.",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "reviewed",
+          {
+            "relevancy": -227
+          }
+        ],
+        [
+          "video",
+          {
+            "relevancy": -73
+          }
+        ],
+        [
+          "potential",
+          {
+            "relevancy": -38
+          }
+        ],
+        [
+          "respond",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "availability",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "week,",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "mutually",
+          {
+            "relevancy": -7
+          }
+        ],
+        [
+          "convenient",
+          {
+            "relevancy": -7
           }
         ],
         [
@@ -10152,33 +10734,9 @@
           }
         ],
         [
-          "interest",
-          {
-            "relevancy": -232
-          }
-        ],
-        [
           "engineer",
           {
             "relevancy": -76
-          }
-        ],
-        [
-          "position.",
-          {
-            "relevancy": -408
-          }
-        ],
-        [
-          "qualifications",
-          {
-            "relevancy": -128
-          }
-        ],
-        [
-          "like",
-          {
-            "relevancy": -266
           }
         ],
         [
@@ -10188,87 +10746,15 @@
           }
         ],
         [
-          "appreciate",
-          {
-            "relevancy": -105
-          }
-        ],
-        [
-          "marketing",
-          {
-            "relevancy": -75
-          }
-        ],
-        [
-          "manager",
-          {
-            "relevancy": -208
-          }
-        ],
-        [
           "role.",
           {
             "relevancy": -321
           }
         ],
         [
-          "after",
-          {
-            "relevancy": -184
-          }
-        ],
-        [
-          "careful",
-          {
-            "relevancy": -44
-          }
-        ],
-        [
-          "consideration,",
-          {
-            "relevancy": -44
-          }
-        ],
-        [
-          "move",
-          {
-            "relevancy": -157
-          }
-        ],
-        [
-          "forward",
-          {
-            "relevancy": -196
-          }
-        ],
-        [
           "candidacy.",
           {
             "relevancy": -16
-          }
-        ],
-        [
-          "data",
-          {
-            "relevancy": -61
-          }
-        ],
-        [
-          "analyst",
-          {
-            "relevancy": -46
-          }
-        ],
-        [
-          "letter",
-          {
-            "relevancy": -107
-          }
-        ],
-        [
-          "further",
-          {
-            "relevancy": -179
           }
         ],
         [
@@ -10290,12 +10776,6 @@
           }
         ],
         [
-          "touch",
-          {
-            "relevancy": -204
-          }
-        ],
-        [
           "enjoyed",
           {
             "relevancy": -16
@@ -10305,12 +10785,6 @@
           "speaking",
           {
             "relevancy": -16
-          }
-        ],
-        [
-          "interview",
-          {
-            "relevancy": -309
           }
         ],
         [
@@ -10344,33 +10818,9 @@
           }
         ],
         [
-          "specialist",
-          {
-            "relevancy": -152
-          }
-        ],
-        [
-          "other",
-          {
-            "relevancy": -245
-          }
-        ],
-        [
           "who",
           {
             "relevancy": -117
-          }
-        ],
-        [
-          "closely",
-          {
-            "relevancy": -117
-          }
-        ],
-        [
-          "fit",
-          {
-            "relevancy": -100
           }
         ],
         [
@@ -10512,12 +10962,6 @@
           }
         ],
         [
-          "information.",
-          {
-            "relevancy": -61
-          }
-        ],
-        [
           "operations",
           {
             "relevancy": -16
@@ -10536,12 +10980,6 @@
           }
         ],
         [
-          "candidate",
-          {
-            "relevancy": -47
-          }
-        ],
-        [
           "writer",
           {
             "relevancy": -61
@@ -10557,18 +10995,6 @@
           "each",
           {
             "relevancy": -78
-          }
-        ],
-        [
-          "schedule",
-          {
-            "relevancy": -114
-          }
-        ],
-        [
-          "developer",
-          {
-            "relevancy": -74
           }
         ],
         [
@@ -10610,7 +11036,7 @@
         [
           "hiring",
           {
-            "relevancy": -147
+            "relevancy": -154
           }
         ],
         [
@@ -10686,18 +11112,6 @@
           }
         ],
         [
-          "qualifications.",
-          {
-            "relevancy": -64
-          }
-        ],
-        [
-          "reviewed",
-          {
-            "relevancy": -213
-          }
-        ],
-        [
           "application,",
           {
             "relevancy": -106
@@ -10740,15 +11154,9 @@
           }
         ],
         [
-          "role",
-          {
-            "relevancy": -90
-          }
-        ],
-        [
           "participate",
           {
-            "relevancy": -14
+            "relevancy": -21
           }
         ],
         [
@@ -10782,12 +11190,6 @@
           }
         ],
         [
-          "works",
-          {
-            "relevancy": -14
-          }
-        ],
-        [
           "logistics",
           {
             "relevancy": -45
@@ -10795,12 +11197,6 @@
         ],
         [
           "reviewed.",
-          {
-            "relevancy": -14
-          }
-        ],
-        [
-          "whose",
           {
             "relevancy": -14
           }
@@ -10848,21 +11244,9 @@
           }
         ],
         [
-          "video",
-          {
-            "relevancy": -59
-          }
-        ],
-        [
           "director",
           {
             "relevancy": -14
-          }
-        ],
-        [
-          "submitting",
-          {
-            "relevancy": -45
           }
         ],
         [
@@ -10986,12 +11370,6 @@
           }
         ],
         [
-          "potential",
-          {
-            "relevancy": -31
-          }
-        ],
-        [
           "acknowledge",
           {
             "relevancy": -31
@@ -11058,12 +11436,6 @@
           }
         ],
         [
-          "shortly",
-          {
-            "relevancy": -45
-          }
-        ],
-        [
           "taking",
           {
             "relevancy": -31
@@ -11089,12 +11461,6 @@
         ],
         [
           "qualifications,",
-          {
-            "relevancy": -31
-          }
-        ],
-        [
-          "wish",
           {
             "relevancy": -31
           }
@@ -11163,6 +11529,12 @@
           "expressing",
           {
             "relevancy": -31
+          }
+        ],
+        [
+          "open",
+          {
+            "relevancy": -7
           }
         ],
         [

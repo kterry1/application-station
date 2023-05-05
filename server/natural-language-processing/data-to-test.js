@@ -77,6 +77,18 @@ const testIsJobApplicationEmail = [
     label: true,
   },
   {
+    text: "Thank you for applying to our open position. We have reviewed your qualifications and would like to invite you to participate in a video interview with our hiring team.",
+    label: true,
+  },
+  {
+    text: "Thank you for applying to our open position. We have reviewed your qualifications and would like to invite you to participate in a video interview with our hiring team.",
+    label: true,
+  },
+  {
+    text: "Thank you for applying to our open position. We have reviewed your qualifications and would like to invite you to participate in a video interview with our hiring team.",
+    label: true,
+  },
+  {
     text: "We have carefully reviewed your application and are excited to inform you that we would like to offer you a position with our company.",
     label: true,
   },

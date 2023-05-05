@@ -7,10 +7,14 @@ const {
 const {
   testIsJobApplicationEmail,
   testIsNotJobApplicationEmail,
-} = require("./test-data");
-const { getHighestPercentageKey } = require("./stableClassifier");
+} = require("./data-to-test");
+const {
+  getHighestPercentageKeyForEmailDecision,
+  isJobApplicationEmailCheck,
+  stringToBoolean,
+} = require("./stableClassifiers");
 
-const testJsonClassifierFileName = "test-is-jon-application-email.json";
+const testJsonClassifierFileName = "test-is-job-application-email.json";
 
 const trainClassifier = () => {
   const classifier = new Classifier({ percentualReturn: true });
@@ -29,8 +33,9 @@ const trainClassifier = () => {
     } else {
       console.log("File deleted successfully");
       // Save the trained classifier to a JSON file
-      setTimeout(() => {
-        classifier.toJSON(testJsonClassifierFileName);
+      setTimeout(async () => {
+        await classifier.toJSON(testJsonClassifierFileName);
+        testClassifier();
       }, "1000");
     }
   });
@@ -45,13 +50,17 @@ const testClassifier = async () => {
   testIsJobApplicationEmail.map((emailObject) => {
     console.log(
       "TRUE",
-      getHighestPercentageKey(loadedClassifier.classify(emailObject.text))
+      stringToBoolean(
+        isJobApplicationEmailCheck(loadedClassifier.classify(emailObject.text))
+      )
     );
   });
   testIsNotJobApplicationEmail.map((emailObject) => {
     console.log(
       "FALSE",
-      getHighestPercentageKey(loadedClassifier.classify(emailObject.text))
+      stringToBoolean(
+        isJobApplicationEmailCheck(loadedClassifier.classify(emailObject.text))
+      )
     );
   });
 
@@ -69,5 +78,4 @@ const testClassifier = async () => {
   // });
 };
 
-// trainClassifier();
-testClassifier();
+trainClassifier();
