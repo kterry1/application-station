@@ -25,7 +25,6 @@ async function startServer() {
       const jwtCookie = req?.cookies?.jwt;
       const accessToken = req?.cookies?.access_token;
       let jwtDecoded = null;
-      console.log(jwtCookie);
       if (jwtCookie) {
         try {
           jwtDecoded = jwt.verify(jwtCookie, process.env.JWT_SECRET);

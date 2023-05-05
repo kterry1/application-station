@@ -39,11 +39,13 @@ const typeDefs = gql`
   }
 
   type GoogleAuthResponse {
-    responseMessage: String!
+    status: Int!
+    message: String!
   }
 
   type ImportCompanyApplicationsResponse {
-    responseMessage: String!
+    status: Int!
+    message: String!
   }
 
   type CompanyApplication {
@@ -162,7 +164,7 @@ const resolvers = {
         secure: process.env.NODE_ENV === "production", // Set 'secure' flag in production environment
         maxAge: 60 * 60 * 1000,
       });
-      return { responseMessage: "Authorization Successful" };
+      return { status: 200, message: "Authorization Successful" };
     },
     addSingleCompanyApplication: async (_, { input }, { prisma, req }) => {
       const newCompanyApplication = await prisma.companyApplication.create({
@@ -202,7 +204,8 @@ const resolvers = {
         })
       );
       return {
-        responseMessage: "Successfully Imported New Company Applications",
+        status: 200,
+        message: "Successfully Imported New Company Applications",
       };
     },
   },
