@@ -90,7 +90,7 @@ const Dashboard = (props: Props) => {
             mb="1rem"
             // @ts-ignore-next-line
             variant="simple"
-            colorScheme="teal"
+            // colorScheme="teal"
             width="100%"
             height="60%"
             maxH="625px"

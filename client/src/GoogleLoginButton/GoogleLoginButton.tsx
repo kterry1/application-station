@@ -7,11 +7,10 @@ import {
 } from "../getUserCompanyApplications";
 
 const GoogleLoginButton = () => {
-  const [token, setToken] = useState("");
   const [authenticateWithGoogle, { loading, error }] = useMutation(
     AUTHENTICATE_WITH_GOOGLE_MUTATION
   );
-  const [importMultipleCompanyApplications, { loading: load, error: err }] =
+  const [importCompanyApplications, { loading: load, error: err }] =
     useMutation(IMPORT_MULTIPLE_COMPANY_APPLICATIONS);
 
   const handleLogin = async (accessToken: string) => {
@@ -23,25 +22,18 @@ const GoogleLoginButton = () => {
           },
         },
       });
-      localStorage.setItem("token", result.data.authenticateWithGoogle.jwt);
 
-      // Handle the response (e.g., store the JWT in a cookie, update the UI)
+      // Create Toast Notification
+      console.log(result);
     } catch (error) {
       // Handle any errors that occurred during the mutation
     }
   };
 
-  const handleImport = async (accessToken: string) => {
+  const handleImport = async () => {
     try {
-      const importResult = await importMultipleCompanyApplications({
-        variables: {
-          input: {
-            accessToken: accessToken,
-          },
-        },
-      });
-
-      // Handle the response (e.g., store the JWT in a cookie, update the UI)
+      const importResult = await importCompanyApplications();
+      console.log(importResult);
     } catch (error) {
       // Handle any errors that occurred during the mutation
     }
@@ -52,15 +44,14 @@ const GoogleLoginButton = () => {
     scope:
       "https://www.googleapis.com/auth/gmail.readonly email profile https://www.googleapis.com/auth/userinfo.email openid https://www.googleapis.com/auth/userinfo.profile",
     onSuccess: (tokenResponse) => {
-      setToken(tokenResponse.access_token);
+      handleLogin(tokenResponse.access_token);
     },
   });
   return (
     <>
       <button onClick={() => login()}>Sign in with Google 🚀 </button>
-      <button onClick={() => handleLogin(token)}>run later </button>
       <div>{load && "LOADING!!!"}</div>
-      <button onClick={() => handleImport(token)}>Import </button>
+      <button onClick={() => handleImport()}>Import </button>
     </>
   );
 };

@@ -18,15 +18,11 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    authenticateWithGoogle(
-      input: AuthenticateWithGoogleInput!
-    ): AuthenticateWithGoogle!
+    authenticateWithGoogle(input: GoogleAuthInput!): GoogleAuthResponse!
     addSingleCompanyApplication(
       input: CompanyApplicationInput!
     ): CompanyApplication!
-    importMultipleCompanyApplications(
-      input: AuthenticateWithGoogleInput!
-    ): String
+    importCompanyApplications: ImportCompanyApplicationsResponse!
   }
 
   type User {
@@ -38,12 +34,16 @@ const typeDefs = gql`
     companyApplications: [CompanyApplication]
   }
 
-  input AuthenticateWithGoogleInput {
+  input GoogleAuthInput {
     accessToken: String!
   }
 
-  type AuthenticateWithGoogle {
-    jwt: String!
+  type GoogleAuthResponse {
+    responseMessage: String!
+  }
+
+  type ImportCompanyApplicationsResponse {
+    responseMessage: String!
   }
 
   type CompanyApplication {
@@ -90,9 +90,7 @@ const typeDefs = gql`
 const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
-    companyApplications: async (_, __, { prisma, jwtEncoded }) => {
-      const jwtDecoded = jwt.verify(jwtEncoded, process.env.JWT_SECRET);
-
+    companyApplications: async (_, __, { prisma, jwtDecoded }) => {
       const companyApplications = await prisma.companyApplication.findMany({
         where: {
           userId: jwtDecoded.id,
@@ -102,8 +100,8 @@ const resolvers = {
     },
   },
   Mutation: {
-    authenticateWithGoogle: async (_, { input }, { prisma }) => {
-      const createToken = (user) => {
+    authenticateWithGoogle: async (_, { input }, { prisma, res }) => {
+      const createSignedToken = (user) => {
         return jwt.sign(
           { id: user.id, email: user.email },
           process.env.JWT_SECRET,
@@ -112,6 +110,9 @@ const resolvers = {
           }
         );
       };
+
+      // @TODO: Validate the accessToken first before running it through googleapi
+
       const userInfo = await axios
         .get(
           `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${input.accessToken}`
@@ -123,22 +124,45 @@ const resolvers = {
           console.log(error);
         });
 
-      const user = await prisma.user.findUnique({
-        where: {
-          email: userInfo.data.email,
-        },
+      res.cookie("access_token", input.accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // Set 'secure' flag in production environment
+        maxAge: 60 * 60 * 1000,
       });
 
-      if (!user) {
-        const newUser = await prisma.user.create({
-          data: {
-            email: userInfo.data.email,
-            name: userInfo.data.name,
-          },
-        });
-        return { jwt: createToken(newUser) };
-      }
-      return { jwt: createToken(user) };
+      const signedToken = async (userInfo) => {
+        try {
+          const user = await prisma.user.findUnique({
+            where: {
+              email: userInfo.data.email,
+            },
+          });
+
+          if (!user) {
+            const newUser = await prisma.user.create({
+              data: {
+                email: userInfo.data.email,
+                name: userInfo.data.name,
+              },
+            });
+
+            return createSignedToken(newUser);
+          }
+
+          return createSignedToken(user);
+        } catch (error) {
+          console.error("Error with Prisma:", error);
+        }
+      };
+
+      const getSignedToken = await signedToken(userInfo);
+
+      res.cookie("jwt", getSignedToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // Set 'secure' flag in production environment
+        maxAge: 60 * 60 * 1000,
+      });
+      return { responseMessage: "Authorization Successful" };
     },
     addSingleCompanyApplication: async (_, { input }, { prisma, req }) => {
       const newCompanyApplication = await prisma.companyApplication.create({
@@ -146,22 +170,12 @@ const resolvers = {
       });
       return newCompanyApplication;
     },
-    importMultipleCompanyApplications: async (
+    importCompanyApplications: async (
       _,
-      { input },
-      { prisma, jwtEncoded }
+      __,
+      { prisma, jwtDecoded, accessToken }
     ) => {
-      jwtDecoded = jwt.verify(jwtEncoded, process.env.JWT_SECRET);
-      // try {
-      //   jwtDecoded = jwt.verify(jwtEncoded, process.env.JWT_SECRET);
-      // } catch (err) {
-      //   if (err instanceof jwt.TokenExpiredError) {
-      //     console.error("Token expired:", err.message);
-      //   } else {
-      //     console.error("Token verification failed:", err.message);
-      //   }
-      // }
-      const emails = await getGmailEmails(input.accessToken);
+      const emails = await getGmailEmails(accessToken);
 
       // 'createMany' is not supported with SQLite
       // const newCompanyApplications = await prisma.companyApplication.createMany(
@@ -187,7 +201,9 @@ const resolvers = {
           });
         })
       );
-      return "Successfully Imported New Company Applications";
+      return {
+        responseMessage: "Successfully Imported New Company Applications",
+      };
     },
   },
   User: {

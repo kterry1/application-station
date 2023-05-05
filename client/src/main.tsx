@@ -20,11 +20,9 @@ const httpLink = new HttpLink({
 });
 
 const authLink = new ApolloLink((operation, forward) => {
-  const jwt = localStorage.getItem("token") || "";
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      Authorization: jwt ? `Bearer ${jwt}` : "",
     },
   }));
   return forward(operation);

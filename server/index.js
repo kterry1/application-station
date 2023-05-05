@@ -4,6 +4,8 @@ const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./schema");
 const { PrismaClient } = require("@prisma/client");
 const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const prisma = new PrismaClient();
 const app = express();
@@ -19,14 +21,19 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req }) => {
-      const authHeader = req.headers.authorization || "";
-
-      const jwtEncoded = authHeader.startsWith("Bearer ")
-        ? authHeader.split(" ")[1]
-        : "";
-
-      return { prisma, jwtEncoded };
+    context: ({ req, res }) => {
+      const jwtCookie = req?.cookies?.jwt;
+      const accessToken = req?.cookies?.access_token;
+      let jwtDecoded = null;
+      console.log(jwtCookie);
+      if (jwtCookie) {
+        try {
+          jwtDecoded = jwt.verify(jwtCookie, process.env.JWT_SECRET);
+        } catch (error) {
+          console.error("Error occurred with JWT decoding");
+        }
+      }
+      return { jwtDecoded, res, prisma, accessToken };
     },
   });
 
