@@ -1,5 +1,4 @@
 const { Classifier } = require("classifier.js");
-const { trainingData } = require("./training-data");
 const { testClassifier } = require("./test-data");
 const path = require("path");
 const classifier = new Classifier({ percentualReturn: true });
@@ -34,4 +33,4 @@ const productionClassifier = async (decodedMessageBody) => {
   return getHighestPercentageKey(classifiedObj);
 };
 
-module.exports = { productionClassifier };
+module.exports = { productionClassifier, getHighestPercentageKey };

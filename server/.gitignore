@@ -5,3 +5,4 @@ dev.db
 
 # NLP - training data
 training-data.js
+is-job-application-email-training-data.js
