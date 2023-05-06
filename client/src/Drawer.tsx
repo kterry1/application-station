@@ -62,6 +62,7 @@ function DrawerExample(props: any) {
                   <Box mr="12px">
                     <FormLabel htmlFor="companyName">Company</FormLabel>
                     <Input
+                      w="250px"
                       isRequired={true}
                       focusBorderColor="gray.400"
                       errorBorderColor="red.500"
@@ -75,14 +76,15 @@ function DrawerExample(props: any) {
                   <Box mr="12px">
                     <FormLabel htmlFor="position">Position</FormLabel>
                     <Input
+                      w="250px"
                       isRequired={true}
                       focusBorderColor="gray.400"
                       errorBorderColor="red.500"
                       // @ts-ignore-next-line
                       ref={firstField}
                       value={position}
-                      id="companyName"
-                      placeholder="Company Name"
+                      id="position"
+                      placeholder="Position"
                     />
                   </Box>
                   <Box>

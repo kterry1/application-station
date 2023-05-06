@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { IMPORT_COMPANY_APPLICATIONS } from "../getUserCompanyApplications";
-import { Button, useToast } from "@chakra-ui/react";
+import { Button, Progress, useToast } from "@chakra-ui/react";
 import { FaFileImport } from "react-icons/fa";
 
 type Props = {};
@@ -21,6 +21,7 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
         return toast({
           title: message,
           status: "success",
+          position: "top",
           variant: "solid",
           duration: 4000,
           isClosable: true,

@@ -50,7 +50,8 @@ const GoogleLoginButton = ({ navSize }: { navSize: string }) => {
         return toast({
           title: message,
           status: "success",
-          duration: 9000,
+          position: "top",
+          duration: 4000,
           isClosable: true,
         });
       }

@@ -29,6 +29,14 @@ const tableTestFunc = (property: boolean) => {
   return property ? "Yes" : "No";
 };
 
+const truncateString = (str: string, maxLength = 20) => {
+  if (str.length <= maxLength) {
+    return str;
+  }
+
+  return `${str.slice(0, maxLength)}...`;
+};
+
 const Dashboard = (props: Props) => {
   const [allChecked, setAllChecked] = useState(false);
   const [editRow, setEditRow] = useState({});
@@ -94,10 +102,9 @@ const Dashboard = (props: Props) => {
             mb="1rem"
             // @ts-ignore-next-line
             variant="simple"
-            width="80vw"
             height="60%"
             maxH="625px"
-            maxW="80vw"
+            maxW="81vw"
             bgColor="#fff"
             overflowY="unset"
           >
@@ -157,12 +164,8 @@ const Dashboard = (props: Props) => {
                           allChecked={allChecked}
                         />
                       </Td>
-                      <Td maxW="180px" overflow="hidden">
-                        {companyName}
-                      </Td>
-                      <Td maxW="180px" overflow="hidden">
-                        {position}
-                      </Td>
+                      <Td overflow="hidden">{truncateString(companyName)}</Td>
+                      <Td overflow="hidden">{truncateString(position)}</Td>
                       <Td>{tableTestFunc(awaitingResponse)}</Td>
                       <Td>{tableTestFunc(rejected)}</Td>
                       <Td>{tableTestFunc(nextRound)}</Td>
