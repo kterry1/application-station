@@ -54,13 +54,7 @@ const Sidebar = (props: Props) => {
         <NavItem navSize={navSize} icon={FaHome} title="Dashboard" active />
         <NavItem navSize={navSize} icon={FaChartBar} title="Statistics" />
       </Flex>
-      <Flex
-        p="20px"
-        flexDir="column"
-        w="100%"
-        alignItems={navSize === "small" ? "center" : "flex-start"}
-        mb={4}
-      >
+      <Flex p="20px" flexDir="column" w="100%" alignItems="center" mb={4}>
         <Divider />
         <GoogleLoginButton navSize={navSize} />
       </Flex>

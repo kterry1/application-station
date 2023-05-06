@@ -20,8 +20,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: any) => {
         width="120px"
         colorScheme="gray"
         size="md"
-        border="1px"
-        borderColor="green.600"
+        variant="ghost"
         onClick={handlePrevious}
         isDisabled={currentPage === 1}
         leftIcon={<ChevronLeftIcon />}
@@ -35,8 +34,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: any) => {
         width="120px"
         colorScheme="gray"
         size="md"
-        border="1px"
-        borderColor="green.600"
+        variant="ghost"
         onClick={handleNext}
         isDisabled={currentPage === totalPages}
         rightIcon={<ChevronRightIcon />}

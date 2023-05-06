@@ -38,7 +38,7 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
       isLoading={loading}
       size="sm"
       rightIcon={<FaFileImport />}
-      colorScheme="orange"
+      colorScheme="green"
       variant="ghost"
       onClick={() => handleImport()}
     >
