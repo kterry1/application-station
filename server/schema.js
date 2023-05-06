@@ -23,6 +23,9 @@ const typeDefs = gql`
     addSingleCompanyApplication(
       input: CompanyApplicationInput!
     ): CompanyApplication!
+    deleteCompanyApplications(
+      input: DeleteCompanyApplicationsInput!
+    ): DeleteCompanyApplicationsResponse!
     importCompanyApplications: ImportCompanyApplicationsResponse!
   }
 
@@ -40,6 +43,11 @@ const typeDefs = gql`
   }
 
   type GoogleAuthResponse {
+    status: Int!
+    message: String!
+  }
+
+  type DeleteCompanyApplicationsResponse {
     status: Int!
     message: String!
   }
@@ -72,6 +80,10 @@ const typeDefs = gql`
     email: String!
     role: UserRole
     companyApplications: [CompanyApplicationInput]
+  }
+
+  input DeleteCompanyApplicationsInput {
+    ids: [String!]!
   }
 
   input CompanyApplicationInput {
@@ -181,6 +193,34 @@ const resolvers = {
         data: { ...input },
       });
       return newCompanyApplication;
+    },
+    deleteCompanyApplications: async (_, { input }, { prisma, jwtDecoded }) => {
+      const companyApplications = await Promise.all(
+        input.ids.map(async (id, index) => {
+          await new Promise((resolve) => setTimeout(resolve, index * 500));
+          const foundCompanyApplcation =
+            await prisma.companyApplication.findUnique({
+              where: {
+                id: parseInt(id),
+              },
+            });
+          if (
+            foundCompanyApplcation &&
+            foundCompanyApplcation.userId === jwtDecoded.id
+          ) {
+            return await prisma.companyApplication.delete({
+              where: {
+                id: await foundCompanyApplcation.id,
+              },
+            });
+          }
+        })
+      );
+
+      return {
+        status: 200,
+        message: "Successfully Deleted Company Application(s)",
+      };
     },
     importCompanyApplications: async (
       _,

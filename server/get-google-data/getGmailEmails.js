@@ -43,7 +43,7 @@ async function getGmailEmails(accessToken) {
           const extractedCompanyAndPosition = await extractCompanyAndPositions(
             truncatedMessage
           );
-          console.log(extractedCompanyAndPosition);
+
           const extractClassificationForMessage =
             await productionClassifierForEmailDecision(
               // truncatedMessage

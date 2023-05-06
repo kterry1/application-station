@@ -1,4 +1,14 @@
 /* Logo Color: #f98080 */
+html,
+body,
+:root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 body {
   user-select: none;

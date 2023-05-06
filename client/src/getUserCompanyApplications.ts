@@ -49,3 +49,12 @@ export const GET_LOGGED_IN_USER = gql`
     }
   }
 `;
+
+export const DELETE_COMPANY_APPLICATIONS = gql`
+  mutation DeleteCompanyApplications($input: DeleteCompanyApplicationsInput!) {
+    deleteCompanyApplications(input: $input) {
+      status
+      message
+    }
+  }
+`;

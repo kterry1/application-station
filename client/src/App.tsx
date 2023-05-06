@@ -6,6 +6,17 @@ import { extendTheme } from "@chakra-ui/react";
 
 const customTheme = extendTheme({
   colors: {
+    green: {
+      100: "#e1e4e4",
+      200: "#c3c9c9",
+      300: "#a4aeaf",
+      400: "#869394",
+      500: "#687879",
+      600: "#536061",
+      700: "#3e4849",
+      800: "#2a3030",
+      900: "#151818",
+    },
     greenButton: {
       100: "#e1e4e4",
       200: "#c3c9c9",

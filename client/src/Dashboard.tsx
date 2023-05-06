@@ -11,6 +11,7 @@ import {
   Th,
   Thead,
   Tr,
+  useToast,
 } from "@chakra-ui/react";
 import "./App.css";
 import { useState } from "react";
@@ -18,8 +19,11 @@ import SingleCheckbox from "./assets/SingleCheckbox";
 import Drawer from "./Drawer";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import Pagination from "./Pagination";
-import { GET_COMPANY_APPLICATIONS } from "./getUserCompanyApplications";
-import { useQuery } from "@apollo/client";
+import {
+  DELETE_COMPANY_APPLICATIONS,
+  GET_COMPANY_APPLICATIONS,
+} from "./getUserCompanyApplications";
+import { useMutation, useQuery } from "@apollo/client";
 import ImportCompanyApplications from "./ImportCompanyApplications/ImportCompanyApplications";
 import Stats from "./Stats/Stats";
 
@@ -40,13 +44,51 @@ const truncateString = (str: string, maxLength = 20) => {
 const Dashboard = (props: Props) => {
   const [allChecked, setAllChecked] = useState(false);
   const [editRow, setEditRow] = useState({});
+  const [selectedRows, setSelectedRows] = useState([]);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const { loading, error, data, refetch } = useQuery(GET_COMPANY_APPLICATIONS);
+  const [
+    deleteCompanyApplications,
+    {
+      loading: loadingCompanyApplications,
+      error: errorDeleteCompanyApplications,
+    },
+  ] = useMutation(DELETE_COMPANY_APPLICATIONS, {
+    variables: {
+      input: {
+        ids: selectedRows,
+      },
+    },
+  });
+  const toast = useToast();
   const totalPages = 10;
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
+  };
+
+  const handleCompanyApplicationsDeletions = async () => {
+    try {
+      const result = await deleteCompanyApplications();
+
+      const statusCode = await result.data.deleteCompanyApplications.status;
+      const message = await result.data.deleteCompanyApplications.message;
+      if (statusCode === 200) {
+        refetch();
+        setSelectedRows([]);
+        return toast({
+          title: message,
+          status: "success",
+          position: "top",
+          variant: "solid",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      // Handle any errors that occurred during the mutation
+    }
   };
   return (
     <Flex py="20px" bg="#f6f6f6a3" flexDir="column" width="100%" height="100vh">
@@ -84,6 +126,9 @@ const Dashboard = (props: Props) => {
                 rightIcon={<DeleteIcon />}
                 colorScheme="red"
                 variant="ghost"
+                isDisabled={selectedRows.length <= 0}
+                isLoading={loadingCompanyApplications}
+                onClick={handleCompanyApplicationsDeletions}
               >
                 Delete
               </Button>
@@ -95,9 +140,8 @@ const Dashboard = (props: Props) => {
             boxShadow="base"
             mt=".5rem"
             mb="1rem"
-            // @ts-ignore-next-line
-
-            height="75%"
+            h="55vh"
+            minH="320px"
             maxH="625px"
             maxW="81vw"
             bgColor="#fff"
@@ -133,6 +177,7 @@ const Dashboard = (props: Props) => {
               <Tbody>
                 {data?.companyApplications.map((companyApplication: any) => {
                   const {
+                    id,
                     companyName,
                     position,
                     awaitingResponse,
@@ -144,6 +189,7 @@ const Dashboard = (props: Props) => {
 
                   return (
                     <Tr
+                      key={id}
                       _hover={{
                         backgroundColor: "#AEC8CA",
                         cursor: "pointer",
@@ -157,6 +203,8 @@ const Dashboard = (props: Props) => {
                         <SingleCheckbox
                           colorScheme="red"
                           allChecked={allChecked}
+                          setSelectedRows={setSelectedRows}
+                          id={id}
                         />
                       </Td>
                       <Td overflow="hidden">{truncateString(companyName)}</Td>

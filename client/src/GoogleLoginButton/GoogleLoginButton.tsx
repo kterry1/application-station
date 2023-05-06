@@ -1,4 +1,4 @@
-import { useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin, googleLogout } from "@react-oauth/google";
 import { useMutation, useQuery } from "@apollo/client";
 import {
   useToast,
@@ -87,6 +87,7 @@ const GoogleLoginButton = ({ navSize }: { navSize: string }) => {
             <Text fontSize="xs" as="em">
               {transformEnum(loggedInUserData?.loggedInUser?.role)}
             </Text>
+            {/* <Button onClick={() => googleLogout()}>Logout</Button> */}
           </Flex>
         </Flex>
       ) : (
