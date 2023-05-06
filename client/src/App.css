@@ -3,6 +3,7 @@
 body {
   user-select: none;
   scroll-behavior: smooth;
+  background: #aec8ca !important;
 }
 
 .chakra-switch span:focus-visible,
@@ -11,14 +12,15 @@ body {
   outline: none;
 }
 
-/* Let's get this party started */
 ::-webkit-scrollbar {
   width: 12px;
+  border-radius: 5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
 }
 
 /* Handle */

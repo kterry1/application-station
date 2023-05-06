@@ -19,7 +19,6 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: any) => {
       <Button
         width="120px"
         colorScheme="gray"
-        border="5px"
         size="md"
         border="1px"
         borderColor="green.600"
@@ -35,7 +34,6 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: any) => {
       <Button
         width="120px"
         colorScheme="gray"
-        border="5px"
         size="md"
         border="1px"
         borderColor="green.600"

@@ -19,6 +19,7 @@ const extractCompanyAndPositions = async (text) => {
         /([a-zA-Z0-9]+?):/g,
         '"$1":'
       );
+      //@TODO: confirm returned object has correct fields
       return JSON.parse(correctedString);
     })
     .catch((error) => {

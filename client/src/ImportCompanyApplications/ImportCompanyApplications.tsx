@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { IMPORT_COMPANY_APPLICATIONS } from "../getUserCompanyApplications";
-import { Button, Progress, useToast } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { FaFileImport } from "react-icons/fa";
 
 type Props = {};
@@ -34,6 +34,7 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
 
   return (
     <Button
+      px="20px"
       isLoading={loading}
       size="sm"
       rightIcon={<FaFileImport />}

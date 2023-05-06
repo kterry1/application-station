@@ -187,8 +187,6 @@ const resolvers = {
       __,
       { prisma, jwtDecoded, accessToken }
     ) => {
-      console.log("jwt", jwtDecoded);
-      console.log("token", accessToken);
       const emails = await getGmailEmails(accessToken);
 
       // 'createMany' is not supported with SQLite

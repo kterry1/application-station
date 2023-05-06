@@ -1,7 +1,9 @@
 import {
+  Box,
   Button,
   Center,
   Checkbox,
+  Divider,
   Flex,
   Stack,
   Table,
@@ -13,7 +15,6 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import "./App.css";
-import CompanyLogo from "./assets/company-logo.svg";
 import { useState } from "react";
 import SingleCheckbox from "./assets/SingleCheckbox";
 import Drawer from "./Drawer";
@@ -22,6 +23,7 @@ import Pagination from "./Pagination";
 import { GET_COMPANY_APPLICATIONS } from "./getUserCompanyApplications";
 import { useQuery } from "@apollo/client";
 import ImportCompanyApplications from "./ImportCompanyApplications/ImportCompanyApplications";
+import Stats from "./Stats/Stats";
 
 type Props = {};
 
@@ -50,14 +52,8 @@ const Dashboard = (props: Props) => {
   };
   return (
     <Flex py="20px" bg="#f6f6f6a3" flexDir="column" width="100%" height="100vh">
-      <Flex
-        px="5%"
-        height="10%"
-        width="100%"
-        justifyContent="flex-end"
-        alignItems="flex-end"
-      >
-        <img width={230} src={CompanyLogo} />
+      <Flex justifyContent="center" w="100%">
+        <Stats />
       </Flex>
       <Center width="100%" height="100%">
         <Flex
@@ -97,12 +93,13 @@ const Dashboard = (props: Props) => {
             <ImportCompanyApplications refetch={refetch} />
           </Flex>
           <TableContainer
-            boxShadow="0 4px 12px 0 rgba(0,0,0, 0.4)"
+            borderRadius="5px"
+            boxShadow="base"
             mt=".5rem"
             mb="1rem"
             // @ts-ignore-next-line
-            variant="simple"
-            height="60%"
+
+            height="70%"
             maxH="625px"
             maxW="81vw"
             bgColor="#fff"
@@ -128,7 +125,7 @@ const Dashboard = (props: Props) => {
                   </Th>
                   <Th>Company</Th>
                   <Th>Position</Th>
-                  <Th>Awaiting Response</Th>
+                  <Th>Awaiting Reply</Th>
                   <Th>Rejected</Th>
                   <Th>Next Round</Th>
                   <Th>Received Offer</Th>

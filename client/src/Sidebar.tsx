@@ -4,6 +4,7 @@ import { useState } from "react";
 import NavItem from "./NavItem";
 import { FaChartBar, FaHome } from "react-icons/fa";
 import GoogleLoginButton from "./GoogleLoginButton/GoogleLoginButton.js";
+import CompanyLogo from "./assets/company-logo.svg";
 
 type Props = {};
 
@@ -32,14 +33,22 @@ const Sidebar = (props: Props) => {
         alignItems={navSize === "small" ? "center" : "flex-start"}
         as="nav"
       >
-        <IconButton
-          background="none"
+        <Flex
+          width="70%"
+          justifyContent="space-between"
+          alignItems="center"
           mt={5}
-          _hover={{ background: "#f9efcc" }}
-          aria-label=" hamburger icon button"
-          icon={<HamburgerIcon />}
-          onClick={handleNavIconClick}
-        />
+        >
+          <IconButton
+            background="none"
+            mr="10px"
+            _hover={{ background: "#f9efcc" }}
+            aria-label=" hamburger icon button"
+            icon={<HamburgerIcon />}
+            onClick={handleNavIconClick}
+          />
+          {navSize === "large" && <img width={100} src={CompanyLogo} />}
+        </Flex>
         <NavItem navSize={navSize} icon={FaHome} title="Dashboard" active />
         <NavItem navSize={navSize} icon={FaChartBar} title="Statistics" />
       </Flex>
