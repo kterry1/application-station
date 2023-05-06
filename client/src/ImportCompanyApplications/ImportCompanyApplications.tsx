@@ -38,8 +38,8 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
       isLoading={loading}
       size="sm"
       rightIcon={<FaFileImport />}
-      colorScheme="greenButton"
-      variant="outline"
+      colorScheme="orange"
+      variant="ghost"
       onClick={() => handleImport()}
     >
       Import Emails

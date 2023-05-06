@@ -1,9 +1,7 @@
 import {
-  Box,
   Button,
   Center,
   Checkbox,
-  Divider,
   Flex,
   Stack,
   Table,
@@ -73,7 +71,7 @@ const Dashboard = (props: Props) => {
                 size="sm"
                 rightIcon={<AddIcon />}
                 colorScheme="blue"
-                variant="outline"
+                variant="ghost"
                 onClick={() => {
                   setEditRow({});
                   setOpenDrawer(true);
@@ -85,7 +83,7 @@ const Dashboard = (props: Props) => {
                 size="sm"
                 rightIcon={<DeleteIcon />}
                 colorScheme="red"
-                variant="outline"
+                variant="ghost"
               >
                 Delete
               </Button>
@@ -99,7 +97,7 @@ const Dashboard = (props: Props) => {
             mb="1rem"
             // @ts-ignore-next-line
 
-            height="70%"
+            height="75%"
             maxH="625px"
             maxW="81vw"
             bgColor="#fff"

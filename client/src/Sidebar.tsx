@@ -41,7 +41,9 @@ const Sidebar = (props: Props) => {
         >
           <IconButton
             background="none"
-            mr="10px"
+            mr={navSize === "large" ? "10px" : "0px"}
+            w="44px"
+            h="44px"
             _hover={{ background: "#f9efcc" }}
             aria-label=" hamburger icon button"
             icon={<HamburgerIcon />}
