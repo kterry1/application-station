@@ -101,7 +101,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
   return (
     <Flex py="20px" bg="#f6f6f6a3" flexDir="column" width="100%" height="100vh">
       <Flex justifyContent="center" w="100%">
-        <Stats />
+        <Stats loggedInUserData={loggedInUserData} />
       </Flex>
       <Center width="100%" height="100%">
         <Flex
