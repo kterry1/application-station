@@ -1,5 +1,4 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import {
   useToast,
   Heading,
@@ -8,11 +7,7 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import {
-  AUTHENTICATE_WITH_GOOGLE_MUTATION,
-  GET_LOGGED_IN_USER,
-  LOG_OUT_USER,
-} from "../queries-and-mutations";
+
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineLogout } from "react-icons/ai";
 
@@ -28,17 +23,6 @@ const GoogleLoginButton = ({
   client,
 }) => {
   const toast = useToast();
-  // const {
-  //   loading: loggedInUserLoading,
-  //   error: loggedInUserError,
-  //   data: loggedInUserData,
-  //   refetch: loggedInUserRefetch,
-  // } = useQuery(GET_LOGGED_IN_USER);
-  // const [authenticateWithGoogle, { loading, error }] = useMutation(
-  //   AUTHENTICATE_WITH_GOOGLE_MUTATION
-  // );
-  // const [logOutUser, { loading: loadingLogOutUser, error: errorLogOutUser }] =
-  //   useMutation(LOG_OUT_USER);
 
   const handleLogout = async () => {
     try {
@@ -108,7 +92,8 @@ const GoogleLoginButton = ({
     },
   });
 
-  const isLoggedIn = loggedInUserData?.loggedInUser !== null;
+  const isLoggedIn = loggedInUserData?.loggedInUser;
+
   return (
     <>
       {isLoggedIn ? (
