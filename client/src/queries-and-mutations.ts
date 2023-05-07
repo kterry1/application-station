@@ -58,3 +58,12 @@ export const DELETE_COMPANY_APPLICATIONS = gql`
     }
   }
 `;
+
+export const LOG_OUT_USER = gql`
+  mutation {
+    logOutUser {
+      status
+      message
+    }
+  }
+`;

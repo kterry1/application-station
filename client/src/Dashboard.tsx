@@ -14,7 +14,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SingleCheckbox from "./assets/SingleCheckbox";
 import Drawer from "./Drawer";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -22,7 +22,7 @@ import Pagination from "./Pagination";
 import {
   DELETE_COMPANY_APPLICATIONS,
   GET_COMPANY_APPLICATIONS,
-} from "./getUserCompanyApplications";
+} from "./queries-and-mutations";
 import { useMutation, useQuery } from "@apollo/client";
 import ImportCompanyApplications from "./ImportCompanyApplications/ImportCompanyApplications";
 import Stats from "./Stats/Stats";
@@ -41,7 +41,7 @@ const truncateString = (str: string, maxLength = 20) => {
   return `${str.slice(0, maxLength)}...`;
 };
 
-const Dashboard = (props: Props) => {
+const Dashboard = ({ userStatus }) => {
   const [allChecked, setAllChecked] = useState(false);
   const [editRow, setEditRow] = useState({});
   const [selectedRows, setSelectedRows] = useState([]);
@@ -61,6 +61,12 @@ const Dashboard = (props: Props) => {
       },
     },
   });
+
+  useEffect(() => {
+    refetch();
+    console.log(userStatus);
+  }, [userStatus]);
+
   const toast = useToast();
   const totalPages = 10;
 
@@ -90,6 +96,7 @@ const Dashboard = (props: Props) => {
       // Handle any errors that occurred during the mutation
     }
   };
+  console.log("Re-rendered", data);
   return (
     <Flex py="20px" bg="#f6f6f6a3" flexDir="column" width="100%" height="100vh">
       <Flex justifyContent="center" w="100%">

@@ -8,11 +8,11 @@ body,
   min-height: 100%;
   width: 100%;
   box-sizing: border-box;
+  user-select: none;
+  scroll-behavior: smooth;
 }
 
 body {
-  user-select: none;
-  scroll-behavior: smooth;
   background: #aec8ca !important;
 }
 

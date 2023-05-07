@@ -1,5 +1,5 @@
 import { useGoogleLogin, googleLogout } from "@react-oauth/google";
-import { useMutation, useQuery } from "@apollo/client";
+import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import {
   useToast,
   Heading,
@@ -11,13 +11,15 @@ import {
 import {
   AUTHENTICATE_WITH_GOOGLE_MUTATION,
   GET_LOGGED_IN_USER,
-} from "../getUserCompanyApplications";
+  LOG_OUT_USER,
+} from "../queries-and-mutations";
 
 const transformEnum = (str: string = "") =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
-const GoogleLoginButton = ({ navSize }: { navSize: string }) => {
+const GoogleLoginButton = ({ navSize, handleLogout, handleLogin }) => {
   const toast = useToast();
+  const client = useApolloClient();
   const {
     loading: loggedInUserLoading,
     error: loggedInUserError,
@@ -27,45 +29,51 @@ const GoogleLoginButton = ({ navSize }: { navSize: string }) => {
   const [authenticateWithGoogle, { loading, error }] = useMutation(
     AUTHENTICATE_WITH_GOOGLE_MUTATION
   );
+  const [logOutUser, { loading: loadingLogOutUser, error: errorLogOutUser }] =
+    useMutation(LOG_OUT_USER);
 
-  const handleLogin = async (accessToken: string) => {
-    try {
-      const result = await authenticateWithGoogle({
-        variables: {
-          input: {
-            accessToken: accessToken,
-          },
-        },
-      });
-      const statusCode = await result.data.authenticateWithGoogle.status;
-      const message = await result.data.authenticateWithGoogle.message;
-      if (statusCode === 200) {
-        try {
-          await loggedInUserRefetch();
-          // Do any additional actions you need after the refetch is complete
-        } catch (error) {
-          // Handle any errors that occurred during the refetch
-          console.error("Error occurred during refetch:", error);
-        }
-        return toast({
-          title: message,
-          status: "success",
-          position: "top",
-          duration: 4000,
-          isClosable: true,
-        });
-      }
-    } catch (error) {
-      // Handle any errors that occurred during the mutation
-    }
-  };
+  // const handleLogin = async (accessToken: string) => {
+  //   try {
+  //     const result = await authenticateWithGoogle({
+  //       variables: {
+  //         input: {
+  //           accessToken: accessToken,
+  //         },
+  //       },
+  //     });
+  //     const statusCode = await result.data.authenticateWithGoogle.status;
+  //     const message = await result.data.authenticateWithGoogle.message;
+  //     if (statusCode === 200) {
+  //       try {
+  //         await loggedInUserRefetch();
+  //         // Do any additional actions you need after the refetch is complete
+  //       } catch (error) {
+  //         // Handle any errors that occurred during the refetch
+  //         console.error("Error occurred during refetch:", error);
+  //       }
+  //       return toast({
+  //         title: message,
+  //         status: "success",
+  //         position: "top",
+  //         duration: 4000,
+  //         isClosable: true,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     // Handle any errors that occurred during the mutation
+  //   }
+  // };
 
   const login = useGoogleLogin({
     prompt: "consent",
     scope:
       "https://www.googleapis.com/auth/gmail.readonly email profile https://www.googleapis.com/auth/userinfo.email openid https://www.googleapis.com/auth/userinfo.profile",
     onSuccess: (tokenResponse) => {
-      handleLogin(tokenResponse.access_token);
+      handleLogin({
+        accessToken: tokenResponse.access_token,
+        authenticateWithGoogle,
+        loggedInUserRefetch,
+      });
     },
   });
 
@@ -87,7 +95,13 @@ const GoogleLoginButton = ({ navSize }: { navSize: string }) => {
             <Text fontSize="xs" as="em">
               {transformEnum(loggedInUserData?.loggedInUser?.role)}
             </Text>
-            {/* <Button onClick={() => googleLogout()}>Logout</Button> */}
+            <Button
+              onClick={() =>
+                handleLogout({ logOutUser, loggedInUserRefetch, client })
+              }
+            >
+              Logout
+            </Button>
           </Flex>
         </Flex>
       ) : (

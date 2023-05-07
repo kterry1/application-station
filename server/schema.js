@@ -27,6 +27,7 @@ const typeDefs = gql`
       input: DeleteCompanyApplicationsInput!
     ): DeleteCompanyApplicationsResponse!
     importCompanyApplications: ImportCompanyApplicationsResponse!
+    logOutUser: LogOutUserResponse!
   }
 
   type User {
@@ -53,6 +54,11 @@ const typeDefs = gql`
   }
 
   type ImportCompanyApplicationsResponse {
+    status: Int!
+    message: String!
+  }
+
+  type LogOutUserResponse {
     status: Int!
     message: String!
   }
@@ -257,6 +263,38 @@ const resolvers = {
         status: 200,
         message: "Successfully Imported New Company Applications",
       };
+    },
+    logOutUser: async (_, __, { res, accessToken }) => {
+      try {
+        const response = await axios.post(
+          "https://oauth2.googleapis.com/revoke",
+          null,
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            params: {
+              token: accessToken,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          res.cookie("jwt", "", {
+            httpOnly: true,
+            expires: new Date(0),
+          });
+          res.cookie("access_token", "", {
+            httpOnly: true,
+            expires: new Date(0),
+          });
+          return { status: 200, message: "Log Out Successful" };
+        } else {
+          console.error("Failed to revoke access token:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error revoking access token:", error.message);
+      }
     },
   },
   User: {
