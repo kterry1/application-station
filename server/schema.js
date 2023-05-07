@@ -16,6 +16,7 @@ const typeDefs = gql`
   type Query {
     companyApplications: [CompanyApplication]!
     loggedInUser: User
+    getWeeklyStats: WeeklyStats!
   }
 
   type Mutation {
@@ -81,6 +82,18 @@ const typeDefs = gql`
     user: User!
   }
 
+  type WeeklyStats {
+    thisWeek: Stats!
+    lastWeek: Stats!
+  }
+
+  type Stats {
+    applicationCount: Int!
+    responseCount: Int!
+    nextRoundCount: Int!
+    rejectionCount: Int!
+  }
+
   input GetUserInput {
     name: String!
     email: String!
@@ -108,6 +121,47 @@ const typeDefs = gql`
   }
 `;
 
+function getWeekNumber(date) {
+  const d = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+  );
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+}
+
+function filterItemsThisWeek(items) {
+  const currentDate = new Date();
+  const currentWeekNumber = getWeekNumber(currentDate);
+  const currentYear = currentDate.getFullYear();
+
+  return items.filter((item) => {
+    const itemDate = new Date(item.appliedAt);
+    return (
+      getWeekNumber(itemDate) === currentWeekNumber &&
+      itemDate.getFullYear() === currentYear
+    );
+  });
+}
+
+function filterItemsLastWeek(items) {
+  const currentDate = new Date();
+  const currentWeekNumber = getWeekNumber(currentDate);
+  const previousWeekNumber =
+    currentWeekNumber === 1 ? 52 : currentWeekNumber - 1;
+  const currentYear = currentDate.getFullYear();
+  const previousYear = currentWeekNumber === 1 ? currentYear - 1 : currentYear;
+
+  return items.filter((item) => {
+    const itemDate = new Date(item.date);
+    const itemWeekNumber = getWeekNumber(itemDate);
+    const itemYear = itemDate.getFullYear();
+
+    return itemWeekNumber === previousWeekNumber && itemYear === previousYear;
+  });
+}
+
 const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
@@ -127,6 +181,52 @@ const resolvers = {
         },
       });
       return companyApplications;
+    },
+    getWeeklyStats: async (_, __, { prisma, jwtDecoded }) => {
+      const companyApplications = await prisma.companyApplication.findMany({
+        where: {
+          userId: jwtDecoded.id,
+        },
+      });
+      const filteredThisWeekCompanyApplications =
+        filterItemsThisWeek(companyApplications);
+      const filteredLastWeekCompanyApplications =
+        filterItemsLastWeek(companyApplications);
+      const applicationCountTW = filteredThisWeekCompanyApplications.length;
+      const responseCountTW = filteredThisWeekCompanyApplications.filter(
+        (companyApplication) => companyApplication.awaitingReponse === false
+      ).length;
+      const nextRoundCountTW = filteredThisWeekCompanyApplications.filter(
+        (companyApplication) => companyApplication.nextRound === true
+      ).length;
+      const rejectionCountTW = filteredThisWeekCompanyApplications.filter(
+        (companyApplication) => companyApplication.rejected === true
+      ).length;
+      const applicationCountLW = filteredLastWeekCompanyApplications.length;
+      const responseCountLW = filteredLastWeekCompanyApplications.filter(
+        (companyApplication) => companyApplication.awaitingReponse === false
+      ).length;
+      const nextRoundCountLW = filteredLastWeekCompanyApplications.filter(
+        (companyApplication) => companyApplication.nextRound === true
+      ).length;
+      const rejectionCountLW = filteredLastWeekCompanyApplications.filter(
+        (companyApplication) => companyApplication.rejected === true
+      ).length;
+
+      return {
+        thisWeek: {
+          applicationCount: applicationCountTW,
+          responseCount: responseCountTW,
+          nextRoundCount: nextRoundCountTW,
+          rejectionCount: rejectionCountTW,
+        },
+        lastWeek: {
+          applicationCount: applicationCountLW,
+          responseCount: responseCountLW,
+          nextRoundCount: nextRoundCountLW,
+          rejectionCount: rejectionCountLW,
+        },
+      };
     },
   },
   Mutation: {

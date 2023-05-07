@@ -67,3 +67,22 @@ export const LOG_OUT_USER = gql`
     }
   }
 `;
+
+export const GET_WEEKLY_STATS = gql`
+  query GetWeeklyStats {
+    getWeeklyStats {
+      lastWeek {
+        applicationCount
+        responseCount
+        nextRoundCount
+        rejectionCount
+      }
+      thisWeek {
+        applicationCount
+        responseCount
+        nextRoundCount
+        rejectionCount
+      }
+    }
+  }
+`;
