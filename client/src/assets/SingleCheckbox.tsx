@@ -1,10 +1,9 @@
 import { Box, Checkbox } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type SingleCheckboxProps = {
   id: string;
   colorScheme: string;
-  allChecked: boolean;
   setSelectedRows: React.Dispatch<React.SetStateAction<any[]>>;
 };
 
@@ -17,14 +16,9 @@ const filterSelectedRows = (id, setSelectedRows) => {
 const SingleCheckbox = ({
   id,
   colorScheme,
-  allChecked,
   setSelectedRows,
 }: SingleCheckboxProps) => {
   const [isChecked, setIsChecked] = useState(false);
-
-  useEffect(() => {
-    setIsChecked(allChecked);
-  }, [allChecked]);
 
   return (
     <Box onClick={(e) => e.stopPropagation()}>

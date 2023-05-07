@@ -45,3 +45,19 @@ th:not(:last-child),
 td:not(:last-child) {
   border-right: 1px solid var(--chakra-colors-gray-100);
 }
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Apply the animation to the element */
+.element {
+  animation: slide-in 0.5s ease-out;
+}

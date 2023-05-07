@@ -222,10 +222,10 @@ const resolvers = {
           }
         })
       );
-
+      const count = await companyApplications.length;
       return {
         status: 200,
-        message: "Successfully Deleted Company Application(s)",
+        message: `Successfully Deleted ${count} Company Application(s)`,
       };
     },
     importCompanyApplications: async (

@@ -1,7 +1,6 @@
 import {
   Button,
   Center,
-  Checkbox,
   Flex,
   Stack,
   Table,
@@ -42,7 +41,6 @@ const truncateString = (str: string, maxLength = 20) => {
 };
 
 const Dashboard = ({ userStatus }) => {
-  const [allChecked, setAllChecked] = useState(false);
   const [editRow, setEditRow] = useState({});
   const [selectedRows, setSelectedRows] = useState([]);
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -64,7 +62,6 @@ const Dashboard = ({ userStatus }) => {
 
   useEffect(() => {
     refetch();
-    console.log(userStatus);
   }, [userStatus]);
 
   const toast = useToast();
@@ -96,7 +93,6 @@ const Dashboard = ({ userStatus }) => {
       // Handle any errors that occurred during the mutation
     }
   };
-  console.log("Re-rendered", data);
   return (
     <Flex py="20px" bg="#f6f6f6a3" flexDir="column" width="100%" height="100vh">
       <Flex justifyContent="center" w="100%">
@@ -165,13 +161,7 @@ const Dashboard = ({ userStatus }) => {
                 bgColor="#eff4f4"
               >
                 <Tr>
-                  <Th>
-                    <Checkbox
-                      colorScheme="red"
-                      isChecked={allChecked}
-                      onChange={() => setAllChecked(!allChecked)}
-                    />
-                  </Th>
+                  <Th></Th>
                   <Th>Company</Th>
                   <Th>Position</Th>
                   <Th>Awaiting Reply</Th>
@@ -209,7 +199,6 @@ const Dashboard = ({ userStatus }) => {
                       <Td>
                         <SingleCheckbox
                           colorScheme="red"
-                          allChecked={allChecked}
                           setSelectedRows={setSelectedRows}
                           id={id}
                         />
