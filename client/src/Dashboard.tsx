@@ -40,7 +40,7 @@ const truncateString = (str: string, maxLength = 20) => {
   return `${str.slice(0, maxLength)}...`;
 };
 
-const Dashboard = ({ userStatus }) => {
+const Dashboard = ({ loggedInUserData, logOutUser }) => {
   const [editRow, setEditRow] = useState({});
   const [selectedRows, setSelectedRows] = useState([]);
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -59,13 +59,12 @@ const Dashboard = ({ userStatus }) => {
       },
     },
   });
+  const toast = useToast();
+  const totalPages = 10;
 
   useEffect(() => {
     refetch();
-  }, [userStatus]);
-
-  const toast = useToast();
-  const totalPages = 10;
+  }, [loggedInUserData]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -172,47 +171,50 @@ const Dashboard = ({ userStatus }) => {
                 </Tr>
               </Thead>
               <Tbody>
-                {data?.companyApplications.map((companyApplication: any) => {
-                  const {
-                    id,
-                    companyName,
-                    position,
-                    awaitingResponse,
-                    rejected,
-                    nextRound,
-                    receivedOffer,
-                    acceptedOffer,
-                  } = companyApplication;
+                {!!loggedInUserData?.loggedInUser &&
+                  data?.companyApplications.map((companyApplication: any) => {
+                    const {
+                      id,
+                      companyName,
+                      position,
+                      awaitingResponse,
+                      rejected,
+                      nextRound,
+                      receivedOffer,
+                      acceptedOffer,
+                      unableToClassify,
+                    } = companyApplication;
 
-                  return (
-                    <Tr
-                      key={id}
-                      _hover={{
-                        backgroundColor: "#AEC8CA",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => {
-                        setEditRow({ ...companyApplication });
-                        setOpenDrawer(true);
-                      }}
-                    >
-                      <Td>
-                        <SingleCheckbox
-                          colorScheme="red"
-                          setSelectedRows={setSelectedRows}
-                          id={id}
-                        />
-                      </Td>
-                      <Td overflow="hidden">{truncateString(companyName)}</Td>
-                      <Td overflow="hidden">{truncateString(position)}</Td>
-                      <Td>{tableTestFunc(awaitingResponse)}</Td>
-                      <Td>{tableTestFunc(rejected)}</Td>
-                      <Td>{tableTestFunc(nextRound)}</Td>
-                      <Td>{tableTestFunc(receivedOffer)}</Td>
-                      <Td>{tableTestFunc(acceptedOffer)}</Td>
-                    </Tr>
-                  );
-                })}
+                    return (
+                      <Tr
+                        key={id}
+                        _hover={{
+                          backgroundColor: "#AEC8CA",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          setEditRow({ ...companyApplication });
+                          setOpenDrawer(true);
+                        }}
+                        bg={unableToClassify && "red.100"}
+                      >
+                        <Td>
+                          <SingleCheckbox
+                            colorScheme="red"
+                            setSelectedRows={setSelectedRows}
+                            id={id}
+                          />
+                        </Td>
+                        <Td overflow="hidden">{truncateString(companyName)}</Td>
+                        <Td overflow="hidden">{truncateString(position)}</Td>
+                        <Td>{tableTestFunc(awaitingResponse)}</Td>
+                        <Td>{tableTestFunc(rejected)}</Td>
+                        <Td>{tableTestFunc(nextRound)}</Td>
+                        <Td>{tableTestFunc(receivedOffer)}</Td>
+                        <Td>{tableTestFunc(acceptedOffer)}</Td>
+                      </Tr>
+                    );
+                  })}
               </Tbody>
             </Table>
           </TableContainer>

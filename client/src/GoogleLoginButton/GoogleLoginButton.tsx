@@ -7,7 +7,6 @@ import {
   Avatar,
   Flex,
   Button,
-  IconButton,
 } from "@chakra-ui/react";
 import {
   AUTHENTICATE_WITH_GOOGLE_MUTATION,
@@ -20,20 +19,83 @@ import { AiOutlineLogout } from "react-icons/ai";
 const transformEnum = (str: string = "") =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
-const GoogleLoginButton = ({ navSize, handleLogout, handleLogin }) => {
+const GoogleLoginButton = ({
+  navSize,
+  logOutUser,
+  loggedInUserRefetch,
+  authenticateWithGoogle,
+  loggedInUserData,
+  client,
+}) => {
   const toast = useToast();
-  const client = useApolloClient();
-  const {
-    loading: loggedInUserLoading,
-    error: loggedInUserError,
-    data: loggedInUserData,
-    refetch: loggedInUserRefetch,
-  } = useQuery(GET_LOGGED_IN_USER);
-  const [authenticateWithGoogle, { loading, error }] = useMutation(
-    AUTHENTICATE_WITH_GOOGLE_MUTATION
-  );
-  const [logOutUser, { loading: loadingLogOutUser, error: errorLogOutUser }] =
-    useMutation(LOG_OUT_USER);
+  // const {
+  //   loading: loggedInUserLoading,
+  //   error: loggedInUserError,
+  //   data: loggedInUserData,
+  //   refetch: loggedInUserRefetch,
+  // } = useQuery(GET_LOGGED_IN_USER);
+  // const [authenticateWithGoogle, { loading, error }] = useMutation(
+  //   AUTHENTICATE_WITH_GOOGLE_MUTATION
+  // );
+  // const [logOutUser, { loading: loadingLogOutUser, error: errorLogOutUser }] =
+  //   useMutation(LOG_OUT_USER);
+
+  const handleLogout = async () => {
+    try {
+      const result = await logOutUser();
+
+      const statusCode = await result.data.logOutUser.status;
+      const message = await result.data.logOutUser.message;
+      if (statusCode === 200) {
+        try {
+          await client.clearStore();
+
+          await loggedInUserRefetch();
+        } catch (error) {
+          console.error(error);
+        }
+        return toast({
+          title: message,
+          status: "success",
+          position: "top",
+          variant: "solid",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleLogin = async ({ accessToken }) => {
+    try {
+      const result = await authenticateWithGoogle({
+        variables: {
+          input: {
+            accessToken: accessToken,
+          },
+        },
+      });
+      const statusCode = await result.data.authenticateWithGoogle.status;
+      const message = await result.data.authenticateWithGoogle.message;
+      if (statusCode === 200) {
+        try {
+          await loggedInUserRefetch();
+        } catch (error) {
+          console.error(error);
+        }
+        return toast({
+          title: message,
+          status: "success",
+          position: "top",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const login = useGoogleLogin({
     prompt: "consent",
@@ -42,8 +104,6 @@ const GoogleLoginButton = ({ navSize, handleLogout, handleLogin }) => {
     onSuccess: (tokenResponse) => {
       handleLogin({
         accessToken: tokenResponse.access_token,
-        authenticateWithGoogle,
-        loggedInUserRefetch,
       });
     },
   });
@@ -76,9 +136,7 @@ const GoogleLoginButton = ({ navSize, handleLogout, handleLogin }) => {
           <Button
             mt={4}
             size={navSize === "small" ? "xs" : "sm"}
-            onClick={() =>
-              handleLogout({ logOutUser, loggedInUserRefetch, client })
-            }
+            onClick={handleLogout}
             rightIcon={<AiOutlineLogout />}
           >
             Logout

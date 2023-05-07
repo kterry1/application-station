@@ -8,7 +8,13 @@ import CompanyLogo from "./assets/company-logo.svg";
 
 type Props = {};
 
-const Sidebar = ({ handleLogout, handleLogin }) => {
+const Sidebar = ({
+  logOutUser,
+  loggedInUserRefetch,
+  authenticateWithGoogle,
+  loggedInUserData,
+  client,
+}) => {
   const [navSize, setNavSize] = useState("large");
 
   const handleNavIconClick = () => {
@@ -57,8 +63,11 @@ const Sidebar = ({ handleLogout, handleLogin }) => {
       <Flex p="20px" flexDir="column" w="100%" alignItems="center" mb={4}>
         <Divider />
         <GoogleLoginButton
-          handleLogin={handleLogin}
-          handleLogout={handleLogout}
+          logOutUser={logOutUser}
+          loggedInUserRefetch={loggedInUserRefetch}
+          authenticateWithGoogle={authenticateWithGoogle}
+          loggedInUserData={loggedInUserData}
+          client={client}
           navSize={navSize}
         />
       </Flex>

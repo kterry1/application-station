@@ -2,8 +2,6 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  StatArrow,
-  StatHelpText,
   Flex,
   Box,
   Divider,
@@ -32,40 +30,24 @@ const Stats = () => {
           <Stat>
             <StatLabel>Applications</StatLabel>
             <StatNumber>40</StatNumber>
-            <StatHelpText>
-              <StatArrow type="increase" />
-              23.36%
-            </StatHelpText>
           </Stat>
         </Flex>
         <Flex justifyContent="center">
           <Stat>
             <StatLabel>Responses</StatLabel>
             <StatNumber>34</StatNumber>
-            <StatHelpText>
-              <StatArrow type="decrease" />
-              23.36%
-            </StatHelpText>
           </Stat>
         </Flex>
         <Flex justifyContent="center">
           <Stat>
             <StatLabel>Next Round</StatLabel>
             <StatNumber>19</StatNumber>
-            <StatHelpText>
-              <StatArrow type="increase" />
-              23.36%
-            </StatHelpText>
           </Stat>
         </Flex>
         <Flex justifyContent="center">
           <Stat>
             <StatLabel>Rejections</StatLabel>
             <StatNumber>15</StatNumber>
-            <StatHelpText>
-              <StatArrow type="decrease" />
-              23.36%
-            </StatHelpText>
           </Stat>
         </Flex>
       </Flex>

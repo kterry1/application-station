@@ -38,7 +38,9 @@ const clientId = import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID;
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ApolloProvider client={client}>
     <GoogleOAuthProvider clientId={clientId}>
-      <App />
+      <>
+        <App />
+      </>
     </GoogleOAuthProvider>
   </ApolloProvider>
 );
