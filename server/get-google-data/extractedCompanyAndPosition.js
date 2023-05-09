@@ -9,13 +9,14 @@ const extractCompanyAndPositions = async (text) => {
   const prompt = `Extract the company name and the position from the following text into a js object without a variable name: \n"${text}"\n`;
   const extractedData = await openai
     .createCompletion({
-      model: "text-davinci-003",
+      // model: "text-davinci-003",
+      model: "gpt-4",
       prompt: prompt,
       temperature: 0,
       max_tokens: 200,
     })
     .then((response) => {
-      const correctedString = response.data.choices[0].text.replace(
+      const correctedString = response?.data?.choices[0].text.replace(
         /([a-zA-Z0-9]+?):/g,
         '"$1":'
       );

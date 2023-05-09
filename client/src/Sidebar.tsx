@@ -58,7 +58,6 @@ const Sidebar = ({
           {navSize === "large" && <img width={100} src={CompanyLogo} />}
         </Flex>
         <NavItem navSize={navSize} icon={FaHome} title="Dashboard" active />
-        <NavItem navSize={navSize} icon={FaChartBar} title="Statistics" />
       </Flex>
       <Flex p="20px" flexDir="column" w="100%" alignItems="center" mb={4}>
         <Divider />
