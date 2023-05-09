@@ -27,7 +27,6 @@ function DrawerExample(props: any) {
     rejected,
     nextRound,
     receivedOffer,
-    acceptedOffer,
     appliedAt,
     notes,
     openDrawer,
@@ -131,13 +130,6 @@ function DrawerExample(props: any) {
                     isChecked={receivedOffer}
                     colorScheme="greenSwitch"
                     id="receivedOffer"
-                  />
-
-                  <FormLabel htmlFor="acceptedOffer">Accepted Offer:</FormLabel>
-                  <Switch
-                    isChecked={acceptedOffer}
-                    colorScheme="greenSwitch"
-                    id="acceptedOffer"
                   />
                 </FormControl>
               </Box>

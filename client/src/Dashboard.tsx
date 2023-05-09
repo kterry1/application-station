@@ -31,6 +31,7 @@ import {
 import { useMutation, useQuery } from "@apollo/client";
 import ImportCompanyApplications from "./ImportCompanyApplications/ImportCompanyApplications";
 import Stats from "./Stats/Stats";
+import FormikDrawer from "./FormikDrawer";
 
 type Props = {};
 
@@ -49,7 +50,10 @@ const truncateString = (str: string, maxLength = 20) => {
 const Dashboard = ({ loggedInUserData, logOutUser }) => {
   const [editRow, setEditRow] = useState({});
   const [selectedRows, setSelectedRows] = useState([]);
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState({
+    reason: "",
+    status: false,
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const { loading, error, data, refetch } = useQuery(GET_COMPANY_APPLICATIONS);
   const [
@@ -124,7 +128,10 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                 variant="ghost"
                 onClick={() => {
                   setEditRow({});
-                  setOpenDrawer(true);
+                  setOpenDrawer({
+                    reason: "add",
+                    status: true,
+                  });
                 }}
               >
                 Add
@@ -196,7 +203,6 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                   <Th>Rejected</Th>
                   <Th>Next Round</Th>
                   <Th>Received Offer</Th>
-                  <Th>Accepted Offer</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -210,7 +216,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                       rejected,
                       nextRound,
                       receivedOffer,
-                      acceptedOffer,
+
                       unableToClassify,
                     } = companyApplication;
 
@@ -223,7 +229,10 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                         }}
                         onClick={() => {
                           setEditRow({ ...companyApplication });
-                          setOpenDrawer(true);
+                          setOpenDrawer({
+                            reason: "edit",
+                            status: true,
+                          });
                         }}
                         bg={unableToClassify && "red.100"}
                       >
@@ -240,7 +249,6 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                         <Td>{tableTestFunc(rejected)}</Td>
                         <Td>{tableTestFunc(nextRound)}</Td>
                         <Td>{tableTestFunc(receivedOffer)}</Td>
-                        <Td>{tableTestFunc(acceptedOffer)}</Td>
                       </Tr>
                     );
                   })}
@@ -254,8 +262,14 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
           />
         </Flex>
       </Center>
-      <Drawer
+      {/* <Drawer
         {...editRow}
+        openDrawer={openDrawer}
+        setOpenDrawer={setOpenDrawer}
+      /> */}
+      <FormikDrawer
+        {...editRow}
+        status={status}
         openDrawer={openDrawer}
         setOpenDrawer={setOpenDrawer}
       />

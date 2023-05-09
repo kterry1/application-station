@@ -73,7 +73,6 @@ const typeDefs = gql`
     rejected: Boolean
     nextRound: Boolean
     receivedOffer: Boolean
-    acceptedOffer: Boolean
     notes: String
     appliedAt: DateTime!
     createdAt: DateTime!
@@ -114,7 +113,6 @@ const typeDefs = gql`
     rejected: Boolean
     nextRound: Boolean
     receivedOffer: Boolean
-    acceptedOffer: Boolean
     notes: String
     appliedAt: DateTime!
     unableToClassify: Boolean

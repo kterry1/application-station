@@ -19,6 +19,7 @@
     "@types/react-table": "^7.7.14",
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
+    "formik": "^2.2.9",
     "framer-motion": "^10.12.4",
     "import": "^0.0.6",
     "js-cookie": "^3.0.5",

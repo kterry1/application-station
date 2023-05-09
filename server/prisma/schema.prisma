@@ -46,7 +46,6 @@ model CompanyApplication {
   rejected Boolean @default(false)
   nextRound Boolean @default(false)
   receivedOffer Boolean @default(false) 
-  acceptedOffer Boolean @default(false)
   notes String?
   appliedAt DateTime
   createdAt DateTime @default(now())

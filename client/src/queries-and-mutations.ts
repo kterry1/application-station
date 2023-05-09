@@ -29,7 +29,6 @@ export const GET_COMPANY_APPLICATIONS = gql`
       rejected
       nextRound
       receivedOffer
-      acceptedOffer
       notes
       appliedAt
       createdAt
