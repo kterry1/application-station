@@ -54,6 +54,7 @@ export const IMPORT_COMPANY_APPLICATIONS = gql`
     importCompanyApplications {
       status
       message
+      unableToClassifyCount
     }
   }
 `;

@@ -54,27 +54,6 @@ function App() {
             loggedInUserData={loggedInUserData}
           />
         </Flex>
-        <Alert
-          px="10px"
-          h="160px"
-          w="200px"
-          pos="absolute"
-          right="0"
-          top="0"
-          borderRadius="5px"
-          status="error"
-        >
-          <Flex alignItems="flex-start" justifyContent="flex-start">
-            <Flex flexDir="column" justifyContent="space-between">
-              <AlertIcon />
-              <AlertTitle>Unable to classify 10 applications.</AlertTitle>
-              <AlertDescription>
-                Click on a row to view edit or upgrade.
-              </AlertDescription>
-            </Flex>
-            <CloseButton />
-          </Flex>
-        </Alert>
       </ErrorBoundary>
     </ChakraProvider>
   );

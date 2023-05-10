@@ -60,6 +60,7 @@ const typeDefs = gql`
   type ImportCompanyApplicationsResponse {
     status: Int!
     message: String!
+    unableToClassifyCount: Int!
   }
 
   type LogOutUserResponse {
@@ -364,6 +365,7 @@ const resolvers = {
       { prisma, jwtDecoded, accessToken }
     ) => {
       const emails = await getGmailEmails(accessToken);
+      console.log(emails);
 
       // 'createMany' is not supported with SQLite
       // const newCompanyApplications = await prisma.companyApplication.createMany(
@@ -376,30 +378,35 @@ const resolvers = {
       //     },
       //   }
       // );
+      let unableToClassifyCount = 0;
       await Promise.all(
         emails.map(async (companyApplication, index) => {
+          // await new Promise((resolve) => setTimeout(resolve, index * 500));
+          // const checkForDulicates = await prisma.companyApplication.findUnique({
+          //   where: {
+          //     externalId: companyApplication.externalId,
+          //   },
+          // });
+          // if (!checkForDulicates) {
           await new Promise((resolve) => setTimeout(resolve, index * 500));
-          const checkForDulicates = await prisma.companyApplication.findUnique({
-            where: {
-              id: companyApplication.externalId,
+          const importedApplication = await prisma.companyApplication.create({
+            data: {
+              ...companyApplication,
+              user: {
+                connect: { id: jwtDecoded.id },
+              },
             },
           });
-          if (!checkForDulicates) {
-            await new Promise((resolve) => setTimeout(resolve, index * 500));
-            return await prisma.companyApplication.create({
-              data: {
-                ...companyApplication,
-                user: {
-                  connect: { id: jwtDecoded.id },
-                },
-              },
-            });
+          if (importedApplication.unableToClassify === true) {
+            unableToClassifyCount++;
           }
+          // }
         })
       );
       return {
         status: 200,
         message: "Successfully Imported New Company Applications",
+        unableToClassifyCount: unableToClassifyCount,
       };
     },
     logOutUser: async (_, __, { res, accessToken }) => {
