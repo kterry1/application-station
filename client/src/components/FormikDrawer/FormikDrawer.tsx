@@ -22,7 +22,7 @@ import { useRef } from "react";
 import {
   ADD_SINGLE_COMPANY_APPLICATION,
   UPDATE_SINGLE_COMPANY_APPLICATION,
-} from "./queries-and-mutations";
+} from "../../apollo/queries-and-mutations";
 import { useMutation } from "@apollo/client";
 const appliedAtTransformer = (appliedAt: Date) => {
   if (appliedAt) {

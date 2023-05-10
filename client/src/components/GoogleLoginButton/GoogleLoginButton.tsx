@@ -99,7 +99,7 @@ const GoogleLoginButton = ({
       {isLoggedIn ? (
         <>
           <Flex
-            className="element"
+            className="animate"
             mt={4}
             align={navSize === "small" ? "center" : "flex-start"}
           >

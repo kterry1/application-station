@@ -1,6 +1,6 @@
 import { ChakraProvider, Flex } from "@chakra-ui/react";
-import Sidebar from "./Sidebar";
-import Dashboard from "./Dashboard";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Dashboard from "./components/Dashboard/Dashboard";
 import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import "./App.css";
 import { customTheme } from "./assets/custom-theme";
@@ -8,7 +8,7 @@ import {
   GET_LOGGED_IN_USER,
   AUTHENTICATE_WITH_GOOGLE_MUTATION,
   LOG_OUT_USER,
-} from "./queries-and-mutations";
+} from "./apollo/queries-and-mutations";
 
 function App() {
   const {
@@ -28,7 +28,6 @@ function App() {
       data: loggedOutUserData,
     },
   ] = useMutation(LOG_OUT_USER);
-  console.log(loggedOutUserData);
   const client = useApolloClient();
   return (
     <ChakraProvider theme={customTheme}>

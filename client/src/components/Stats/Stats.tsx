@@ -11,7 +11,7 @@ import {
 
 import logo from "../assets/svg/three.svg";
 import { useQuery } from "@apollo/client";
-import { GET_WEEKLY_STATS } from "../queries-and-mutations";
+import { GET_WEEKLY_STATS } from "../../apollo/queries-and-mutations";
 import { useEffect } from "react";
 
 const Stats = ({ loggedInUserData }) => {

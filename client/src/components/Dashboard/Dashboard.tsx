@@ -20,18 +20,18 @@ import {
 } from "@chakra-ui/react";
 import "./App.css";
 import { useEffect, useState } from "react";
-import SingleCheckbox from "./assets/SingleCheckbox";
+import SingleCheckbox from "../SingleCheckbox/SingleCheckbox";
 import Drawer from "./Drawer";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
-import Pagination from "./Pagination";
+import Pagination from "../Pagination/Pagination";
 import {
   DELETE_COMPANY_APPLICATIONS,
   GET_COMPANY_APPLICATIONS,
-} from "./queries-and-mutations";
+} from "../../apollo/queries-and-mutations";
 import { useMutation, useQuery } from "@apollo/client";
-import ImportCompanyApplications from "./ImportCompanyApplications/ImportCompanyApplications";
-import Stats from "./Stats/Stats";
-import FormikDrawer from "./FormikDrawer";
+import ImportCompanyApplications from "../ImportCompanyApplications/ImportCompanyApplications";
+import Stats from "../Stats/Stats";
+import FormikDrawer from "../FormikDrawer/FormikDrawer";
 
 type Props = {};
 

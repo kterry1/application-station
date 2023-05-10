@@ -1,4 +1,3 @@
-/* Logo Color: #f98080 */
 html,
 body,
 :root {
@@ -57,7 +56,6 @@ td:not(:last-child) {
   }
 }
 
-/* Apply the animation to the element */
-.element {
+.animate {
   animation: slide-in 0.5s ease-out;
 }
