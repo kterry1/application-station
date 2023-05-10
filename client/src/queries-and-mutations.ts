@@ -9,6 +9,26 @@ export const AUTHENTICATE_WITH_GOOGLE_MUTATION = gql`
   }
 `;
 
+export const ADD_SINGLE_COMPANY_APPLICATION = gql`
+  mutation Mutation($input: CompanyApplicationInput!) {
+    addSingleCompanyApplication(input: $input) {
+      id
+      externalId
+      companyName
+      position
+      awaitingResponse
+      rejected
+      nextRound
+      receivedOffer
+      notes
+      appliedAt
+      createdAt
+      updatedAt
+      unableToClassify
+    }
+  }
+`;
+
 export const IMPORT_COMPANY_APPLICATIONS = gql`
   mutation {
     importCompanyApplications {

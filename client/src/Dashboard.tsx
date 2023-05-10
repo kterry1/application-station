@@ -216,10 +216,8 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                       rejected,
                       nextRound,
                       receivedOffer,
-
                       unableToClassify,
                     } = companyApplication;
-
                     return (
                       <Tr
                         key={id}
@@ -269,7 +267,6 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
       /> */}
       <FormikDrawer
         {...editRow}
-        status={status}
         openDrawer={openDrawer}
         setOpenDrawer={setOpenDrawer}
       />

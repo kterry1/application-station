@@ -105,7 +105,6 @@ const typeDefs = gql`
   }
 
   input CompanyApplicationInput {
-    id: Int
     externalId: Int
     companyName: String!
     position: String!
@@ -292,9 +291,18 @@ const resolvers = {
       });
       return { status: 200, message: "Authorization Successful" };
     },
-    addSingleCompanyApplication: async (_, { input }, { prisma }) => {
+    addSingleCompanyApplication: async (
+      _,
+      { input },
+      { prisma, jwtDecoded }
+    ) => {
       const newCompanyApplication = await prisma.companyApplication.create({
-        data: { ...input },
+        data: {
+          ...input,
+          user: {
+            connect: { id: jwtDecoded.id },
+          },
+        },
       });
       return newCompanyApplication;
     },

@@ -18,7 +18,9 @@ import {
   Switch,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { useState, useRef } from "react";
+import { useRef } from "react";
+import { ADD_SINGLE_COMPANY_APPLICATION } from "./queries-and-mutations";
+import { useMutation } from "@apollo/client";
 const appliedAtTransformer = (appliedAt: Date) => {
   if (appliedAt) {
     return new Date(appliedAt).toISOString().substring(0, 10);
@@ -28,6 +30,7 @@ const appliedAtTransformer = (appliedAt: Date) => {
 
 function DrawerExample(props: any) {
   const {
+    id,
     companyName,
     position,
     awaitingResponse,
@@ -38,8 +41,13 @@ function DrawerExample(props: any) {
     notes,
     openDrawer,
     setOpenDrawer,
+    userId,
   } = props;
   const firstField = useRef();
+  const [addSingleCompanyApplication, { loading, error, data }] = useMutation(
+    ADD_SINGLE_COMPANY_APPLICATION
+  );
+  const todayDate = new Date().toISOString().substring(0, 10);
   const formik = useFormik({
     initialValues: {
       companyName: companyName || "",
@@ -48,13 +56,24 @@ function DrawerExample(props: any) {
       rejected: rejected || false,
       nextRound: nextRound || false,
       receivedOffer: receivedOffer || false,
-      appliedAt:
-        appliedAtTransformer(appliedAt) ||
-        new Date().toISOString().substring(0, 10),
-      notes: notes || "",
+      appliedAt: appliedAtTransformer(appliedAt) || todayDate,
+      notes: notes || null,
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      if (id) {
+      } else {
+        const result = await addSingleCompanyApplication({
+          variables: {
+            input: {
+              ...values,
+              appliedAt: appliedAt
+                ? appliedAt
+                : new Date(formik.values.appliedAt),
+            },
+          },
+        });
+        console.log(result);
+      }
     },
     enableReinitialize: true,
   });
