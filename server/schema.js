@@ -24,6 +24,9 @@ const typeDefs = gql`
     addSingleCompanyApplication(
       input: CompanyApplicationInput!
     ): CompanyApplication!
+    updateSingleCompanyApplication(
+      input: CompanyApplicationInput!
+    ): CompanyApplication!
     deleteCompanyApplications(
       input: DeleteCompanyApplicationsInput!
     ): DeleteCompanyApplicationsResponse!
@@ -105,7 +108,7 @@ const typeDefs = gql`
   }
 
   input CompanyApplicationInput {
-    externalId: Int
+    id: ID
     companyName: String!
     position: String!
     awaitingResponse: Boolean
@@ -305,6 +308,27 @@ const resolvers = {
         },
       });
       return newCompanyApplication;
+    },
+    updateSingleCompanyApplication: async (
+      _,
+      { input },
+      { prisma, jwtDecoded }
+    ) => {
+      if (jwtDecoded.id) {
+        const { id, ...restInputFields } = input;
+        const updatedCompanyApplication =
+          await prisma.companyApplication.update({
+            where: {
+              id: parseInt(id),
+            },
+            data: {
+              ...restInputFields,
+            },
+          });
+        return updatedCompanyApplication;
+      } else {
+        console.error("You are not logged in to make these updates");
+      }
     },
     deleteCompanyApplications: async (_, { input }, { prisma, jwtDecoded }) => {
       const companyApplications = await Promise.all(

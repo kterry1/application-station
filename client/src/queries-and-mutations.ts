@@ -29,6 +29,26 @@ export const ADD_SINGLE_COMPANY_APPLICATION = gql`
   }
 `;
 
+export const UPDATE_SINGLE_COMPANY_APPLICATION = gql`
+  mutation Mutation($input: CompanyApplicationInput!) {
+    updateSingleCompanyApplication(input: $input) {
+      id
+      externalId
+      companyName
+      position
+      awaitingResponse
+      rejected
+      nextRound
+      receivedOffer
+      notes
+      appliedAt
+      createdAt
+      updatedAt
+      unableToClassify
+    }
+  }
+`;
+
 export const IMPORT_COMPANY_APPLICATIONS = gql`
   mutation {
     importCompanyApplications {

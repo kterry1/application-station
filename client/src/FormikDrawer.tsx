@@ -19,7 +19,10 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useRef } from "react";
-import { ADD_SINGLE_COMPANY_APPLICATION } from "./queries-and-mutations";
+import {
+  ADD_SINGLE_COMPANY_APPLICATION,
+  UPDATE_SINGLE_COMPANY_APPLICATION,
+} from "./queries-and-mutations";
 import { useMutation } from "@apollo/client";
 const appliedAtTransformer = (appliedAt: Date) => {
   if (appliedAt) {
@@ -41,12 +44,22 @@ function DrawerExample(props: any) {
     notes,
     openDrawer,
     setOpenDrawer,
-    userId,
   } = props;
   const firstField = useRef();
-  const [addSingleCompanyApplication, { loading, error, data }] = useMutation(
-    ADD_SINGLE_COMPANY_APPLICATION
-  );
+  const [
+    addSingleCompanyApplication,
+    {
+      loading: loadingAddSingleCompanyApplication,
+      error: errorAddSingleCompanyApplication,
+    },
+  ] = useMutation(ADD_SINGLE_COMPANY_APPLICATION);
+  const [
+    updateSingleCompanyApplication,
+    {
+      loading: loadingUpdateSingleCompanyApplication,
+      error: errorUpdateSingleCompanyApplication,
+    },
+  ] = useMutation(UPDATE_SINGLE_COMPANY_APPLICATION);
   const todayDate = new Date().toISOString().substring(0, 10);
   const formik = useFormik({
     initialValues: {
@@ -57,22 +70,40 @@ function DrawerExample(props: any) {
       nextRound: nextRound || false,
       receivedOffer: receivedOffer || false,
       appliedAt: appliedAtTransformer(appliedAt) || todayDate,
-      notes: notes || null,
+      notes: notes || "",
     },
     onSubmit: async (values) => {
       if (id) {
+        const result = await updateSingleCompanyApplication({
+          variables: {
+            input: {
+              ...values,
+              appliedAt: new Date(formik.values.appliedAt),
+              id: id,
+            },
+          },
+        });
+        if (result) {
+          setOpenDrawer({
+            reason: "",
+            status: false,
+          });
+        }
       } else {
         const result = await addSingleCompanyApplication({
           variables: {
             input: {
               ...values,
-              appliedAt: appliedAt
-                ? appliedAt
-                : new Date(formik.values.appliedAt),
+              appliedAt: new Date(formik.values.appliedAt),
             },
           },
         });
-        console.log(result);
+        if (result) {
+          setOpenDrawer({
+            reason: "",
+            status: false,
+          });
+        }
       }
     },
     enableReinitialize: true,
@@ -83,8 +114,6 @@ function DrawerExample(props: any) {
       <Drawer
         isOpen={openDrawer.status}
         placement="bottom"
-        // @ts-ignore-next-line
-        initialFocusRef={firstField}
         onClose={() =>
           setOpenDrawer({
             reason: "",
@@ -106,13 +135,10 @@ function DrawerExample(props: any) {
                     <Box mr="12px">
                       <FormLabel htmlFor="companyName">Company</FormLabel>
                       <Input
-                        w="250px"
+                        w="300px"
                         isRequired={true}
                         focusBorderColor="gray.400"
                         errorBorderColor="red.500"
-                        // @ts-ignore-next-line
-                        ref={firstField}
-                        // value={companyName}
                         id="companyName"
                         placeholder="Company Name"
                         {...formik.getFieldProps("companyName")}
@@ -121,7 +147,7 @@ function DrawerExample(props: any) {
                     <Box mr="12px">
                       <FormLabel htmlFor="position">Position</FormLabel>
                       <Input
-                        w="250px"
+                        w="350px"
                         isRequired={true}
                         focusBorderColor="gray.400"
                         errorBorderColor="red.500"
@@ -134,7 +160,6 @@ function DrawerExample(props: any) {
                     <Box>
                       <FormLabel htmlFor="appliedAt">Applied Date</FormLabel>
                       <Input
-                        // value={appliedAtTransformer()}
                         {...formik.getFieldProps("appliedAt")}
                         id="appliedAt"
                         placeholder="Select Date"
