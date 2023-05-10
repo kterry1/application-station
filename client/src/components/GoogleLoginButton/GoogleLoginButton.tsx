@@ -10,6 +10,7 @@ import {
 
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineLogout } from "react-icons/ai";
+import { toastNotification } from "../../utils/toastNotication/toastNotification";
 
 const transformEnum = (str: string = "") =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -38,14 +39,7 @@ const GoogleLoginButton = ({
         } catch (error) {
           console.error(error);
         }
-        return toast({
-          title: message,
-          status: "success",
-          position: "top",
-          variant: "solid",
-          duration: 4000,
-          isClosable: true,
-        });
+        return toastNotification({ toast, message, status: "success" });
       }
     } catch (error) {
       console.error(error);
@@ -68,13 +62,7 @@ const GoogleLoginButton = ({
         } catch (error) {
           console.error(error);
         }
-        return toast({
-          title: message,
-          status: "success",
-          position: "top",
-          duration: 4000,
-          isClosable: true,
-        });
+        return toastNotification({ toast, message, status: "success" });
       }
     } catch (error) {
       console.error(error);

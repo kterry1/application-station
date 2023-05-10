@@ -18,14 +18,7 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
       const message = await result.data.importCompanyApplications.message;
       if (statusCode === 200) {
         refetch();
-        return toast({
-          title: message,
-          status: "success",
-          position: "top",
-          variant: "solid",
-          duration: 4000,
-          isClosable: true,
-        });
+        return toastNotification({ toast, message, status: "success" });
       }
     } catch (error) {
       // Handle any errors that occurred during the mutation

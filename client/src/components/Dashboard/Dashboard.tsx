@@ -18,10 +18,9 @@ import {
   Tr,
   useToast,
 } from "@chakra-ui/react";
-import "./App.css";
+// import "./App.css";
 import { useEffect, useState } from "react";
 import SingleCheckbox from "../SingleCheckbox/SingleCheckbox";
-import Drawer from "./Drawer";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import Pagination from "../Pagination/Pagination";
 import {
@@ -32,6 +31,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import ImportCompanyApplications from "../ImportCompanyApplications/ImportCompanyApplications";
 import Stats from "../Stats/Stats";
 import FormikDrawer from "../FormikDrawer/FormikDrawer";
+import { toastNotification } from "../../utils/toastNotication/toastNotification";
 
 type Props = {};
 
@@ -89,14 +89,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
       if (statusCode === 200) {
         refetch();
         setSelectedRows([]);
-        return toast({
-          title: message,
-          status: "success",
-          position: "top",
-          variant: "solid",
-          duration: 4000,
-          isClosable: true,
-        });
+        return toastNotification({ toast, message, status: "success" });
       }
     } catch (error) {
       // Handle any errors that occurred during the mutation

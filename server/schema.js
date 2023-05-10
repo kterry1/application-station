@@ -379,14 +379,22 @@ const resolvers = {
       await Promise.all(
         emails.map(async (companyApplication, index) => {
           await new Promise((resolve) => setTimeout(resolve, index * 500));
-          return await prisma.companyApplication.create({
-            data: {
-              ...companyApplication,
-              user: {
-                connect: { id: jwtDecoded.id },
-              },
+          const checkForDulicates = await prisma.companyApplication.findUnique({
+            where: {
+              id: companyApplication.externalId,
             },
           });
+          if (!checkForDulicates) {
+            await new Promise((resolve) => setTimeout(resolve, index * 500));
+            return await prisma.companyApplication.create({
+              data: {
+                ...companyApplication,
+                user: {
+                  connect: { id: jwtDecoded.id },
+                },
+              },
+            });
+          }
         })
       );
       return {
