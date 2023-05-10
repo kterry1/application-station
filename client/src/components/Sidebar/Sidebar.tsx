@@ -2,7 +2,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Divider, Flex, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import NavItem from "../NavItem/NavItem.js";
-import { FaChartBar, FaHome } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import GoogleLoginButton from "../GoogleLoginButton/GoogleLoginButton.js";
 import CompanyLogo from "../../assets/svgs/company-logo.svg";
 

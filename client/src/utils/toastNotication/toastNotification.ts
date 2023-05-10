@@ -1,4 +1,21 @@
-export const toastNotification = ({ toast, message, status }) => {
+interface ToastNotificationProps {
+  toast: (options: {
+    title: string;
+    status: string;
+    position: string;
+    variant: string;
+    duration: number;
+    isClosable: boolean;
+  }) => void;
+  message: string;
+  status: string;
+}
+
+export const toastNotification = ({
+  toast,
+  message,
+  status,
+}: ToastNotificationProps) => {
   return toast({
     title: message,
     status: status,

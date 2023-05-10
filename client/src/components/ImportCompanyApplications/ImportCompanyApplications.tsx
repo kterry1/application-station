@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import { IMPORT_COMPANY_APPLICATIONS } from "../../apollo/queries-and-mutations";
 import { Button, useToast } from "@chakra-ui/react";
 import { FaFileImport } from "react-icons/fa";
+import { toastNotification } from "../../utils/toastNotication/toastNotification";
 
 type Props = {};
 

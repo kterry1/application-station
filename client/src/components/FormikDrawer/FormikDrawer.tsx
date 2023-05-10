@@ -18,7 +18,6 @@ import {
   Switch,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { useRef } from "react";
 import {
   ADD_SINGLE_COMPANY_APPLICATION,
   UPDATE_SINGLE_COMPANY_APPLICATION,
@@ -45,7 +44,6 @@ function DrawerExample(props: any) {
     openDrawer,
     setOpenDrawer,
   } = props;
-  const firstField = useRef();
   const [
     addSingleCompanyApplication,
     {

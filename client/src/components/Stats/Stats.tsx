@@ -8,7 +8,6 @@ import {
   StatHelpText,
   StatArrow,
 } from "@chakra-ui/react";
-
 import logo from "../../assets/svgs/three.svg";
 import { useQuery } from "@apollo/client";
 import { GET_WEEKLY_STATS } from "../../apollo/queries-and-mutations";

@@ -1,12 +1,6 @@
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Box,
   Button,
   Center,
-  CloseButton,
   Flex,
   Stack,
   Table,
@@ -18,7 +12,6 @@ import {
   Tr,
   useToast,
 } from "@chakra-ui/react";
-// import "./App.css";
 import { useEffect, useState } from "react";
 import SingleCheckbox from "../SingleCheckbox/SingleCheckbox";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -140,28 +133,6 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               >
                 Delete
               </Button>
-              {/* <Alert
-                px="10px"
-                h="30px"
-                pos="relative"
-                borderRadius="5px"
-                status="error"
-              >
-                <Flex
-                  width="100%"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Flex>
-                    <AlertIcon />
-                    <AlertTitle>Unable to classify 10 applications.</AlertTitle>
-                    <AlertDescription>
-                      Click on a row to view edit or upgrade.
-                    </AlertDescription>
-                  </Flex>
-                  <CloseButton />
-                </Flex>
-              </Alert> */}
             </Stack>
 
             <ImportCompanyApplications refetch={refetch} />
@@ -253,11 +224,6 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
           />
         </Flex>
       </Center>
-      {/* <Drawer
-        {...editRow}
-        openDrawer={openDrawer}
-        setOpenDrawer={setOpenDrawer}
-      /> */}
       <FormikDrawer
         {...editRow}
         openDrawer={openDrawer}
