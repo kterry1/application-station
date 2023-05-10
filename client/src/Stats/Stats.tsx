@@ -21,22 +21,19 @@ const Stats = ({ loggedInUserData }) => {
     refetch();
   }, [loggedInUserData]);
 
-  const compareWeeksResponseCount =
-    !!loggedInUserData?.loggedInUser &&
-    data?.getWeeklyStats?.thisWeek.responseCount -
-      data?.getWeeklyStats?.lastWeek.responseCount;
-  const companyWeeksApplicationCount =
-    !!loggedInUserData?.loggedInUser &&
-    data?.getWeeklyStats?.thisWeek.applicationCount -
-      data?.getWeeklyStats?.lastWeek.applicationCount;
-  const compareWeeksNextRoundCount =
-    !!loggedInUserData?.loggedInUser &&
-    data?.getWeeklyStats?.thisWeek.nextRoundCount -
-      data?.getWeeklyStats?.lastWeek.nextRoundCount;
-  const compareWeeksRejectionCount =
-    !!loggedInUserData?.loggedInUser &&
-    data?.getWeeklyStats?.lastWeek.rejectionCount -
-      data?.getWeeklyStats?.lastWeek.rejectionCount;
+  const compareWeeks = (stat: string) => {
+    if (!!loggedInUserData?.loggedInUser) {
+      return (
+        data?.getWeeklyStats?.thisWeek[stat] -
+        data?.getWeeklyStats?.lastWeek[stat]
+      );
+    } else return 0;
+  };
+
+  const compareWeeksResponseCount: number = compareWeeks("responseCount");
+  const companyWeeksApplicationCount: number = compareWeeks("applicationCount");
+  const compareWeeksNextRoundCount = compareWeeks("nextRoundCount");
+  const compareWeeksRejectionCount = compareWeeks("rejectionCount");
 
   return (
     <>
@@ -69,7 +66,7 @@ const Stats = ({ loggedInUserData }) => {
                   companyWeeksApplicationCount > 0 ? "increase" : "decrease"
                 }
               />
-              {Math.abs(companyWeeksApplicationCount) || 0}
+              {Math.abs(companyWeeksApplicationCount)}
             </StatHelpText>
           </Stat>
         </Flex>
@@ -85,7 +82,7 @@ const Stats = ({ loggedInUserData }) => {
               <StatArrow
                 type={compareWeeksResponseCount > 0 ? "increase" : "decrease"}
               />
-              {Math.abs(compareWeeksResponseCount) || 0}
+              {Math.abs(compareWeeksResponseCount)}
             </StatHelpText>
           </Stat>
         </Flex>
@@ -99,7 +96,7 @@ const Stats = ({ loggedInUserData }) => {
               <StatArrow
                 type={compareWeeksNextRoundCount > 0 ? "increase" : "decrease"}
               />
-              {Math.abs(compareWeeksNextRoundCount) || 0}
+              {Math.abs(compareWeeksNextRoundCount)}
             </StatHelpText>
           </Stat>
         </Flex>
@@ -115,7 +112,7 @@ const Stats = ({ loggedInUserData }) => {
               <StatArrow
                 type={compareWeeksRejectionCount > 0 ? "increase" : "decrease"}
               />
-              {Math.abs(compareWeeksRejectionCount) || 0}
+              {Math.abs(compareWeeksRejectionCount)}
             </StatHelpText>
           </Stat>
         </Flex>
