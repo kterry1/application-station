@@ -32,7 +32,7 @@ const tableTestFunc = (property: boolean) => {
   return property ? "Yes" : "No";
 };
 
-const truncateString = (str: string, maxLength = 20) => {
+const truncateString = (str: string, maxLength: number = 20) => {
   if (str.length <= maxLength) {
     return str;
   }

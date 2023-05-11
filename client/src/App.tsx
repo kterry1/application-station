@@ -1,12 +1,4 @@
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  ChakraProvider,
-  CloseButton,
-  Flex,
-} from "@chakra-ui/react";
+import { ChakraProvider, Flex } from "@chakra-ui/react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Dashboard from "./components/Dashboard/Dashboard";
 import { useApolloClient, useMutation, useQuery } from "@apollo/client";
