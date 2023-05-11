@@ -179,7 +179,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               <Tbody>
                 {!!loggedInUserData?.loggedInUser &&
                   // data?.companyApplications.map((companyApplication: any) => {
-                  currentPageApplications.map((companyApplication: any) => {
+                  currentPageApplications?.map((companyApplication: any) => {
                     const {
                       id,
                       companyName,
