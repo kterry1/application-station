@@ -63,7 +63,14 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
     },
   });
   const toast = useToast();
-  const totalPages = 10;
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(data?.companyApplications.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentPageApplications = data?.companyApplications.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   useEffect(() => {
     refetch();
@@ -171,7 +178,8 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               </Thead>
               <Tbody>
                 {!!loggedInUserData?.loggedInUser &&
-                  data?.companyApplications.map((companyApplication: any) => {
+                  // data?.companyApplications.map((companyApplication: any) => {
+                  currentPageApplications.map((companyApplication: any) => {
                     const {
                       id,
                       companyName,
