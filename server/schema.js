@@ -380,26 +380,26 @@ const resolvers = {
       let unableToClassifyCount = 0;
       await Promise.all(
         emails.map(async (companyApplication, index) => {
-          // await new Promise((resolve) => setTimeout(resolve, index * 500));
-          // const checkForDulicates = await prisma.companyApplication.findUnique({
-          //   where: {
-          //     externalId: companyApplication.externalId,
-          //   },
-          // });
-          // if (!checkForDulicates) {
           await new Promise((resolve) => setTimeout(resolve, index * 500));
-          const importedApplication = await prisma.companyApplication.create({
-            data: {
-              ...companyApplication,
-              user: {
-                connect: { id: jwtDecoded.id },
-              },
+          const checkForDulicates = await prisma.companyApplication.findUnique({
+            where: {
+              externalId: companyApplication.externalId,
             },
           });
-          if (importedApplication.unableToClassify === true) {
-            unableToClassifyCount++;
+          if (!checkForDulicates) {
+            await new Promise((resolve) => setTimeout(resolve, index * 500));
+            const importedApplication = await prisma.companyApplication.create({
+              data: {
+                ...companyApplication,
+                user: {
+                  connect: { id: jwtDecoded.id },
+                },
+              },
+            });
+            if (importedApplication.unableToClassify === true) {
+              unableToClassifyCount++;
+            }
           }
-          // }
         })
       );
       return {

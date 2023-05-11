@@ -39,7 +39,7 @@ model User {
 /// Represents a company application for a specific user
 model CompanyApplication {
   id Int @id @default(autoincrement())
-  externalId String?
+  externalId String? @unique
   companyName String
   position String
   awaitingResponse Boolean @default(false)

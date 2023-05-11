@@ -7,7 +7,6 @@ const openai = new OpenAIApi(configuration);
 const isValidJson = (jsonString) => {
   try {
     const jsonObj = JSON.parse(jsonString);
-    console.log(jsonObj["companyName"]);
     return (
       "companyName" in jsonObj &&
       "position" in jsonObj &&
