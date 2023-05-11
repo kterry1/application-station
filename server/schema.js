@@ -365,7 +365,6 @@ const resolvers = {
       { prisma, jwtDecoded, accessToken }
     ) => {
       const emails = await getGmailEmails(accessToken);
-      console.log(emails);
 
       // 'createMany' is not supported with SQLite
       // const newCompanyApplications = await prisma.companyApplication.createMany(

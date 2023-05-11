@@ -4,9 +4,24 @@ const configuration = new Configuration({
   apiKey: process.env.OPEN_AI_API_KPI,
 });
 const openai = new OpenAIApi(configuration);
+const isValidJson = (jsonString) => {
+  try {
+    const jsonObj = JSON.parse(jsonString);
+    console.log(jsonObj["companyName"]);
+    return (
+      "companyName" in jsonObj &&
+      "position" in jsonObj &&
+      jsonObj["companyName"] !== null &&
+      jsonObj["position"] !== null
+    );
+  } catch (error) {
+    return false;
+  }
+};
 
 const extractCompanyAndPositions = async (text) => {
-  const prompt = `Extract the company name and the position from the following text into a js object without a variable name: \n"${text}"\n`;
+  // const prompt = `Extract the company name and the position from the following text into a js object without a variable name: \n"${text}"\n`;
+  const prompt = `Extract the company name and position from this email and return a JSON object with the keys 'companyName' and 'position': \n"${text}"\n`;
   const extractedData = await openai
     .createCompletion({
       model: "text-davinci-003",
@@ -15,12 +30,10 @@ const extractCompanyAndPositions = async (text) => {
       max_tokens: 200,
     })
     .then((response) => {
-      const correctedString = response?.data?.choices[0].text.replace(
-        /([a-zA-Z0-9]+?):/g,
-        '"$1":'
-      );
-      //@TODO: confirm returned object has correct fields
-      return JSON.parse(correctedString);
+      const extractedData = response?.data?.choices[0].text;
+      if (extractedData && isValidJson(extractedData)) {
+        return JSON.parse(extractedData);
+      }
     })
     .catch((error) => {
       console.error(error);
