@@ -334,7 +334,7 @@ const resolvers = {
     deleteCompanyApplications: async (_, { input }, { prisma, jwtDecoded }) => {
       const companyApplications = await Promise.all(
         input.ids.map(async (id, index) => {
-          await new Promise((resolve) => setTimeout(resolve, index * 500));
+          await new Promise((resolve) => setTimeout(resolve, index * 400));
           const foundCompanyApplcation =
             await prisma.companyApplication.findUnique({
               where: {
@@ -380,14 +380,14 @@ const resolvers = {
       let unableToClassifyCount = 0;
       await Promise.all(
         emails.map(async (companyApplication, index) => {
-          await new Promise((resolve) => setTimeout(resolve, index * 500));
+          await new Promise((resolve) => setTimeout(resolve, index * 400));
           const checkForDulicates = await prisma.companyApplication.findUnique({
             where: {
               externalId: companyApplication.externalId,
             },
           });
           if (!checkForDulicates) {
-            await new Promise((resolve) => setTimeout(resolve, index * 500));
+            await new Promise((resolve) => setTimeout(resolve, index * 400));
             const importedApplication = await prisma.companyApplication.create({
               data: {
                 ...companyApplication,

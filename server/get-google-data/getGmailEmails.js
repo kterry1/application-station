@@ -4,13 +4,12 @@ const fs = require("fs");
 const { extractCompanyAndPositions } = require("./extractedCompanyAndPosition");
 const {
   productionClassifierForIsJobApplication,
-  productionClassifierForEmailDecision,
 } = require("../natural-language-processing/stableClassifiers");
 
 async function getGmailEmails(accessToken) {
   try {
     const baseUrl = "https://www.googleapis.com/gmail/v1/users/me/messages";
-    const queryParams = "?maxResults=40&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
+    const queryParams = "?maxResults=20&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",
@@ -43,31 +42,13 @@ async function getGmailEmails(accessToken) {
           const extractedCompanyAndPosition = await extractCompanyAndPositions(
             truncatedMessage
           );
-
-          // const extractClassificationForMessage =
-          //   await productionClassifierForEmailDecision(decodedBody);
           const internalDate = new Date(
             parseInt(messageResponse.data.internalDate, 10)
           );
           const appliedAt = internalDate.toISOString();
-          // const extractClassificationForMessageTransformer =
-          //   extractClassificationForMessage === "unknown"
-          //     ? "unableToClassify"
-          //     : extractClassificationForMessage;
-          // const transformExtractedClassificationForMessage = (
-          //   extractClassificationForMessage
-          // ) => {
-          //   return {
-          //     appliedAt: appliedAt,
-          //     [extractClassificationForMessage]: true,
-          //   };
-          // };
           const email = {
             appliedAt: appliedAt,
             externalId: messageResponse.data.id,
-            // ...transformExtractedClassificationForMessage(
-            //   extractClassificationForMessageTransformer
-            // ),
             ...(extractedCompanyAndPosition || {
               companyName: "",
               position: "",
