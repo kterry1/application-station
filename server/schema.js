@@ -2,8 +2,11 @@ const { gql } = require("apollo-server-express");
 const { DateTime, DateTimeResolver } = require("graphql-scalars");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
+const { PubSub } = require("graphql-subscriptions");
 const { getGmailEmails } = require("./get-google-data/getGmailEmails");
 require("dotenv").config();
+
+const pubsub = new PubSub();
 
 const typeDefs = gql`
   scalar DateTime
@@ -32,6 +35,10 @@ const typeDefs = gql`
     ): DeleteCompanyApplicationsResponse!
     importCompanyApplications: ImportCompanyApplicationsResponse!
     logOutUser: LogOutUserResponse!
+  }
+
+  type Subscription {
+    importProgress: Float!
   }
 
   type User {
@@ -378,6 +385,7 @@ const resolvers = {
       //   }
       // );
       let unableToClassifyCount = 0;
+      let importProgress = 0;
       await Promise.all(
         emails.map(async (companyApplication, index) => {
           await new Promise((resolve) => setTimeout(resolve, index * 400));
@@ -396,6 +404,12 @@ const resolvers = {
                 },
               },
             });
+            if (importedApplication) {
+              importProgress++;
+              pubsub.publish("APPLICATION_IMPORTED", {
+                importProgress: importProgress,
+              });
+            }
             if (importedApplication.unableToClassify === true) {
               unableToClassifyCount++;
             }
@@ -439,6 +453,11 @@ const resolvers = {
       } catch (error) {
         console.error("Error revoking access token:", error.message);
       }
+    },
+  },
+  Subscription: {
+    importProgress: {
+      subscribe: () => pubsub.asyncIterator(["APPLICATION_IMPORTED"]),
     },
   },
   User: {

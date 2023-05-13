@@ -1,6 +1,5 @@
 const axios = require("axios");
 const { decode } = require("js-base64");
-const fs = require("fs");
 const { extractCompanyAndPositions } = require("./extractedCompanyAndPosition");
 const {
   productionClassifierForIsJobApplication,
@@ -9,7 +8,8 @@ const {
 async function getGmailEmails(accessToken) {
   try {
     const baseUrl = "https://www.googleapis.com/gmail/v1/users/me/messages";
-    const queryParams = "?maxResults=20&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
+    // const queryParams = "?q=after:2023/05/13&maxResults=20&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
+    const queryParams = "?maxResults=15&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",
@@ -19,7 +19,7 @@ async function getGmailEmails(accessToken) {
     const messageListResponse = await axios.get(`${baseUrl}${queryParams}`, {
       headers,
     });
-    const messageIds = messageListResponse.data.messages.map(
+    const messageIds = messageListResponse?.data?.messages?.map(
       (message) => message.id
     );
 

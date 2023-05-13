@@ -1,18 +1,32 @@
 const express = require("express");
 const cors = require("cors");
+const { createServer } = require("http");
 const { ApolloServer } = require("apollo-server-express");
-const { PubSub } = require("graphql-subscriptions");
 const { WebSocketServer } = require("ws");
 const { useServer } = require("graphql-ws/lib/use/ws");
+const { makeExecutableSchema } = require("@graphql-tools/schema");
 const { typeDefs, resolvers } = require("./schema");
 const { PrismaClient } = require("@prisma/client");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const {
+  ApolloServerPluginDrainHttpServer,
+} = require("@apollo/server/plugin/drainHttpServer");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const prisma = new PrismaClient();
 const app = express();
+const httpServer = createServer(app);
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+// ws Server
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: "/graphql",
+});
+
+const serverCleanUp = useServer({ schema }, wsServer); // Gives access to a dispose function
 
 // enable cors
 const corsOptions = {
@@ -39,6 +53,18 @@ async function startServer() {
       }
       return { jwtDecoded, res, prisma, accessToken };
     },
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      {
+        async serverWillStart() {
+          return {
+            async drainServer() {
+              await serverCleanUp.dispose();
+            },
+          };
+        },
+      },
+    ],
   });
 
   await server.start();
@@ -51,7 +77,7 @@ async function startServer() {
   });
 
   const PORT = process.env.PORT || 4000;
-  app.listen(PORT, () => {
+  httpServer.listen(PORT, () => {
     console.log(
       `Server ready at http://localhost:${PORT}${server.graphqlPath}`
     );
