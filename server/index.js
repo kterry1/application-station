@@ -1,9 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const { ApolloServer } = require("apollo-server-express");
+const { PubSub } = require("graphql-subscriptions");
+const { WebSocketServer } = require("ws");
+const { useServer } = require("graphql-ws/lib/use/ws");
 const { typeDefs, resolvers } = require("./schema");
 const { PrismaClient } = require("@prisma/client");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -11,11 +15,12 @@ const prisma = new PrismaClient();
 const app = express();
 
 // enable cors
-var corsOptions = {
+const corsOptions = {
   origin: ["http://localhost:3000", "https://studio.apollographql.com"],
   credentials: true,
 };
 app.use(cors(corsOptions));
+app.use(bodyParser.json());
 app.use(cookieParser());
 async function startServer() {
   const server = new ApolloServer({

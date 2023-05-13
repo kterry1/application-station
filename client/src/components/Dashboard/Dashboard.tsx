@@ -64,7 +64,8 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
   });
   const toast = useToast();
   const itemsPerPage = 10;
-  const totalPages = Math.ceil(data?.companyApplications.length / itemsPerPage);
+  const totalPages =
+    Math.ceil(data?.companyApplications.length / itemsPerPage) || 1;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentPageApplications = data?.companyApplications.slice(
