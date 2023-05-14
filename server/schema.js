@@ -414,9 +414,7 @@ const resolvers = {
           let importProgress = Math.round(
             (numOfImportedApplications / totalEmails) * 100
           );
-          console.log("Num", numOfImportedApplications);
-          console.log("Total", totalEmails);
-          console.log("Current", importProgress);
+
           pubsub.publish("APPLICATION_IMPORTED", {
             importProgress: importProgress,
           });

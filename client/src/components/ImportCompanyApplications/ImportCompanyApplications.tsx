@@ -33,7 +33,7 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
       const start = Date.now();
       const result = await importCompanyApplications();
       const end = Date.now();
-      console.log("Elapsed Time", end - start);
+
       const statusCode = await result.data.importCompanyApplications.status;
       const message = await result.data.importCompanyApplications.message;
       const unableToClassifyCount = await result.data.importCompanyApplications

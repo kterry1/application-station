@@ -1,7 +1,13 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { HStack, Button, Box } from "@chakra-ui/react";
+import { useEffect } from "react";
 
-const Pagination = ({ totalPages, currentPage, onPageChange }: any) => {
+const Pagination = ({
+  totalPages,
+  currentPage,
+  onPageChange,
+  dashboardData,
+}: any) => {
   const handlePrevious = () => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);

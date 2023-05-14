@@ -9,7 +9,7 @@ async function getGmailEmails(accessToken) {
   try {
     const baseUrl = "https://www.googleapis.com/gmail/v1/users/me/messages";
     // const queryParams = "?q=after:2023/05/13&maxResults=20&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
-    const queryParams = "?maxResults=10&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
+    const queryParams = "?maxResults=20&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",
@@ -45,26 +45,31 @@ async function getGmailEmails(accessToken) {
           const filteredExtractedCompanyAndPosition = (
             extractedCompanyAndPosition
           ) => {
-            const { companyName, position } = extractedCompanyAndPosition;
-            if (companyName !== "" && position !== "") {
-              return extractedCompanyAndPosition;
+            if (
+              extractedCompanyAndPosition &&
+              extractedCompanyAndPosition?.companyName !== "" &&
+              Object.keys(extractedCompanyAndPosition)?.length > 0
+            ) {
+              const internalDate = new Date(
+                parseInt(messageResponse.data.internalDate, 10)
+              );
+              const appliedAt = internalDate.toISOString();
+
+              return {
+                appliedAt: appliedAt,
+                externalId: messageResponse.data.id,
+                ...extractedCompanyAndPosition,
+              };
             }
           };
-
-          const internalDate = new Date(
-            parseInt(messageResponse.data.internalDate, 10)
-          );
-          const appliedAt = internalDate.toISOString();
-          const email = {
-            appliedAt: appliedAt,
-            externalId: messageResponse.data.id,
-            // ...(extractedCompanyAndPosition || {
-            //   companyName: "",
-            //   position: "",
-            // }),
-            ...filteredExtractedCompanyAndPosition(extractCompanyAndPositions),
-          };
-          emails.push(email);
+          if (
+            filteredExtractedCompanyAndPosition(extractedCompanyAndPosition) !==
+            undefined
+          ) {
+            emails.push(
+              filteredExtractedCompanyAndPosition(extractedCompanyAndPosition)
+            );
+          }
         }
       }
     }
