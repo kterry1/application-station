@@ -9,7 +9,7 @@ async function getGmailEmails(accessToken) {
   try {
     const baseUrl = "https://www.googleapis.com/gmail/v1/users/me/messages";
     // const queryParams = "?q=after:2023/05/13&maxResults=20&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
-    const queryParams = "?maxResults=15&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
+    const queryParams = "?maxResults=10&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",
@@ -42,6 +42,15 @@ async function getGmailEmails(accessToken) {
           const extractedCompanyAndPosition = await extractCompanyAndPositions(
             truncatedMessage
           );
+          const filteredExtractedCompanyAndPosition = (
+            extractedCompanyAndPosition
+          ) => {
+            const { companyName, position } = extractedCompanyAndPosition;
+            if (companyName !== "" && position !== "") {
+              return extractedCompanyAndPosition;
+            }
+          };
+
           const internalDate = new Date(
             parseInt(messageResponse.data.internalDate, 10)
           );
@@ -49,10 +58,11 @@ async function getGmailEmails(accessToken) {
           const email = {
             appliedAt: appliedAt,
             externalId: messageResponse.data.id,
-            ...(extractedCompanyAndPosition || {
-              companyName: "",
-              position: "",
-            }),
+            // ...(extractedCompanyAndPosition || {
+            //   companyName: "",
+            //   position: "",
+            // }),
+            ...filteredExtractedCompanyAndPosition(extractCompanyAndPositions),
           };
           emails.push(email);
         }
@@ -62,7 +72,7 @@ async function getGmailEmails(accessToken) {
     return emails;
   } catch (error) {
     console.error("Error fetching emails:", error);
-    throw error;
+    throw new Error("Error fetching emails");
   }
 }
 

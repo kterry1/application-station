@@ -9,7 +9,6 @@ const {
   testIsNotJobApplicationEmail,
 } = require("./data-to-test");
 const {
-  getHighestPercentageKeyForEmailDecision,
   isJobApplicationEmailCheck,
   stringToBoolean,
 } = require("./stableClassifiers");

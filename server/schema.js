@@ -38,7 +38,7 @@ const typeDefs = gql`
   }
 
   type Subscription {
-    importProgress: Float!
+    importProgress: Int!
   }
 
   type User {
@@ -46,6 +46,7 @@ const typeDefs = gql`
     name: String!
     email: String!
     lastLoggedIn: DateTime
+    lastImportDate: DateTime
     role: UserRole
     companyApplications: [CompanyApplication]
   }
@@ -384,10 +385,11 @@ const resolvers = {
       //     },
       //   }
       // );
+      let numOfImportedApplications = 0;
       let unableToClassifyCount = 0;
-      let importProgress = 0;
+      const totalEmails = emails?.length;
       await Promise.all(
-        emails.map(async (companyApplication, index) => {
+        emails?.map(async (companyApplication, index) => {
           await new Promise((resolve) => setTimeout(resolve, index * 400));
           const checkForDulicates = await prisma.companyApplication.findUnique({
             where: {
@@ -404,16 +406,20 @@ const resolvers = {
                 },
               },
             });
-            if (importedApplication) {
-              importProgress++;
-              pubsub.publish("APPLICATION_IMPORTED", {
-                importProgress: importProgress,
-              });
-            }
             if (importedApplication.unableToClassify === true) {
               unableToClassifyCount++;
             }
           }
+          numOfImportedApplications++;
+          let importProgress = Math.round(
+            (numOfImportedApplications / totalEmails) * 100
+          );
+          console.log("Num", numOfImportedApplications);
+          console.log("Total", totalEmails);
+          console.log("Current", importProgress);
+          pubsub.publish("APPLICATION_IMPORTED", {
+            importProgress: importProgress,
+          });
         })
       );
       return {
