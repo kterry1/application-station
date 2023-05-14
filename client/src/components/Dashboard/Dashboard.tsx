@@ -227,7 +227,8 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
             </Table>
           </TableContainer>
           <Pagination
-            dashboardData={data}
+            setCurrentPage={setCurrentPage}
+            currentPageApplications={currentPageApplications}
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={handlePageChange}

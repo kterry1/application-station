@@ -6,7 +6,8 @@ const Pagination = ({
   totalPages,
   currentPage,
   onPageChange,
-  dashboardData,
+  currentPageApplications,
+  setCurrentPage,
 }: any) => {
   const handlePrevious = () => {
     if (currentPage > 1) {
@@ -19,6 +20,12 @@ const Pagination = ({
       onPageChange(currentPage + 1);
     }
   };
+
+  useEffect(() => {
+    if (currentPageApplications?.length === 0) {
+      setCurrentPage((currPage) => currPage - 1);
+    }
+  }, [currentPageApplications]);
 
   return (
     <HStack spacing={4} justifyContent="center" alignItems="center">
