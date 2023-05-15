@@ -23,7 +23,7 @@ const schema = makeExecutableSchema({ typeDefs, resolvers });
 // ws Server
 const wsServer = new WebSocketServer({
   server: httpServer,
-  path: "/graphql",
+  path: "/subscriptions",
 });
 
 const serverCleanUp = useServer({ schema }, wsServer); // Gives access to a dispose function

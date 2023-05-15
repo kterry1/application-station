@@ -19,8 +19,9 @@ import Pagination from "../Pagination/Pagination";
 import {
   DELETE_COMPANY_APPLICATIONS,
   GET_COMPANY_APPLICATIONS,
+  IMPORT_PROGRESS,
 } from "../../apollo/queries-and-mutations";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import ImportCompanyApplications from "../ImportCompanyApplications/ImportCompanyApplications";
 import Stats from "../Stats/Stats";
 import FormikDrawer from "../FormikDrawer/FormikDrawer";
@@ -62,6 +63,8 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
       },
     },
   });
+  const { data: dataImportProgress, loading: loadingImportProgress } =
+    useSubscription(IMPORT_PROGRESS);
   const toast = useToast();
   const itemsPerPage = 10;
   const totalPages =
@@ -142,7 +145,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                 Delete
               </Button>
             </Stack>
-
+            <div>{dataImportProgress?.importProgress}%</div>
             <ImportCompanyApplications refetch={refetch} />
           </Flex>
           <TableContainer
@@ -179,7 +182,6 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               </Thead>
               <Tbody>
                 {!!loggedInUserData?.loggedInUser &&
-                  // data?.companyApplications.map((companyApplication: any) => {
                   currentPageApplications?.map((companyApplication: any) => {
                     const {
                       id,

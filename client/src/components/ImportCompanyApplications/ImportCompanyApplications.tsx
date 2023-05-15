@@ -22,6 +22,7 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
   const [importCompanyApplications, { loading, error }] = useMutation(
     IMPORT_COMPANY_APPLICATIONS
   );
+  console.log("import loading", loading);
   const [unableToClassifyCount, setUnableToClassifyCount] = useState(0);
   const {
     isOpen: isVisible,

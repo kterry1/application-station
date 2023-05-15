@@ -126,3 +126,9 @@ export const GET_WEEKLY_STATS = gql`
     }
   }
 `;
+
+export const IMPORT_PROGRESS = gql`
+  subscription ImportProgress {
+    importProgress
+  }
+`;

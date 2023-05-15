@@ -22,7 +22,7 @@ const Pagination = ({
   };
 
   useEffect(() => {
-    if (currentPageApplications?.length === 0) {
+    if (currentPageApplications?.length === 0 && currentPage > 1) {
       setCurrentPage((currPage) => currPage - 1);
     }
   }, [currentPageApplications]);
