@@ -4,7 +4,7 @@ const Bottleneck = require("bottleneck");
 
 const limiter = new Bottleneck({
   maxConcurrent: 1,
-  minTime: 2000,
+  minTime: 1200,
 });
 
 const configuration = new Configuration({

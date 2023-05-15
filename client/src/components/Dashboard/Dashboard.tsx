@@ -145,8 +145,10 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                 Delete
               </Button>
             </Stack>
-            <div>{dataImportProgress?.importProgress}%</div>
-            <ImportCompanyApplications refetch={refetch} />
+            <ImportCompanyApplications
+              importProgress={dataImportProgress?.importProgress}
+              refetch={refetch}
+            />
           </Flex>
           <TableContainer
             borderRadius="5px"

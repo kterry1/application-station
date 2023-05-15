@@ -17,7 +17,13 @@ import { useState } from "react";
 
 type Props = {};
 
-const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
+const ImportCompanyApplications = ({
+  refetch,
+  importProgress,
+}: {
+  refetch: () => void;
+  importProgress: number;
+}) => {
   const toast = useToast();
   const [importCompanyApplications, { loading, error }] = useMutation(
     IMPORT_COMPANY_APPLICATIONS
@@ -31,9 +37,7 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
   } = useDisclosure({ defaultIsOpen: false });
   const handleImport = async () => {
     try {
-      const start = Date.now();
       const result = await importCompanyApplications();
-      const end = Date.now();
 
       const statusCode = await result.data.importCompanyApplications.status;
       const message = await result.data.importCompanyApplications.message;
@@ -52,11 +56,22 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
     }
   };
 
+  const importProgressDisplay = () => {
+    if (loading && !importProgress) {
+      return `Gathering Emails`;
+    } else if (loading && importProgress) {
+      return `${importProgress}%`;
+    } else {
+      return;
+    }
+  };
+
   return (
     <>
       <Button
         px="20px"
         isLoading={loading}
+        loadingText={importProgressDisplay()}
         size="sm"
         rightIcon={<FaFileImport />}
         colorScheme="green"
