@@ -66,7 +66,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
   const { data: dataImportProgress, loading: loadingImportProgress } =
     useSubscription(IMPORT_PROGRESS);
   const toast = useToast();
-  const itemsPerPage = 10;
+  const itemsPerPage = 20;
   const totalPages =
     Math.ceil(data?.companyApplications.length / itemsPerPage) || 1;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -164,7 +164,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
             bgColor="#fff"
             overflowY="unset"
           >
-            <Table size="md" width="100%">
+            <Table size="sm" width="100%">
               <Thead
                 boxShadow="0 4px 12px 0 rgba(0,0,0, 0.10)"
                 width="100%"

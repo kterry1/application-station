@@ -3,7 +3,7 @@ const { DateTime, DateTimeResolver } = require("graphql-scalars");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const { PubSub } = require("graphql-subscriptions");
-const { getGmailEmails } = require("./get-google-data/getGmailEmails");
+const { getEmails } = require("./get-google-data/getEmails");
 const { filterItemsThisWeek, filterItemsLastWeek } = require("./utils");
 require("dotenv").config();
 
@@ -213,7 +213,7 @@ const resolvers = {
       pubsub.publish("APPLICATION_IMPORTED", {
         importProgress: 0,
       });
-      const emails = await getGmailEmails(accessToken);
+      const emails = await getEmails(accessToken);
 
       // 'createMany' is not supported with SQLite
       // const newCompanyApplications = await prisma.companyApplication.createMany(

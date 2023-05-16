@@ -39,4 +39,19 @@ const filterItemsLastWeek = (items) => {
   });
 };
 
-module.exports = { filterItemsThisWeek, filterItemsLastWeek };
+const replaceNullWithFalseInObj = (obj) => {
+  for (let key in obj) {
+    if (obj[key] === null) {
+      obj[key] = false;
+    } else if (typeof obj[key] === "object") {
+      replaceNullWithFalse(obj[key]);
+    }
+  }
+  return obj;
+};
+
+module.exports = {
+  filterItemsThisWeek,
+  filterItemsLastWeek,
+  replaceNullWithFalseInObj,
+};

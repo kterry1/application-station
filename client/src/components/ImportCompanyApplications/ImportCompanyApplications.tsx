@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { FaFileImport } from "react-icons/fa";
 import { toastNotification } from "../../utils/toastNotication/toastNotification";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Props = {};
 
@@ -27,21 +27,22 @@ const ImportCompanyApplications = ({
   isUserLoggedIn: boolean;
 }) => {
   const toast = useToast();
-  const [importCompanyApplications, { loading, error }] = useMutation(
-    IMPORT_COMPANY_APPLICATIONS
-  );
+  const [importCompanyApplications, { loading, error: importError, data }] =
+    useMutation(IMPORT_COMPANY_APPLICATIONS);
   const [unableToClassifyCount, setUnableToClassifyCount] = useState(0);
   const {
     isOpen: isVisible,
     onClose,
     onOpen,
   } = useDisclosure({ defaultIsOpen: false });
-
   const handleImport = async () => {
     if (isUserLoggedIn) {
       try {
+        const start = new Date();
         const result = await importCompanyApplications();
-
+        const end = new Date();
+        const totalTimeInSeconds = (end - start) / 1000;
+        console.log("Import Time In Seconds", totalTimeInSeconds);
         const statusCode = result.data.importCompanyApplications.status;
         const message = result.data.importCompanyApplications.message;
         const unableToClassifyCount =
@@ -55,7 +56,8 @@ const ImportCompanyApplications = ({
           }
         }
       } catch (error) {
-        console.error(error);
+        console.error("Error during import mutation", importError);
+        console.error("Error importing", error);
       }
     } else {
       toastNotification({
@@ -110,7 +112,7 @@ const ImportCompanyApplications = ({
                 application(s).
               </AlertTitle>
               <AlertDescription>
-                Click on a row to view edit or upgrade.
+                Click on a row to view, edit, or upgrade.
               </AlertDescription>
             </Flex>
             <CloseButton onClick={onClose} />
