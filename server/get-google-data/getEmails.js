@@ -8,8 +8,8 @@ const { replaceNullWithFalseInObj } = require("../utils");
 const Bottleneck = require("bottleneck");
 
 const limiter = new Bottleneck({
-  maxConcurrent: 40,
-  minTime: 400,
+  maxConcurrent: 45,
+  minTime: 200,
 });
 
 async function getEmails(accessToken) {

@@ -112,7 +112,7 @@ const ImportCompanyApplications = ({
                 application(s).
               </AlertTitle>
               <AlertDescription>
-                Click on a row to view, edit, or upgrade.
+                Click on a row to view or edit.
               </AlertDescription>
             </Flex>
             <CloseButton onClick={onClose} />
