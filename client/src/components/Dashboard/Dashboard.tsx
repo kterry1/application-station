@@ -88,8 +88,8 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
     try {
       const result = await deleteCompanyApplications();
 
-      const statusCode = await result.data.deleteCompanyApplications.status;
-      const message = await result.data.deleteCompanyApplications.message;
+      const statusCode = result.data.deleteCompanyApplications.status;
+      const message = result.data.deleteCompanyApplications.message;
       if (statusCode === 200) {
         refetch();
         setSelectedRows([]);
@@ -130,6 +130,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                     status: true,
                   });
                 }}
+                isDisabled={!loggedInUserData?.loggedInUser}
               >
                 Add
               </Button>
@@ -146,6 +147,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               </Button>
             </Stack>
             <ImportCompanyApplications
+              isUserLoggedIn={!!loggedInUserData?.loggedInUser}
               importProgress={dataImportProgress?.importProgress}
               refetch={refetch}
             />

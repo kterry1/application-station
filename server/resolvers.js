@@ -4,172 +4,10 @@ const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const { PubSub } = require("graphql-subscriptions");
 const { getGmailEmails } = require("./get-google-data/getGmailEmails");
+const { filterItemsThisWeek, filterItemsLastWeek } = require("./utils");
 require("dotenv").config();
 
 const pubsub = new PubSub();
-
-const typeDefs = gql`
-  scalar DateTime
-
-  enum UserRole {
-    ADMIN
-    USER
-  }
-
-  type Query {
-    companyApplications: [CompanyApplication]!
-    loggedInUser: User
-    getWeeklyStats: WeeklyStats!
-  }
-
-  type Mutation {
-    authenticateWithGoogle(input: GoogleAuthInput!): GoogleAuthResponse!
-    addSingleCompanyApplication(
-      input: CompanyApplicationInput!
-    ): CompanyApplication!
-    updateSingleCompanyApplication(
-      input: CompanyApplicationInput!
-    ): CompanyApplication!
-    deleteCompanyApplications(
-      input: DeleteCompanyApplicationsInput!
-    ): DeleteCompanyApplicationsResponse!
-    importCompanyApplications: ImportCompanyApplicationsResponse!
-    logOutUser: LogOutUserResponse!
-  }
-
-  type Subscription {
-    importProgress: Int!
-  }
-
-  type User {
-    id: ID!
-    name: String!
-    email: String!
-    lastLoggedIn: DateTime
-    lastImportDate: DateTime
-    role: UserRole
-    companyApplications: [CompanyApplication]
-  }
-
-  input GoogleAuthInput {
-    accessToken: String!
-  }
-
-  type GoogleAuthResponse {
-    status: Int!
-    message: String!
-  }
-
-  type DeleteCompanyApplicationsResponse {
-    status: Int!
-    message: String!
-  }
-
-  type ImportCompanyApplicationsResponse {
-    status: Int!
-    message: String!
-    unableToClassifyCount: Int!
-  }
-
-  type LogOutUserResponse {
-    status: Int!
-    message: String!
-  }
-
-  type CompanyApplication {
-    id: ID!
-    externalId: ID
-    companyName: String!
-    position: String!
-    awaitingResponse: Boolean
-    rejected: Boolean
-    nextRound: Boolean
-    receivedOffer: Boolean
-    notes: String
-    appliedAt: DateTime!
-    createdAt: DateTime!
-    updatedAt: DateTime!
-    unableToClassify: Boolean
-    user: User!
-  }
-
-  type WeeklyStats {
-    thisWeek: Stats!
-    lastWeek: Stats!
-  }
-
-  type Stats {
-    applicationCount: Int!
-    responseCount: Int!
-    nextRoundCount: Int!
-    rejectionCount: Int!
-  }
-
-  input GetUserInput {
-    name: String!
-    email: String!
-    role: UserRole
-    companyApplications: [CompanyApplicationInput]
-  }
-
-  input DeleteCompanyApplicationsInput {
-    ids: [String!]!
-  }
-
-  input CompanyApplicationInput {
-    id: ID
-    companyName: String!
-    position: String!
-    awaitingResponse: Boolean
-    rejected: Boolean
-    nextRound: Boolean
-    receivedOffer: Boolean
-    notes: String
-    appliedAt: DateTime!
-    unableToClassify: Boolean
-  }
-`;
-
-function getWeekNumber(date) {
-  const d = new Date(
-    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
-  );
-  const dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-}
-
-function filterItemsThisWeek(items) {
-  const currentDate = new Date();
-  const currentWeekNumber = getWeekNumber(currentDate);
-  const currentYear = currentDate.getFullYear();
-
-  return items.filter((item) => {
-    const itemDate = new Date(item.appliedAt);
-    return (
-      getWeekNumber(itemDate) === currentWeekNumber &&
-      itemDate.getFullYear() === currentYear
-    );
-  });
-}
-
-function filterItemsLastWeek(items) {
-  const currentDate = new Date();
-  const currentWeekNumber = getWeekNumber(currentDate);
-  const previousWeekNumber =
-    currentWeekNumber === 1 ? 52 : currentWeekNumber - 1;
-  const currentYear = currentDate.getFullYear();
-  const previousYear = currentWeekNumber === 1 ? currentYear - 1 : currentYear;
-
-  return items.filter((item) => {
-    const itemDate = new Date(item.date);
-    const itemWeekNumber = getWeekNumber(itemDate);
-    const itemYear = itemDate.getFullYear();
-
-    return itemWeekNumber === previousWeekNumber && itemYear === previousYear;
-  });
-}
 
 const resolvers = {
   DateTime: DateTimeResolver,
@@ -372,6 +210,9 @@ const resolvers = {
       __,
       { prisma, jwtDecoded, accessToken }
     ) => {
+      pubsub.publish("APPLICATION_IMPORTED", {
+        importProgress: 0,
+      });
       const emails = await getGmailEmails(accessToken);
 
       // 'createMany' is not supported with SQLite
@@ -388,6 +229,7 @@ const resolvers = {
       let numOfImportedApplications = 0;
       let unableToClassifyCount = 0;
       const totalEmails = emails?.length;
+
       await Promise.all(
         emails?.map(async (companyApplication, index) => {
           await new Promise((resolve) => setTimeout(resolve, index * 400));
@@ -486,4 +328,4 @@ const resolvers = {
   },
 };
 
-module.exports = { typeDefs, resolvers };
+module.exports = { resolvers };

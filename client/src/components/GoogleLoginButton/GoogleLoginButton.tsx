@@ -29,8 +29,8 @@ const GoogleLoginButton = ({
     try {
       const result = await logOutUser();
 
-      const statusCode = await result.data.logOutUser.status;
-      const message = await result.data.logOutUser.message;
+      const statusCode = result.data.logOutUser.status;
+      const message = result.data.logOutUser.message;
       if (statusCode === 200) {
         try {
           await client.clearStore();
@@ -54,8 +54,8 @@ const GoogleLoginButton = ({
           },
         },
       });
-      const statusCode = await result.data.authenticateWithGoogle.status;
-      const message = await result.data.authenticateWithGoogle.message;
+      const statusCode = result.data.authenticateWithGoogle.status;
+      const message = result.data.authenticateWithGoogle.message;
       if (statusCode === 200) {
         try {
           await loggedInUserRefetch();

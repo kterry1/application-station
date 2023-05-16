@@ -5,7 +5,8 @@ const { ApolloServer } = require("apollo-server-express");
 const { WebSocketServer } = require("ws");
 const { useServer } = require("graphql-ws/lib/use/ws");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
-const { typeDefs, resolvers } = require("./schema");
+const { resolvers } = require("./resolvers");
+const { readFileSync } = require("fs");
 const { PrismaClient } = require("@prisma/client");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -14,7 +15,7 @@ const {
 } = require("@apollo/server/plugin/drainHttpServer");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-
+const typeDefs = readFileSync("./schema.graphql", { encoding: "utf-8" });
 const prisma = new PrismaClient();
 const app = express();
 const httpServer = createServer(app);

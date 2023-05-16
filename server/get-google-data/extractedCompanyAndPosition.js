@@ -4,7 +4,7 @@ const Bottleneck = require("bottleneck");
 
 const limiter = new Bottleneck({
   maxConcurrent: 1,
-  minTime: 1200,
+  minTime: 800,
 });
 
 const configuration = new Configuration({
@@ -57,7 +57,7 @@ const extractCompanyAndPositions = async (text) => {
     );
     return extractedData;
   } catch (error) {
-    console.error(error);
+    console.error(error.response.status);
   }
 };
 
