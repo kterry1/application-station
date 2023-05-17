@@ -38,10 +38,11 @@ const ImportCompanyApplications = ({
   const handleImport = async () => {
     if (isUserLoggedIn) {
       try {
-        const start = new Date();
+        const start: Date = new Date();
         const result = await importCompanyApplications();
-        const end = new Date();
-        const totalTimeInSeconds = (end - start) / 1000;
+        const end: Date = new Date();
+        const totalTimeInSeconds: number =
+          (end.getTime() - start.getTime()) / 1000;
         console.log("Import Time In Seconds", totalTimeInSeconds);
         const statusCode = result.data.importCompanyApplications.status;
         const message = result.data.importCompanyApplications.message;

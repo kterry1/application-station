@@ -35,44 +35,73 @@ const resolvers = {
           userId: jwtDecoded.id,
         },
       });
+
+      const classifications = {
+        awaitingResponse: "awaitingResponse",
+        nextRound: "nextRound",
+        rejected: "rejected",
+      };
+
+      const filteredTotals = (companyApplications) => {
+        const classificationTotals = Object.keys(classifications).reduce(
+          (acc, classification) => {
+            const filteredTotal = companyApplications.filter(
+              (companyApplication) =>
+                companyApplication[classification] === true
+            );
+            return { ...acc, [`${classification}Count`]: filteredTotal.length };
+          },
+          {}
+        );
+
+        const applicationCountTotal = companyApplications.length;
+        return {
+          applicationCount: applicationCountTotal,
+          ...classificationTotals,
+        };
+      };
+
       const filteredThisWeekCompanyApplications =
         filterItemsThisWeek(companyApplications);
       const filteredLastWeekCompanyApplications =
         filterItemsLastWeek(companyApplications);
       const applicationCountTW = filteredThisWeekCompanyApplications.length;
-      const responseCountTW = filteredThisWeekCompanyApplications.filter(
-        (companyApplication) => companyApplication.awaitingReponse === false
-      ).length;
+      const awaitingResponseCountTW =
+        filteredThisWeekCompanyApplications.filter(
+          (companyApplication) => companyApplication.awaitingReponse === false
+        ).length;
       const nextRoundCountTW = filteredThisWeekCompanyApplications.filter(
         (companyApplication) => companyApplication.nextRound === true
       ).length;
-      const rejectionCountTW = filteredThisWeekCompanyApplications.filter(
+      const rejectedCountTW = filteredThisWeekCompanyApplications.filter(
         (companyApplication) => companyApplication.rejected === true
       ).length;
       const applicationCountLW = filteredLastWeekCompanyApplications.length;
-      const responseCountLW = filteredLastWeekCompanyApplications.filter(
-        (companyApplication) => companyApplication.awaitingReponse === false
-      ).length;
+      const awaitingResponseCountLW =
+        filteredLastWeekCompanyApplications.filter(
+          (companyApplication) => companyApplication.awaitingReponse === false
+        ).length;
       const nextRoundCountLW = filteredLastWeekCompanyApplications.filter(
         (companyApplication) => companyApplication.nextRound === true
       ).length;
-      const rejectionCountLW = filteredLastWeekCompanyApplications.filter(
+      const rejectedCountLW = filteredLastWeekCompanyApplications.filter(
         (companyApplication) => companyApplication.rejected === true
       ).length;
 
       return {
         thisWeek: {
           applicationCount: applicationCountTW,
-          responseCount: responseCountTW,
+          awaitingResponseCount: awaitingResponseCountTW,
           nextRoundCount: nextRoundCountTW,
-          rejectionCount: rejectionCountTW,
+          rejectedCount: rejectedCountTW,
         },
         lastWeek: {
           applicationCount: applicationCountLW,
-          responseCount: responseCountLW,
+          awaitingResponseCount: awaitingResponseCountLW,
           nextRoundCount: nextRoundCountLW,
-          rejectionCount: rejectionCountLW,
+          rejectedCount: rejectedCountLW,
         },
+        totals: filteredTotals(companyApplications),
       };
     },
   },

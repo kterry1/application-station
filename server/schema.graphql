@@ -85,13 +85,14 @@ type CompanyApplication {
 type WeeklyStats {
   thisWeek: Stats!
   lastWeek: Stats!
+  totals: Stats!
 }
 
 type Stats {
   applicationCount: Int!
-  responseCount: Int!
+  awaitingResponseCount: Int!
   nextRoundCount: Int!
-  rejectionCount: Int!
+  rejectedCount: Int!
 }
 
 input GetUserInput {
