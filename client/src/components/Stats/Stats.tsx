@@ -7,11 +7,31 @@ import {
   Divider,
   StatHelpText,
   StatArrow,
+  Avatar,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Heading,
+  IconButton,
+  Image,
+  Text,
+  Tabs,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
 } from "@chakra-ui/react";
 import logo from "../../assets/svgs/three.svg";
 import { useQuery } from "@apollo/client";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { IoNewspaperOutline, IoReturnUpForwardOutline } from "react-icons/io5";
+import { IoMdClock } from "react-icons/io";
+import { MdCancelPresentation } from "react-icons/md";
 import { GET_WEEKLY_STATS } from "../../apollo/queries-and-mutations";
 import { useEffect } from "react";
+import StatCard from "./StatCard";
 
 const Stats = ({ loggedInUserData }) => {
   const { loading, error, data, refetch } = useQuery(GET_WEEKLY_STATS);
@@ -38,92 +58,47 @@ const Stats = ({ loggedInUserData }) => {
   const compareWeeksrejectedCount: number = compareWeeks("rejectedCount");
 
   return (
-    <>
-      <Flex
-        bg="#fff"
-        width="60%"
-        minW="540px"
-        justifyContent="space-around"
-        alignItems="center"
-        boxShadow="base"
-        borderRadius="5px"
-        px="30px"
-        py="10px"
-      >
-        <Box width="100px" height="100px">
-          <img src={logo} />
-        </Box>
-        <Divider orientation="vertical" />
-        <Flex justifyContent="center">
-          <Stat>
-            <StatLabel textColor="gray">Applications</StatLabel>
-            <StatNumber fontSize="30px">
-              {(!!loggedInUserData?.loggedInUser &&
-                data?.getWeeklyStats?.thisWeek.applicationCount) ||
-                0}
-            </StatNumber>
-            <StatHelpText>
-              <StatArrow
-                type={
-                  companyWeeksApplicationCount > 0 ? "increase" : "decrease"
-                }
-              />
-              {Math.abs(companyWeeksApplicationCount)}
-            </StatHelpText>
-          </Stat>
-        </Flex>
-        <Flex justifyContent="center">
-          <Stat>
-            <StatLabel textColor="gray">Responses</StatLabel>
-            <StatNumber fontSize="30px">
-              {(!!loggedInUserData?.loggedInUser &&
-                data?.getWeeklyStats?.thisWeek.awaitingResponseCount) ||
-                0}
-            </StatNumber>
-            <StatHelpText>
-              <StatArrow
-                type={
-                  compareWeeksawaitingResponseCount > 0
-                    ? "increase"
-                    : "decrease"
-                }
-              />
-              {Math.abs(compareWeeksawaitingResponseCount)}
-            </StatHelpText>
-          </Stat>
-        </Flex>
-        <Flex justifyContent="center">
-          <Stat>
-            <StatLabel textColor="gray">Next Round</StatLabel>
-            <StatNumber fontSize="30px">
-              {data?.getWeeklyStats?.thisWeek.nextRoundCount || 0}
-            </StatNumber>
-            <StatHelpText>
-              <StatArrow
-                type={compareWeeksNextRoundCount > 0 ? "increase" : "decrease"}
-              />
-              {Math.abs(compareWeeksNextRoundCount)}
-            </StatHelpText>
-          </Stat>
-        </Flex>
-        <Flex justifyContent="center">
-          <Stat>
-            <StatLabel textColor="gray">Rejections</StatLabel>
-            <StatNumber fontSize="30px">
-              {(!!loggedInUserData?.loggedInUser &&
-                data?.getWeeklyStats?.thisWeek.rejectedCount) ||
-                0}
-            </StatNumber>
-            <StatHelpText>
-              <StatArrow
-                type={compareWeeksrejectedCount > 0 ? "increase" : "decrease"}
-              />
-              {Math.abs(compareWeeksrejectedCount)}
-            </StatHelpText>
-          </Stat>
-        </Flex>
-      </Flex>
-    </>
+    <Flex
+      width="100%"
+      justifyContent="space-around"
+      bgColor="#9138004d"
+      p="30px"
+      borderRadius="30px"
+      mx="20px"
+      gap="30px"
+      color="#fff"
+    >
+      <Box>
+        <Heading size="md">Stats</Heading>
+        <Text pt="2" fontSize="sm">
+          View recent weeks and totals.
+        </Text>
+      </Box>
+      <StatCard
+        icon={<IoNewspaperOutline />}
+        title="Applications"
+        stats={data}
+        backgroundColor="#fba36c"
+      />
+      <StatCard
+        icon={<IoMdClock />}
+        title="Awaiting Reply"
+        stats={data}
+        backgroundColor="#000000a3"
+      />
+      <StatCard
+        icon={<IoReturnUpForwardOutline />}
+        title="Next Round"
+        stats={data}
+        backgroundColor="#2b6cb0"
+      />
+      <StatCard
+        icon={<MdCancelPresentation />}
+        title="Rejected"
+        stats={data}
+        backgroundColor="#f85e5e"
+      />
+    </Flex>
   );
 };
 

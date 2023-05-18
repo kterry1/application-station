@@ -108,16 +108,23 @@ const GoogleLoginButton = ({
           </Flex>
           <Button
             mt={4}
+            className={navSize === "small" && "logout-button"}
             size={navSize === "small" ? "xs" : "sm"}
             onClick={handleLogout}
             rightIcon={<AiOutlineLogout />}
           >
-            Logout
+            {navSize !== "small" && "Logout"}
           </Button>
         </>
       ) : (
-        <Button mt={4} size="sm" onClick={login} rightIcon={<FcGoogle />}>
-          Log in with
+        <Button
+          mt={4}
+          className={navSize === "small" && "logout-button"}
+          size="sm"
+          onClick={login}
+          rightIcon={<FcGoogle />}
+        >
+          {navSize !== "small" && "Log in with"}
         </Button>
       )}
     </>

@@ -25,12 +25,11 @@ const Sidebar = ({
       pos="sticky"
       left="0"
       h="100vh"
-      boxShadow="0 4px 12px 0 rgba(0,0,0, 0.10)"
       w={navSize === "small" ? "75px" : "200px"}
       minW={navSize === "small" ? "70px" : "178px"}
       flexDir="column"
       justifyContent="space-between"
-      bg="#536061"
+      bg="#fff"
       color="#232828"
     >
       <Flex
@@ -50,7 +49,7 @@ const Sidebar = ({
             mr={navSize === "large" ? "10px" : "0px"}
             w="44px"
             h="44px"
-            _hover={{ background: "#f9efcc" }}
+            _hover={{ background: "#91380036" }}
             aria-label=" hamburger icon button"
             icon={<HamburgerIcon />}
             onClick={handleNavIconClick}

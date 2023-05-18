@@ -1,7 +1,9 @@
 import {
+  Box,
   Button,
   Center,
   Flex,
+  Heading,
   Stack,
   Table,
   TableContainer,
@@ -9,8 +11,10 @@ import {
   Td,
   Th,
   Thead,
+  Text,
   Tr,
   useToast,
+  Divider,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import SingleCheckbox from "../SingleCheckbox/SingleCheckbox";
@@ -100,8 +104,22 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
     }
   };
   return (
-    <Flex py="20px" bg="#f6f6f6a3" flexDir="column" width="100%" height="100vh">
+    <Flex
+      py="20px"
+      borderRadius="50px 0 0 50px"
+      bg="#91380036"
+      flexDir="column"
+      width="100%"
+      height="100vh"
+    >
       <Flex justifyContent="center" w="100%">
+        <Box p="40px 80px" width="80%">
+          <Heading size="lg">Dashboard</Heading>
+          <Text pt="3" fontSize="md">
+            Manage your applications with ease by importing them into the
+            classifier.
+          </Text>
+        </Box>
         <Stats loggedInUserData={loggedInUserData} />
       </Flex>
       <Center width="100%" height="100%">
@@ -111,7 +129,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
           alignItems="center"
           height="100%"
         >
-          <Flex width="100%" justifyContent="space-between">
+          <Flex width="100%" mt="2rem" justifyContent="space-between">
             <Stack
               width="100%"
               direction="row"
@@ -153,26 +171,29 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
             />
           </Flex>
           <TableContainer
-            borderRadius="5px"
-            boxShadow="base"
+            borderRadius="30px"
             mt=".5rem"
             mb="1rem"
-            h="55vh"
-            minH="320px"
+            h="45vh"
+            minH="250px"
             maxH="625px"
-            maxW="81vw"
-            bgColor="#fff"
+            maxW="85vw"
+            bgColor="#000000a3"
             overflowY="unset"
           >
-            <Table size="sm" width="100%">
+            <Table variant="unset" size="sm" width="100%">
               <Thead
-                boxShadow="0 4px 12px 0 rgba(0,0,0, 0.10)"
                 width="100%"
+                height="40px"
                 pos="sticky"
                 top={0}
-                bg="#fff"
                 zIndex={2}
-                bgColor="#eff4f4"
+                bgColor="#00000038"
+                sx={{
+                  "& th": {
+                    color: "#fff",
+                  },
+                }}
               >
                 <Tr>
                   <Th></Th>
@@ -184,6 +205,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                   <Th>Received Offer</Th>
                 </Tr>
               </Thead>
+
               <Tbody>
                 {!!loggedInUserData?.loggedInUser &&
                   currentPageApplications?.map((companyApplication: any) => {
@@ -211,7 +233,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                             status: true,
                           });
                         }}
-                        bg={unableToClassify && "red.100"}
+                        bg={unableToClassify && "#f85e5e"}
                       >
                         <Td>
                           <SingleCheckbox
@@ -220,12 +242,16 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                             id={id}
                           />
                         </Td>
-                        <Td overflow="hidden">{truncateString(companyName)}</Td>
-                        <Td overflow="hidden">{truncateString(position)}</Td>
-                        <Td>{tableTestFunc(awaitingResponse)}</Td>
-                        <Td>{tableTestFunc(rejected)}</Td>
-                        <Td>{tableTestFunc(nextRound)}</Td>
-                        <Td>{tableTestFunc(receivedOffer)}</Td>
+                        <Td color="#fff" overflow="hidden">
+                          {truncateString(companyName)}
+                        </Td>
+                        <Td color="#fff" overflow="hidden">
+                          {truncateString(position)}
+                        </Td>
+                        <Td color="#fff">{tableTestFunc(awaitingResponse)}</Td>
+                        <Td color="#fff">{tableTestFunc(rejected)}</Td>
+                        <Td color="#fff">{tableTestFunc(nextRound)}</Td>
+                        <Td color="#fff">{tableTestFunc(receivedOffer)}</Td>
                       </Tr>
                     );
                   })}
