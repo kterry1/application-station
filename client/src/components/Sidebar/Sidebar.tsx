@@ -29,8 +29,8 @@ const Sidebar = ({
       minW={navSize === "small" ? "70px" : "178px"}
       flexDir="column"
       justifyContent="space-between"
-      bg="#fff"
-      color="#232828"
+      bg="white"
+      color="gray"
     >
       <Flex
         p="5%"
@@ -49,7 +49,7 @@ const Sidebar = ({
             mr={navSize === "large" ? "10px" : "0px"}
             w="44px"
             h="44px"
-            _hover={{ background: "#91380036" }}
+            _hover={{ background: "gray" }}
             aria-label=" hamburger icon button"
             icon={<HamburgerIcon />}
             onClick={handleNavIconClick}

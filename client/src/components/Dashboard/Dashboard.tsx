@@ -104,14 +104,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
     }
   };
   return (
-    <Flex
-      py="20px"
-      borderRadius="50px 0 0 50px"
-      bg="#91380036"
-      flexDir="column"
-      width="100%"
-      height="100vh"
-    >
+    <Flex p="20px" bg="lightgray" flexDir="column" width="100%" height="100vh">
       <Flex justifyContent="center" w="100%">
         <Box p="40px 80px" width="80%">
           <Heading size="lg">Dashboard</Heading>
@@ -171,14 +164,14 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
             />
           </Flex>
           <TableContainer
-            borderRadius="30px"
+            borderRadius="15px"
             mt=".5rem"
             mb="1rem"
             h="45vh"
             minH="250px"
             maxH="625px"
             maxW="85vw"
-            bgColor="#000000a3"
+            bgColor="gray"
             overflowY="unset"
           >
             <Table variant="unset" size="sm" width="100%">
@@ -188,10 +181,10 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                 pos="sticky"
                 top={0}
                 zIndex={2}
-                bgColor="#00000038"
+                bgColor="gray"
                 sx={{
                   "& th": {
-                    color: "#fff",
+                    color: "white",
                   },
                 }}
               >
@@ -223,7 +216,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                       <Tr
                         key={id}
                         _hover={{
-                          backgroundColor: "#AEC8CA",
+                          backgroundColor: "lightgray",
                           cursor: "pointer",
                         }}
                         onClick={() => {
@@ -233,7 +226,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                             status: true,
                           });
                         }}
-                        bg={unableToClassify && "#f85e5e"}
+                        bg={unableToClassify && "gray"}
                       >
                         <Td>
                           <SingleCheckbox
@@ -242,16 +235,16 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                             id={id}
                           />
                         </Td>
-                        <Td color="#fff" overflow="hidden">
+                        <Td color="white" overflow="hidden">
                           {truncateString(companyName)}
                         </Td>
-                        <Td color="#fff" overflow="hidden">
+                        <Td color="white" overflow="hidden">
                           {truncateString(position)}
                         </Td>
-                        <Td color="#fff">{tableTestFunc(awaitingResponse)}</Td>
-                        <Td color="#fff">{tableTestFunc(rejected)}</Td>
-                        <Td color="#fff">{tableTestFunc(nextRound)}</Td>
-                        <Td color="#fff">{tableTestFunc(receivedOffer)}</Td>
+                        <Td color="white">{tableTestFunc(awaitingResponse)}</Td>
+                        <Td color="white">{tableTestFunc(rejected)}</Td>
+                        <Td color="white">{tableTestFunc(nextRound)}</Td>
+                        <Td color="white">{tableTestFunc(receivedOffer)}</Td>
                       </Tr>
                     );
                   })}

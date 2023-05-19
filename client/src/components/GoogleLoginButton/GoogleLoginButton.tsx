@@ -96,7 +96,7 @@ const GoogleLoginButton = ({
               flexDir="column"
               ml={4}
               display={navSize === "small" ? "none" : "flex"}
-              color="#fff"
+              color="white"
             >
               <Heading as="h3" size="sm">
                 {loggedInUserData?.loggedInUser.name}

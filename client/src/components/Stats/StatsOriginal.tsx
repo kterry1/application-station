@@ -40,14 +40,14 @@ const Stats = ({ loggedInUserData }) => {
   return (
     <>
       <Flex
-        bg="#fff"
+        bg="white"
         width="60%"
         minW="540px"
         justifyContent="space-around"
         alignItems="center"
         boxShadow="base"
-        borderRadius="30px"
-        px="30px"
+        borderRadius="15px"
+        px="15px"
         py="10px"
       >
         <Box width="100px" height="100px">
@@ -57,7 +57,7 @@ const Stats = ({ loggedInUserData }) => {
         <Flex justifyContent="center">
           <Stat>
             <StatLabel>Applications</StatLabel>
-            <StatNumber fontSize="30px">
+            <StatNumber fontSize="15px">
               {(!!loggedInUserData?.loggedInUser &&
                 data?.getWeeklyStats?.thisWeek.applicationCount) ||
                 0}
@@ -79,7 +79,7 @@ const Stats = ({ loggedInUserData }) => {
         <Flex justifyContent="center">
           <Stat>
             <StatLabel textColor="gray">Responses</StatLabel>
-            <StatNumber fontSize="30px">
+            <StatNumber fontSize="15px">
               {(!!loggedInUserData?.loggedInUser &&
                 data?.getWeeklyStats?.thisWeek.awaitingResponseCount) ||
                 0}
@@ -99,7 +99,7 @@ const Stats = ({ loggedInUserData }) => {
         <Flex justifyContent="center">
           <Stat>
             <StatLabel textColor="gray">Next Round</StatLabel>
-            <StatNumber fontSize="30px">
+            <StatNumber fontSize="15px">
               {data?.getWeeklyStats?.thisWeek.nextRoundCount || 0}
             </StatNumber>
             <StatHelpText>
@@ -113,7 +113,7 @@ const Stats = ({ loggedInUserData }) => {
         <Flex justifyContent="center">
           <Stat>
             <StatLabel textColor="gray">Rejections</StatLabel>
-            <StatNumber fontSize="30px">
+            <StatNumber fontSize="15px">
               {(!!loggedInUserData?.loggedInUser &&
                 data?.getWeeklyStats?.thisWeek.rejectedCount) ||
                 0}

@@ -4,7 +4,6 @@ import {
   CardHeader,
   Heading,
   IconButton,
-  Image,
   Text,
   Tabs,
   Tab,
@@ -14,16 +13,19 @@ import {
 } from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-const StatCard = ({ icon, title, stats, backgroundColor }) => {
+const StatCard = ({ icon, title, stats, backgroundColor, cardStatKey }) => {
+  stats?.getWeeklyStats?.thisWeek[cardStatKey];
+  stats?.getWeeklyStats?.lastWeek[cardStatKey];
   return (
     <>
       <Card
         bg={backgroundColor}
-        color="#fff"
+        color="white"
         maxW="sm"
-        w="14em"
+        w="11em"
+        minW="10em"
         h="14em"
-        borderRadius="30px"
+        borderRadius="15px"
       >
         <CardHeader p="20px 10px 25px 15px">
           <Flex>
@@ -31,13 +33,6 @@ const StatCard = ({ icon, title, stats, backgroundColor }) => {
               {icon}
               <Heading size="xs">{title}</Heading>
             </Flex>
-            <IconButton
-              variant="ghost"
-              colorScheme="gray"
-              aria-label="See menu"
-              h="20px"
-              icon={<BsThreeDotsVertical />}
-            />
           </Flex>
         </CardHeader>
         <Tabs
@@ -48,27 +43,52 @@ const StatCard = ({ icon, title, stats, backgroundColor }) => {
           h="60%"
           align="center"
           variant="soft-rounded"
-          colorScheme="black"
+          colorScheme="gray"
+          defaultIndex={2}
         >
           <TabPanels textAlign="center" w="cover">
             <TabPanel p="2px">
-              <Text fontSize="4xl">45</Text>
+              <Text fontSize="4xl">
+                {stats?.getWeeklyStats?.lastWeek[cardStatKey]}
+              </Text>
             </TabPanel>
             <TabPanel p="2px">
-              <Text fontSize="4xl">30</Text>
+              <Text fontSize="4xl">
+                {stats?.getWeeklyStats?.thisWeek[cardStatKey]}
+              </Text>
             </TabPanel>
             <TabPanel p="2px">
-              <Text fontSize="4xl">100</Text>
+              <Text fontSize="4xl">
+                {stats?.getWeeklyStats?.totals[cardStatKey]}
+              </Text>
             </TabPanel>
           </TabPanels>
-          <TabList px="10px">
-            <Tab color="#fff" borderRadius="5px" fontSize="11px">
+          <TabList px="10px" pos="absolute" bottom="15px" w="100%">
+            <Tab
+              color="white"
+              borderRadius="5px"
+              fontSize="11px"
+              p="10px"
+              w="45px"
+            >
               Last Week
             </Tab>
-            <Tab color="#fff" borderRadius="5px" fontSize="11px">
+            <Tab
+              color="white"
+              borderRadius="5px"
+              fontSize="11px"
+              p="10px"
+              w="45px"
+            >
               This Week
             </Tab>
-            <Tab color="#fff" borderRadius="5px" fontSize="11px">
+            <Tab
+              color="white"
+              borderRadius="5px"
+              fontSize="11px"
+              p="10px"
+              w="45px"
+            >
               Total
             </Tab>
           </TabList>
