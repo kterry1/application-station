@@ -4,7 +4,6 @@ import { useState } from "react";
 import NavItem from "../NavItem/NavItem.js";
 import { FaHome } from "react-icons/fa";
 import GoogleLoginButton from "../GoogleLoginButton/GoogleLoginButton.js";
-import CompanyLogo from "../../assets/svgs/company-logo.svg";
 
 type Props = {};
 
@@ -55,7 +54,6 @@ const Sidebar = ({
             icon={<HamburgerIcon />}
             onClick={handleNavIconClick}
           />
-          {/* {navSize === "large" && <img width={100} src={CompanyLogo} />} */}
         </Flex>
         <NavItem navSize={navSize} icon={FaHome} title="Dashboard" active />
       </Flex>

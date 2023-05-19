@@ -15,6 +15,7 @@ import {
   useToast,
   Center,
   List,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import SingleCheckbox from "../SingleCheckbox/SingleCheckbox";
@@ -30,12 +31,12 @@ import ImportCompanyApplications from "../ImportCompanyApplications/ImportCompan
 import Stats from "../Stats/Stats";
 import FormikDrawer from "../FormikDrawer/FormikDrawer";
 import { toastNotification } from "../../utils/toastNotication/toastNotification";
-import LinkedInPNG from "../../assets/svgs/linkedin.png";
-import GlassdoorPNG from "../../assets/svgs/glassdoor.png";
-import IndeedPNG from "../../assets/svgs/indeed.png";
-import AngelListSVG from "../../assets/svgs/angellist.svg";
-import ZiprecruiterSVG from "../../assets/svgs/ziprecruiter.svg";
-import BehanceSVG from "../../assets/svgs/behance.svg";
+import LinkedInPNG from "../../assets/icons/linkedin.png";
+import GlassdoorPNG from "../../assets/icons/glassdoor.png";
+import IndeedPNG from "../../assets/icons/indeed.png";
+import AngelListSVG from "../../assets/icons/angellist.svg";
+import ZiprecruiterSVG from "../../assets/icons/ziprecruiter.svg";
+import BehanceSVG from "../../assets/icons/behance.svg";
 import SiteListItem from "./TopJobList/SiteListItem";
 
 type Props = {};
@@ -77,7 +78,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
   const { data: dataImportProgress, loading: loadingImportProgress } =
     useSubscription(IMPORT_PROGRESS);
   const toast = useToast();
-  const itemsPerPage = 10;
+  const itemsPerPage = 13;
   const totalPages =
     Math.ceil(data?.companyApplications.length / itemsPerPage) || 1;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -86,6 +87,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
     indexOfFirstItem,
     indexOfLastItem
   );
+  const spacing = useBreakpointValue({ base: "12px", md: "16px", lg: "20px" });
 
   useEffect(() => {
     refetch();
@@ -107,11 +109,11 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
         return toastNotification({ toast, message, status: "success" });
       }
     } catch (error) {
-      // Handle any errors that occurred during the mutation
+      console.error(error);
     }
   };
   return (
-    <Flex p="20px" bg="#fff" flexDir="column" width="100%" height="100vh">
+    <Flex p="20px" bg="#fff" flexDir="column" width="100%" height="100%">
       <Flex justifyContent="center" w="100%">
         <Box p="40px 80px" width="80%" color="#2c2c2c">
           <Heading size="xl">Application Station</Heading>
@@ -122,14 +124,14 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
         </Box>
         <Stats loggedInUserData={loggedInUserData} />
       </Flex>
-      <Flex
-        width="100%"
-        height="100%"
-        justifyContent="space-between"
-        alignItems="flex-end"
-        mt="1rem"
-      >
-        <Box bgColor="#f6f6f6" borderRadius="15px" p="15px" color="#2c2c2c">
+      <Flex width="100%" justifyContent="space-between" flex="1" mt="1rem">
+        <Box
+          bgColor="#f6f6f6"
+          borderRadius="15px"
+          p="15px"
+          color="#2c2c2c"
+          flex="1"
+        >
           <Box>
             <Heading size="md">Company Applications Tracker</Heading>
             <Text pt="2" fontSize="sm" color="#5f5f5f">
@@ -141,7 +143,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
             flexDir="column"
             justifyContent="flex-end"
             alignItems="center"
-            height="100%"
+            height="90%"
           >
             <Flex width="100%" mt="2rem" justifyContent="space-between">
               <Stack
@@ -187,11 +189,10 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
 
             <TableContainer
               mt=".5rem"
-              h="375px"
-              minH="375px"
-              maxH="375px"
-              maxW="85vw"
-              minW="250px"
+              h="100%"
+              minH="488px"
+              p="9px"
+              minW="60vw"
               bgColor="#fff"
               boxShadow="base"
               borderRadius="15px"
@@ -285,12 +286,9 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
           borderRadius="15px"
           p="15px"
           color="#2c2c2c"
-          mt="2rem"
           ml="1rem"
-          h="100%"
-          minH="375px"
+          flex="1"
           w="100%"
-          minW="400px"
         >
           <Box>
             <Heading size="md">Top Job Sites</Heading>
@@ -308,7 +306,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               w="100%"
               h="95%"
             >
-              <List spacing={7}>
+              <List spacing={[1, 1, 1, 2, 2, 3, 12]}>
                 <SiteListItem icon={LinkedInPNG} name="LinkedIn" />
                 <SiteListItem icon={GlassdoorPNG} name="Glassdoor" />
                 <SiteListItem icon={IndeedPNG} name="Indeed" />

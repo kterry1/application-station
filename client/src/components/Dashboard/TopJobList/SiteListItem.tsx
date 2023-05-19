@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Image,
   ListItem,
@@ -6,23 +5,27 @@ import {
   Flex,
   Heading,
   Text,
-  WrapItem,
   Link,
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import React from "react";
 
-type Props = {};
+interface SiteListItemProps {
+  name: string;
+  icon: React.SVGProps<SVGSVGElement>;
+  link: string;
+  description: string;
+}
 
-const SiteListItem = ({ name, icon, link, description }) => {
+const SiteListItem = ({ name, icon, link, description }: SiteListItemProps) => {
   return (
     <ListItem display="flex" alignItems="center" justifyContent="space-between">
       <Box display="flex" alignItems="center">
         <Image boxSize="40px" src={icon} alt="LinkedIn" mr="1rem" />
         <Flex flexDir="column">
           <Heading size="md">{name}</Heading>
-          <Text fontSize="xs" color="#5f5f5f" w="400px">
-            connect the world's professionals to make them more productive and
-            successful
+          <Text fontSize="xs" color="#5f5f5f" w="250px">
+            {description}
           </Text>
         </Flex>
       </Box>
@@ -35,7 +38,7 @@ const SiteListItem = ({ name, icon, link, description }) => {
             Active users
           </Text>
         </Flex>
-        <Link href="https://chakra-ui.com" isExternal>
+        <Link href={link} isExternal>
           <ExternalLinkIcon mx="1rem" />
         </Link>
       </Flex>
