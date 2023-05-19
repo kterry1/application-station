@@ -112,6 +112,8 @@ const GoogleLoginButton = ({
             size={navSize === "small" ? "xs" : "sm"}
             onClick={handleLogout}
             rightIcon={<AiOutlineLogout />}
+            bg="#2c2c2c"
+            color="#fff"
           >
             {navSize !== "small" && "Logout"}
           </Button>
@@ -121,6 +123,8 @@ const GoogleLoginButton = ({
           mt={4}
           className={navSize === "small" && "logout-button"}
           size="sm"
+          bg="#2c2c2c"
+          color="#fff"
           onClick={login}
           rightIcon={<FcGoogle />}
         >

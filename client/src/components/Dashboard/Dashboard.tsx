@@ -114,7 +114,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
     <Flex p="20px" bg="#fff" flexDir="column" width="100%" height="100vh">
       <Flex justifyContent="center" w="100%">
         <Box p="40px 80px" width="80%" color="#2c2c2c">
-          <Heading size="lg">Dashboard</Heading>
+          <Heading size="xl">Application Station</Heading>
           <Text pt="3" fontSize="md" color=" #5f5f5f">
             Manage your applications with ease by importing them into the
             classifier.
