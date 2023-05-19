@@ -10,6 +10,7 @@ import {
   TabList,
   TabPanel,
   TabPanels,
+  TabIndicator,
 } from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
@@ -20,7 +21,7 @@ const StatCard = ({ icon, title, stats, backgroundColor, cardStatKey }) => {
     <>
       <Card
         bg={backgroundColor}
-        color="white"
+        color="#2c2c2c"
         maxW="sm"
         w="11em"
         minW="10em"
@@ -42,8 +43,7 @@ const StatCard = ({ icon, title, stats, backgroundColor, cardStatKey }) => {
           justifyContent="space-between"
           h="60%"
           align="center"
-          variant="soft-rounded"
-          colorScheme="gray"
+          variant="unstyled"
           defaultIndex={2}
         >
           <TabPanels textAlign="center" w="cover">
@@ -63,34 +63,18 @@ const StatCard = ({ icon, title, stats, backgroundColor, cardStatKey }) => {
               </Text>
             </TabPanel>
           </TabPanels>
+
           <TabList px="10px" pos="absolute" bottom="15px" w="100%">
-            <Tab
-              color="white"
-              borderRadius="5px"
-              fontSize="11px"
-              p="10px"
-              w="45px"
-            >
+            <Tab borderRadius="5px" fontSize="11px" p="10px" w="45px">
               Last Week
             </Tab>
-            <Tab
-              color="white"
-              borderRadius="5px"
-              fontSize="11px"
-              p="10px"
-              w="45px"
-            >
+            <Tab borderRadius="5px" fontSize="11px" p="10px" w="45px">
               This Week
             </Tab>
-            <Tab
-              color="white"
-              borderRadius="5px"
-              fontSize="11px"
-              p="10px"
-              w="45px"
-            >
+            <Tab borderRadius="5px" fontSize="11px" p="10px" w="45px">
               Total
             </Tab>
+            <TabIndicator height="2px" bg="#5f5f5f" borderRadius="1px" />
           </TabList>
         </Tabs>
       </Card>

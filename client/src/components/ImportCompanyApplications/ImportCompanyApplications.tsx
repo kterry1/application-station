@@ -87,7 +87,7 @@ const ImportCompanyApplications = ({
         loadingText={importProgressDisplay()}
         size="sm"
         rightIcon={<FaFileImport />}
-        colorScheme="green"
+        color="#2c2c2c"
         variant="ghost"
         onClick={() => handleImport()}
         isDisabled={!isUserLoggedIn}

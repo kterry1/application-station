@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Center,
   Flex,
   Heading,
   Stack,
@@ -70,7 +69,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
   const { data: dataImportProgress, loading: loadingImportProgress } =
     useSubscription(IMPORT_PROGRESS);
   const toast = useToast();
-  const itemsPerPage = 20;
+  const itemsPerPage = 10;
   const totalPages =
     Math.ceil(data?.companyApplications.length / itemsPerPage) || 1;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -104,162 +103,187 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
     }
   };
   return (
-    <Flex p="20px" bg="lightgray" flexDir="column" width="100%" height="100vh">
+    <Flex p="20px" bg="#fff" flexDir="column" width="100%" height="100vh">
       <Flex justifyContent="center" w="100%">
-        <Box p="40px 80px" width="80%">
+        <Box p="40px 80px" width="80%" color="#2c2c2c">
           <Heading size="lg">Dashboard</Heading>
-          <Text pt="3" fontSize="md">
+          <Text pt="3" fontSize="md" color=" #5f5f5f">
             Manage your applications with ease by importing them into the
             classifier.
           </Text>
         </Box>
         <Stats loggedInUserData={loggedInUserData} />
       </Flex>
-      <Center width="100%" height="100%">
-        <Flex
-          flexDir="column"
-          justifyContent="center"
-          alignItems="center"
-          height="100%"
-        >
-          <Flex width="100%" mt="2rem" justifyContent="space-between">
-            <Stack
-              width="100%"
-              direction="row"
-              spacing={4}
-              justifyContent="flex-start"
+      <Flex
+        width="100%"
+        height="100%"
+        justifyContent="space-between"
+        alignItems="flex-end"
+        mt="1rem"
+      >
+        <Box bgColor="#f6f6f6" borderRadius="15px" p="15px" color="#2c2c2c">
+          <Box>
+            <Heading size="md">Company Applications</Heading>
+            <Text pt="2" fontSize="sm" color="#5f5f5f">
+              View recent weeks and totals.
+            </Text>
+          </Box>
+          <Flex
+            flexDir="column"
+            justifyContent="flex-end"
+            alignItems="center"
+            height="100%"
+          >
+            <Flex width="100%" mt="2rem" justifyContent="space-between">
+              <Stack
+                width="100%"
+                direction="row"
+                spacing={4}
+                justifyContent="flex-start"
+              >
+                <Button
+                  size="sm"
+                  rightIcon={<AddIcon />}
+                  color="#1668fc"
+                  variant="ghost"
+                  onClick={() => {
+                    setEditRow({});
+                    setOpenDrawer({
+                      reason: "add",
+                      status: true,
+                    });
+                  }}
+                  isDisabled={!loggedInUserData?.loggedInUser}
+                >
+                  Add
+                </Button>
+                <Button
+                  size="sm"
+                  rightIcon={<DeleteIcon />}
+                  color="#f24d62"
+                  variant="ghost"
+                  isDisabled={selectedRows.length <= 0}
+                  isLoading={loadingCompanyApplications}
+                  onClick={handleCompanyApplicationsDeletions}
+                >
+                  Delete
+                </Button>
+              </Stack>
+              <ImportCompanyApplications
+                isUserLoggedIn={!!loggedInUserData?.loggedInUser}
+                importProgress={dataImportProgress?.importProgress}
+                refetch={refetch}
+              />
+            </Flex>
+
+            <TableContainer
+              mt=".5rem"
+              h="375px"
+              minH="375px"
+              maxH="375px"
+              maxW="85vw"
+              minW="250px"
+              bgColor="#fff"
+              boxShadow="base"
+              borderRadius="15px"
             >
-              <Button
-                size="sm"
-                rightIcon={<AddIcon />}
-                colorScheme="blue"
-                variant="ghost"
-                onClick={() => {
-                  setEditRow({});
-                  setOpenDrawer({
-                    reason: "add",
-                    status: true,
-                  });
-                }}
-                isDisabled={!loggedInUserData?.loggedInUser}
-              >
-                Add
-              </Button>
-              <Button
-                size="sm"
-                rightIcon={<DeleteIcon />}
-                colorScheme="red"
-                variant="ghost"
-                isDisabled={selectedRows.length <= 0}
-                isLoading={loadingCompanyApplications}
-                onClick={handleCompanyApplicationsDeletions}
-              >
-                Delete
-              </Button>
-            </Stack>
-            <ImportCompanyApplications
-              isUserLoggedIn={!!loggedInUserData?.loggedInUser}
-              importProgress={dataImportProgress?.importProgress}
-              refetch={refetch}
+              <Table variant="simple" size="sm" width="100%">
+                <Thead
+                  width="100%"
+                  height="40px"
+                  pos="sticky"
+                  top={0}
+                  zIndex={2}
+                  bgColor="#fff"
+                  sx={{
+                    "& th": {
+                      color: "#2c2c2c",
+                    },
+                  }}
+                >
+                  <Tr>
+                    <Th></Th>
+                    <Th>Company</Th>
+                    <Th>Position</Th>
+                    <Th>Awaiting Reply</Th>
+                    <Th>Rejected</Th>
+                    <Th>Next Round</Th>
+                    <Th>Received Offer</Th>
+                  </Tr>
+                </Thead>
+
+                <Tbody>
+                  {!!loggedInUserData?.loggedInUser &&
+                    currentPageApplications?.map((companyApplication: any) => {
+                      const {
+                        id,
+                        companyName,
+                        position,
+                        awaitingResponse,
+                        rejected,
+                        nextRound,
+                        receivedOffer,
+                        unableToClassify,
+                      } = companyApplication;
+                      return (
+                        <Tr
+                          key={id}
+                          _hover={{
+                            backgroundColor: "#f6f6f6",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            setEditRow({ ...companyApplication });
+                            setOpenDrawer({
+                              reason: "edit",
+                              status: true,
+                            });
+                          }}
+                          bg={unableToClassify && "#fadcda"}
+                        >
+                          <Td>
+                            <SingleCheckbox
+                              color="#f24d62"
+                              setSelectedRows={setSelectedRows}
+                              id={id}
+                            />
+                          </Td>
+                          <Td overflow="hidden">
+                            {truncateString(companyName)}
+                          </Td>
+                          <Td overflow="hidden">{truncateString(position)}</Td>
+                          <Td>{tableTestFunc(awaitingResponse)}</Td>
+                          <Td>{tableTestFunc(rejected)}</Td>
+                          <Td>{tableTestFunc(nextRound)}</Td>
+                          <Td>{tableTestFunc(receivedOffer)}</Td>
+                        </Tr>
+                      );
+                    })}
+                </Tbody>
+              </Table>
+            </TableContainer>
+            <Pagination
+              setCurrentPage={setCurrentPage}
+              currentPageApplications={currentPageApplications}
+              totalPages={totalPages}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
             />
           </Flex>
-          <TableContainer
-            borderRadius="15px"
-            mt=".5rem"
-            mb="1rem"
-            h="45vh"
-            minH="250px"
-            maxH="625px"
-            maxW="85vw"
-            bgColor="gray"
-            overflowY="unset"
-          >
-            <Table variant="unset" size="sm" width="100%">
-              <Thead
-                width="100%"
-                height="40px"
-                pos="sticky"
-                top={0}
-                zIndex={2}
-                bgColor="gray"
-                sx={{
-                  "& th": {
-                    color: "white",
-                  },
-                }}
-              >
-                <Tr>
-                  <Th></Th>
-                  <Th>Company</Th>
-                  <Th>Position</Th>
-                  <Th>Awaiting Reply</Th>
-                  <Th>Rejected</Th>
-                  <Th>Next Round</Th>
-                  <Th>Received Offer</Th>
-                </Tr>
-              </Thead>
-
-              <Tbody>
-                {!!loggedInUserData?.loggedInUser &&
-                  currentPageApplications?.map((companyApplication: any) => {
-                    const {
-                      id,
-                      companyName,
-                      position,
-                      awaitingResponse,
-                      rejected,
-                      nextRound,
-                      receivedOffer,
-                      unableToClassify,
-                    } = companyApplication;
-                    return (
-                      <Tr
-                        key={id}
-                        _hover={{
-                          backgroundColor: "lightgray",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => {
-                          setEditRow({ ...companyApplication });
-                          setOpenDrawer({
-                            reason: "edit",
-                            status: true,
-                          });
-                        }}
-                        bg={unableToClassify && "gray"}
-                      >
-                        <Td>
-                          <SingleCheckbox
-                            colorScheme="red"
-                            setSelectedRows={setSelectedRows}
-                            id={id}
-                          />
-                        </Td>
-                        <Td color="white" overflow="hidden">
-                          {truncateString(companyName)}
-                        </Td>
-                        <Td color="white" overflow="hidden">
-                          {truncateString(position)}
-                        </Td>
-                        <Td color="white">{tableTestFunc(awaitingResponse)}</Td>
-                        <Td color="white">{tableTestFunc(rejected)}</Td>
-                        <Td color="white">{tableTestFunc(nextRound)}</Td>
-                        <Td color="white">{tableTestFunc(receivedOffer)}</Td>
-                      </Tr>
-                    );
-                  })}
-              </Tbody>
-            </Table>
-          </TableContainer>
-          <Pagination
-            setCurrentPage={setCurrentPage}
-            currentPageApplications={currentPageApplications}
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
-        </Flex>
-      </Center>
+        </Box>
+        <Box
+          bgColor="#f6f6f6"
+          borderRadius="15px"
+          p="15px"
+          color="#2c2c2c"
+          mt="2rem"
+          ml="1rem"
+          h="100%"
+          minH="375px"
+          w="100%"
+          minW="400px"
+        ></Box>
+      </Flex>
       <FormikDrawer
         {...editRow}
         openDrawer={openDrawer}

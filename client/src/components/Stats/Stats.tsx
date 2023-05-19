@@ -19,15 +19,15 @@ const Stats = ({ loggedInUserData }) => {
     <Flex
       width="100%"
       justifyContent="space-around"
-      bgColor="gray"
+      bgColor="#f6f6f6"
       p="15px"
       borderRadius="15px"
       gap="15px"
-      color="white"
+      color="#2c2c2c"
     >
       <Box>
         <Heading size="md">Stats</Heading>
-        <Text pt="2" fontSize="sm">
+        <Text pt="2" fontSize="sm" color="#5f5f5f">
           View recent weeks and totals.
         </Text>
       </Box>
@@ -35,28 +35,28 @@ const Stats = ({ loggedInUserData }) => {
         icon={<IoNewspaperOutline />}
         title="Applications"
         stats={data}
-        backgroundColor="lightgray"
+        backgroundColor="#fff"
         cardStatKey="applicationCount"
       />
       <StatCard
         icon={<IoMdClock />}
         title="Awaiting Reply"
         stats={data}
-        backgroundColor="lightgray"
+        backgroundColor="#fff"
         cardStatKey="awaitingResponseCount"
       />
       <StatCard
         icon={<IoReturnUpForwardOutline />}
         title="Next Round"
         stats={data}
-        backgroundColor="lightgray"
+        backgroundColor="#fff"
         cardStatKey="nextRoundCount"
       />
       <StatCard
         icon={<MdCancelPresentation />}
         title="Rejected"
         stats={data}
-        backgroundColor="lightgray"
+        backgroundColor="#fff"
         cardStatKey="rejectedCount"
       />
     </Flex>

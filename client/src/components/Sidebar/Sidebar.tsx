@@ -29,7 +29,7 @@ const Sidebar = ({
       minW={navSize === "small" ? "70px" : "178px"}
       flexDir="column"
       justifyContent="space-between"
-      bg="white"
+      bg="#000000"
       color="gray"
     >
       <Flex
@@ -46,15 +46,16 @@ const Sidebar = ({
         >
           <IconButton
             background="none"
+            borderRadius={4}
             mr={navSize === "large" ? "10px" : "0px"}
             w="44px"
             h="44px"
-            _hover={{ background: "gray" }}
+            _hover={{ background: "#fff" }}
             aria-label=" hamburger icon button"
             icon={<HamburgerIcon />}
             onClick={handleNavIconClick}
           />
-          {navSize === "large" && <img width={100} src={CompanyLogo} />}
+          {/* {navSize === "large" && <img width={100} src={CompanyLogo} />} */}
         </Flex>
         <NavItem navSize={navSize} icon={FaHome} title="Dashboard" active />
       </Flex>
