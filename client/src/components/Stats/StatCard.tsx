@@ -3,7 +3,6 @@ import {
   Card,
   CardHeader,
   Heading,
-  IconButton,
   Text,
   Tabs,
   Tab,
@@ -12,11 +11,8 @@ import {
   TabPanels,
   TabIndicator,
 } from "@chakra-ui/react";
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 const StatCard = ({ icon, title, stats, backgroundColor, cardStatKey }) => {
-  stats?.getWeeklyStats?.thisWeek[cardStatKey];
-  stats?.getWeeklyStats?.lastWeek[cardStatKey];
   return (
     <>
       <Card
@@ -28,7 +24,7 @@ const StatCard = ({ icon, title, stats, backgroundColor, cardStatKey }) => {
         h="14em"
         borderRadius="15px"
       >
-        <CardHeader p="20px 10px 25px 15px">
+        <CardHeader p="20px 10px 25px 10px">
           <Flex>
             <Flex flex="1" gap="1" alignItems="center" flexWrap="wrap" p="2px">
               {icon}

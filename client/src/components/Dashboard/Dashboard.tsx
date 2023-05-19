@@ -13,8 +13,8 @@ import {
   Text,
   Tr,
   useToast,
-  Divider,
   Center,
+  List,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import SingleCheckbox from "../SingleCheckbox/SingleCheckbox";
@@ -30,6 +30,13 @@ import ImportCompanyApplications from "../ImportCompanyApplications/ImportCompan
 import Stats from "../Stats/Stats";
 import FormikDrawer from "../FormikDrawer/FormikDrawer";
 import { toastNotification } from "../../utils/toastNotication/toastNotification";
+import LinkedInPNG from "../../assets/svgs/linkedin.png";
+import GlassdoorPNG from "../../assets/svgs/glassdoor.png";
+import IndeedPNG from "../../assets/svgs/indeed.png";
+import AngelListSVG from "../../assets/svgs/angellist.svg";
+import ZiprecruiterSVG from "../../assets/svgs/ziprecruiter.svg";
+import BehanceSVG from "../../assets/svgs/behance.svg";
+import SiteListItem from "./TopJobList/SiteListItem";
 
 type Props = {};
 
@@ -297,10 +304,19 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               boxShadow="base"
               borderRadius="15px"
               mt="2rem"
+              p="20px"
               w="100%"
               h="95%"
-              // border="1px solid red"
-            ></Box>
+            >
+              <List spacing={7}>
+                <SiteListItem icon={LinkedInPNG} name="LinkedIn" />
+                <SiteListItem icon={GlassdoorPNG} name="Glassdoor" />
+                <SiteListItem icon={IndeedPNG} name="Indeed" />
+                <SiteListItem icon={AngelListSVG} name="Angel List" />
+                <SiteListItem icon={ZiprecruiterSVG} name="Zip Recruiter" />
+                <SiteListItem icon={BehanceSVG} name="Behance" />
+              </List>
+            </Box>
           </Center>
         </Box>
       </Flex>
