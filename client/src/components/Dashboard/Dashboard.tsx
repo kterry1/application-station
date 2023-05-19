@@ -14,6 +14,7 @@ import {
   Tr,
   useToast,
   Divider,
+  Center,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import SingleCheckbox from "../SingleCheckbox/SingleCheckbox";
@@ -123,9 +124,10 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
       >
         <Box bgColor="#f6f6f6" borderRadius="15px" p="15px" color="#2c2c2c">
           <Box>
-            <Heading size="md">Company Applications</Heading>
+            <Heading size="md">Company Applications Tracker</Heading>
             <Text pt="2" fontSize="sm" color="#5f5f5f">
-              View recent weeks and totals.
+              Add, edit, delete, and track all your applications with this
+              simple tool.
             </Text>
           </Box>
           <Flex
@@ -282,7 +284,25 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
           minH="375px"
           w="100%"
           minW="400px"
-        ></Box>
+        >
+          <Box>
+            <Heading size="md">Top Job Sites</Heading>
+            <Text pt="2" fontSize="sm" color="#5f5f5f">
+              List of most commonly used websites for job searching.
+            </Text>
+          </Box>
+          <Center h="90%" w="100%">
+            <Box
+              bgColor="#fff"
+              boxShadow="base"
+              borderRadius="15px"
+              mt="2rem"
+              w="100%"
+              h="95%"
+              // border="1px solid red"
+            ></Box>
+          </Center>
+        </Box>
       </Flex>
       <FormikDrawer
         {...editRow}

@@ -28,10 +28,9 @@ const Pagination = ({
   }, [currentPageApplications]);
 
   return (
-    <HStack spacing={4} justifyContent="center" alignItems="center">
+    <HStack spacing={4} justifyContent="center" alignItems="center" mt=".5rem">
       <Button
         width="120px"
-        colorScheme="gray"
         size="md"
         variant="ghost"
         onClick={handlePrevious}
@@ -45,7 +44,6 @@ const Pagination = ({
       </Box>
       <Button
         width="120px"
-        colorScheme="gray"
         size="md"
         variant="ghost"
         onClick={handleNext}
