@@ -1,0 +1,120 @@
+scalar DateTime
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+type Query {
+  companyApplications: [CompanyApplication]!
+  loggedInUser: User
+  getWeeklyStats: WeeklyStats!
+}
+
+type Mutation {
+  authenticateWithGoogle(input: GoogleAuthInput!): GoogleAuthResponse!
+  addSingleCompanyApplication(
+    input: CompanyApplicationInput!
+  ): CompanyApplication!
+  updateSingleCompanyApplication(
+    input: CompanyApplicationInput!
+  ): CompanyApplication!
+  deleteCompanyApplications(
+    input: DeleteCompanyApplicationsInput!
+  ): DeleteCompanyApplicationsResponse!
+  importCompanyApplications: ImportCompanyApplicationsResponse!
+  logOutUser: LogOutUserResponse!
+}
+
+type Subscription {
+  importProgress: Int!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  lastLoggedIn: DateTime
+  lastImportDate: DateTime
+  role: UserRole
+  companyApplications: [CompanyApplication]
+}
+
+input GoogleAuthInput {
+  accessToken: String!
+}
+
+type GoogleAuthResponse {
+  status: Int!
+  message: String!
+}
+
+type DeleteCompanyApplicationsResponse {
+  status: Int!
+  message: String!
+}
+
+type ImportCompanyApplicationsResponse {
+  status: Int!
+  message: String!
+  unableToClassifyCount: Int!
+}
+
+type LogOutUserResponse {
+  status: Int!
+  message: String!
+}
+
+type CompanyApplication {
+  id: ID!
+  externalId: ID
+  companyName: String!
+  position: String!
+  awaitingResponse: Boolean
+  rejected: Boolean
+  nextRound: Boolean
+  receivedOffer: Boolean
+  notes: String
+  appliedAt: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  unableToClassify: Boolean
+  user: User!
+}
+
+type WeeklyStats {
+  thisWeek: Stats!
+  lastWeek: Stats!
+  totals: Stats!
+}
+
+type Stats {
+  applicationCount: Int!
+  awaitingResponseCount: Int!
+  nextRoundCount: Int!
+  rejectedCount: Int!
+}
+
+input GetUserInput {
+  name: String!
+  email: String!
+  role: UserRole
+  companyApplications: [CompanyApplicationInput]
+}
+
+input DeleteCompanyApplicationsInput {
+  ids: [String!]!
+}
+
+input CompanyApplicationInput {
+  id: ID
+  companyName: String!
+  position: String!
+  awaitingResponse: Boolean
+  rejected: Boolean
+  nextRound: Boolean
+  receivedOffer: Boolean
+  notes: String
+  appliedAt: DateTime!
+  unableToClassify: Boolean
+}

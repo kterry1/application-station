@@ -29,8 +29,8 @@ const GoogleLoginButton = ({
     try {
       const result = await logOutUser();
 
-      const statusCode = await result.data.logOutUser.status;
-      const message = await result.data.logOutUser.message;
+      const statusCode = result.data.logOutUser.status;
+      const message = result.data.logOutUser.message;
       if (statusCode === 200) {
         try {
           await client.clearStore();
@@ -54,8 +54,8 @@ const GoogleLoginButton = ({
           },
         },
       });
-      const statusCode = await result.data.authenticateWithGoogle.status;
-      const message = await result.data.authenticateWithGoogle.message;
+      const statusCode = result.data.authenticateWithGoogle.status;
+      const message = result.data.authenticateWithGoogle.message;
       if (statusCode === 200) {
         try {
           await loggedInUserRefetch();
@@ -96,7 +96,7 @@ const GoogleLoginButton = ({
               flexDir="column"
               ml={4}
               display={navSize === "small" ? "none" : "flex"}
-              color="#fff"
+              color="white"
             >
               <Heading as="h3" size="sm">
                 {loggedInUserData?.loggedInUser.name}
@@ -108,16 +108,27 @@ const GoogleLoginButton = ({
           </Flex>
           <Button
             mt={4}
+            className={navSize === "small" && "logout-button"}
             size={navSize === "small" ? "xs" : "sm"}
             onClick={handleLogout}
             rightIcon={<AiOutlineLogout />}
+            bg="#2c2c2c"
+            color="#fff"
           >
-            Logout
+            {navSize !== "small" && "Logout"}
           </Button>
         </>
       ) : (
-        <Button mt={4} size="sm" onClick={login} rightIcon={<FcGoogle />}>
-          Log in with
+        <Button
+          mt={4}
+          className={navSize === "small" && "logout-button"}
+          size="sm"
+          bg="#2c2c2c"
+          color="#fff"
+          onClick={login}
+          rightIcon={<FcGoogle />}
+        >
+          {navSize !== "small" && "Log in with"}
         </Button>
       )}
     </>

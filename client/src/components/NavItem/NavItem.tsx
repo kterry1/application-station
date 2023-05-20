@@ -18,19 +18,19 @@ const NavItem = ({ navSize, icon, title, active }: Props) => {
       <Menu placement="right">
         <Link
           display="flex"
-          background={active ? "#f9efcc" : ""}
+          background={active ? "#2c2c2c" : ""}
           p={3}
-          borderRadius={8}
-          _hover={{ textDecor: "none", backgroundColor: "#f9efcc" }}
+          borderRadius={4}
+          _hover={{ textDecor: "none", backgroundColor: "#2c2c2c" }}
           w={navSize === "large" ? "100%" : ""}
         >
           <MenuButton w="100%">
             <Flex alignItems="center">
-              <Icon fontSize="xl" as={icon} color={"#000000d1"} />
+              <Icon fontSize="xl" as={icon} color={"#fff"} />
               <Text
                 ml={5}
                 display={navSize === "small" ? "none" : "flex"}
-                color={"#000000d1"}
+                color={"#fff"}
               >
                 {title}
               </Text>

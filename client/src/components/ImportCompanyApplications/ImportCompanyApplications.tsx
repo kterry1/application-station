@@ -17,11 +17,18 @@ import { useState } from "react";
 
 type Props = {};
 
-const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
+const ImportCompanyApplications = ({
+  refetch,
+  importProgress,
+  isUserLoggedIn,
+}: {
+  refetch: () => void;
+  importProgress: number;
+  isUserLoggedIn: boolean;
+}) => {
   const toast = useToast();
-  const [importCompanyApplications, { loading, error }] = useMutation(
-    IMPORT_COMPANY_APPLICATIONS
-  );
+  const [importCompanyApplications, { loading, error: importError, data }] =
+    useMutation(IMPORT_COMPANY_APPLICATIONS);
   const [unableToClassifyCount, setUnableToClassifyCount] = useState(0);
   const {
     isOpen: isVisible,
@@ -29,25 +36,46 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
     onOpen,
   } = useDisclosure({ defaultIsOpen: false });
   const handleImport = async () => {
-    try {
-      const start = Date.now();
-      const result = await importCompanyApplications();
-      const end = Date.now();
-      console.log("Elapsed Time", end - start);
-      const statusCode = await result.data.importCompanyApplications.status;
-      const message = await result.data.importCompanyApplications.message;
-      const unableToClassifyCount = await result.data.importCompanyApplications
-        .unableToClassifyCount;
-      if (statusCode === 200) {
-        refetch();
-        toastNotification({ toast, message, status: "success" });
-        if (unableToClassifyCount > 0) {
-          setUnableToClassifyCount(unableToClassifyCount);
-          onOpen();
+    if (isUserLoggedIn) {
+      try {
+        const start: Date = new Date();
+        const result = await importCompanyApplications();
+        const end: Date = new Date();
+        const totalTimeInSeconds: number =
+          (end.getTime() - start.getTime()) / 1000;
+        console.log("Import Time In Seconds", totalTimeInSeconds);
+        const statusCode = result.data.importCompanyApplications.status;
+        const message = result.data.importCompanyApplications.message;
+        const unableToClassifyCount =
+          result.data.importCompanyApplications.unableToClassifyCount;
+        if (statusCode === 200) {
+          refetch(); // @TODO: improve naming convention
+          toastNotification({ toast, message, status: "success" });
+          if (unableToClassifyCount > 0) {
+            setUnableToClassifyCount(unableToClassifyCount);
+            onOpen();
+          }
         }
+      } catch (error) {
+        console.error("Error during import mutation", importError);
+        console.error("Error importing", error);
       }
-    } catch (error) {
-      // Handle any errors that occurred during the mutation
+    } else {
+      toastNotification({
+        toast,
+        message: "Please log in to import.",
+        status: "info",
+      });
+    }
+  };
+
+  const importProgressDisplay = () => {
+    if (importProgress === 0) {
+      return "Gathering Emails";
+    } else if (importProgress > 0 && importProgress < 100) {
+      return `${importProgress}%`;
+    } else {
+      return;
     }
   };
 
@@ -55,12 +83,14 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
     <>
       <Button
         px="20px"
-        isLoading={loading}
+        isLoading={typeof importProgress === "number" && importProgress < 100}
+        loadingText={importProgressDisplay()}
         size="sm"
         rightIcon={<FaFileImport />}
-        colorScheme="green"
+        color="#2c2c2c"
         variant="ghost"
         onClick={() => handleImport()}
+        isDisabled={!isUserLoggedIn}
       >
         Import Emails
       </Button>
@@ -83,7 +113,7 @@ const ImportCompanyApplications = ({ refetch }: { refetch: () => void }) => {
                 application(s).
               </AlertTitle>
               <AlertDescription>
-                Click on a row to view edit or upgrade.
+                Click on a row to view or edit.
               </AlertDescription>
             </Flex>
             <CloseButton onClick={onClose} />

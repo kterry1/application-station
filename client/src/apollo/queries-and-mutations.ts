@@ -113,16 +113,28 @@ export const GET_WEEKLY_STATS = gql`
     getWeeklyStats {
       lastWeek {
         applicationCount
-        responseCount
+        awaitingResponseCount
         nextRoundCount
-        rejectionCount
+        rejectedCount
       }
       thisWeek {
         applicationCount
-        responseCount
+        awaitingResponseCount
         nextRoundCount
-        rejectionCount
+        rejectedCount
+      }
+      totals {
+        applicationCount
+        awaitingResponseCount
+        nextRoundCount
+        rejectedCount
       }
     }
+  }
+`;
+
+export const IMPORT_PROGRESS = gql`
+  subscription ImportProgress {
+    importProgress
   }
 `;

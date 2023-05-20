@@ -44,17 +44,6 @@ const isJobApplicationEmailCheck = (percentageObj) => {
   }
 };
 
-// const productionClassifierForEmailDecision = async (decodedMessageBody) => {
-//   const classifier = new Classifier({ percentualReturn: true });
-//   const filePath = path.join(
-//     __dirname,
-//     "email-desicion-stable-classifier_5_1_2023.json"
-//   );
-//   await classifier.fromJSON(filePath);
-//   const classifiedObj = classifier.classify(decodedMessageBody);
-//   return getHighestPercentageKeyForEmailDecision(classifiedObj);
-// };
-
 const productionClassifierForIsJobApplication = async (decodedMessageBody) => {
   const classifier = new Classifier({ percentualReturn: true });
   const filePath = path.join(
