@@ -18,7 +18,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import SingleCheckbox from "../SingleCheckbox/SingleCheckbox";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import Pagination from "../Pagination/Pagination";
@@ -39,6 +39,7 @@ import AngelListSVG from "../../assets/icons/angellist.svg";
 import ZiprecruiterSVG from "../../assets/icons/ziprecruiter.svg";
 import BehanceSVG from "../../assets/icons/behance.svg";
 import SiteListItem from "./TopJobList/SiteListItem";
+import { Context } from "../../main";
 
 type Props = {};
 
@@ -92,10 +93,11 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
   const [isSmallerThan3xl] = useMediaQuery(
     `(max-width): ${theme.breakpoints["3xl"]}`
   );
+  const { toggleForImport, setToggleForImport } = useContext(Context);
 
   useEffect(() => {
     refetch();
-  }, [loggedInUserData]);
+  }, [loggedInUserData, toggleForImport]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -109,6 +111,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
       const message = result.data.deleteCompanyApplications.message;
       if (statusCode === 200) {
         refetch();
+        setToggleForImport((prev: boolean) => !prev);
         setSelectedRows([]);
         return toastNotification({ toast, message, status: "success" });
       }
@@ -197,7 +200,6 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               <ImportCompanyApplications
                 isUserLoggedIn={!!loggedInUserData?.loggedInUser}
                 importProgress={dataImportProgress?.importProgress}
-                refetch={refetch}
               />
             </Flex>
 

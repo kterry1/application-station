@@ -4,16 +4,17 @@ import { IoNewspaperOutline, IoReturnUpForwardOutline } from "react-icons/io5";
 import { IoMdClock } from "react-icons/io";
 import { MdCancelPresentation } from "react-icons/md";
 import { GET_WEEKLY_STATS } from "../../apollo/queries-and-mutations";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import StatCard from "./StatCard";
+import { Context } from "../../main";
 
 const Stats = ({ loggedInUserData }) => {
   const { loading, error, data, refetch } = useQuery(GET_WEEKLY_STATS);
+  const { toggleForImport } = useContext(Context);
 
   useEffect(() => {
     refetch();
-  }, [loggedInUserData]);
-  console.log("stats", data);
+  }, [loggedInUserData, toggleForImport]);
 
   return (
     <Flex
@@ -38,6 +39,7 @@ const Stats = ({ loggedInUserData }) => {
         stats={data}
         backgroundColor="#fff"
         cardStatKey="applicationCount"
+        loggedInUserData={loggedInUserData}
       />
       <StatCard
         icon={<IoMdClock />}
@@ -45,6 +47,7 @@ const Stats = ({ loggedInUserData }) => {
         stats={data}
         backgroundColor="#fff"
         cardStatKey="awaitingResponseCount"
+        loggedInUserData={loggedInUserData}
       />
       <StatCard
         icon={<IoReturnUpForwardOutline />}
@@ -52,6 +55,7 @@ const Stats = ({ loggedInUserData }) => {
         stats={data}
         backgroundColor="#fff"
         cardStatKey="nextRoundCount"
+        loggedInUserData={loggedInUserData}
       />
       <StatCard
         icon={<MdCancelPresentation />}
@@ -59,6 +63,7 @@ const Stats = ({ loggedInUserData }) => {
         stats={data}
         backgroundColor="#fff"
         cardStatKey="rejectedCount"
+        loggedInUserData={loggedInUserData}
       />
     </Flex>
   );
