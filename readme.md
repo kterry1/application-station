@@ -1,6 +1,6 @@
 # Application Station
 
-An email classifier that sorts the emails, you receive from companies, after you apply to their open positions.
+An email classifier that sorts emails, you receive from companies, after you apply to their open positions.
 
 ### Frontend
 
@@ -31,3 +31,4 @@ An email classifier that sorts the emails, you receive from companies, after you
 - Generated Types on the Backend
 - Launch Darkly Integration (Feature Flag Management)
 - Redis (Cache)
+- Demo Account
