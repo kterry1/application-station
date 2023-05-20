@@ -13,21 +13,20 @@ import {
 } from "@chakra-ui/react";
 import { FaFileImport } from "react-icons/fa";
 import { toastNotification } from "../../utils/toastNotication/toastNotification";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Context } from "../../main";
 
-type Props = {};
-
-const ImportCompanyApplications = ({
-  refetch,
-  importProgress,
-  isUserLoggedIn,
-}: {
-  refetch: () => void;
+interface ImportCompanyApplicationsProps {
   importProgress: number;
   isUserLoggedIn: boolean;
-}) => {
+}
+
+const ImportCompanyApplications = ({
+  importProgress,
+  isUserLoggedIn,
+}: ImportCompanyApplicationsProps) => {
   const toast = useToast();
-  const [importCompanyApplications, { loading, error: importError, data }] =
+  const [importCompanyApplications, { loading, error: importError }] =
     useMutation(IMPORT_COMPANY_APPLICATIONS);
   const [unableToClassifyCount, setUnableToClassifyCount] = useState(0);
   const {
@@ -35,6 +34,7 @@ const ImportCompanyApplications = ({
     onClose,
     onOpen,
   } = useDisclosure({ defaultIsOpen: false });
+  const { setToggleForImport } = useContext(Context);
   const handleImport = async () => {
     if (isUserLoggedIn) {
       try {
@@ -43,13 +43,13 @@ const ImportCompanyApplications = ({
         const end: Date = new Date();
         const totalTimeInSeconds: number =
           (end.getTime() - start.getTime()) / 1000;
-        console.log("Import Time In Seconds", totalTimeInSeconds);
+
         const statusCode = result.data.importCompanyApplications.status;
         const message = result.data.importCompanyApplications.message;
         const unableToClassifyCount =
           result.data.importCompanyApplications.unableToClassifyCount;
         if (statusCode === 200) {
-          refetch(); // @TODO: improve naming convention
+          setToggleForImport((prev: boolean) => !prev);
           toastNotification({ toast, message, status: "success" });
           if (unableToClassifyCount > 0) {
             setUnableToClassifyCount(unableToClassifyCount);

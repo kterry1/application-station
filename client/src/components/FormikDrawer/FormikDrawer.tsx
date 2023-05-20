@@ -16,13 +16,17 @@ import {
   FormControl,
   SimpleGrid,
   Switch,
+  useToast,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import {
   ADD_SINGLE_COMPANY_APPLICATION,
   UPDATE_SINGLE_COMPANY_APPLICATION,
 } from "../../apollo/queries-and-mutations";
+import { toastNotification } from "../../utils/toastNotication/toastNotification";
 import { useMutation } from "@apollo/client";
+import { useContext } from "react";
+import { Context } from "../../main";
 const appliedAtTransformer = (appliedAt: Date) => {
   if (appliedAt) {
     return new Date(appliedAt).toISOString().substring(0, 10);
@@ -58,7 +62,9 @@ function DrawerExample(props: any) {
       error: errorUpdateSingleCompanyApplication,
     },
   ] = useMutation(UPDATE_SINGLE_COMPANY_APPLICATION);
+  const { setToggleForImport } = useContext(Context);
   const todayDate = new Date().toISOString().substring(0, 10);
+  const toast = useToast();
   const formik = useFormik({
     initialValues: {
       companyName: companyName || "",
@@ -86,6 +92,12 @@ function DrawerExample(props: any) {
             reason: "",
             status: false,
           });
+          setToggleForImport((prev: boolean) => !prev);
+          return toastNotification({
+            toast,
+            message: "Successfully Updated Company Application",
+            status: "success",
+          });
         }
       } else {
         const result = await addSingleCompanyApplication({
@@ -100,6 +112,12 @@ function DrawerExample(props: any) {
           setOpenDrawer({
             reason: "",
             status: false,
+          });
+          setToggleForImport((prev: boolean) => !prev);
+          return toastNotification({
+            toast,
+            message: "Successfully Added Company Application",
+            status: "success",
           });
         }
       }
@@ -149,7 +167,6 @@ function DrawerExample(props: any) {
                         isRequired={true}
                         focusBorderColor="gray.400"
                         errorBorderColor="red.500"
-                        // value={position}
                         id="position"
                         placeholder="Position"
                         {...formik.getFieldProps("position")}

@@ -19,8 +19,8 @@ export const toastNotification = ({
   return toast({
     title: message,
     status: status,
-    position: "top",
-    variant: "solid",
+    position: "top-left",
+    variant: "subtle",
     duration: 4000,
     isClosable: true,
   });

@@ -12,7 +12,14 @@ import {
   TabIndicator,
 } from "@chakra-ui/react";
 
-const StatCard = ({ icon, title, stats, backgroundColor, cardStatKey }) => {
+const StatCard = ({
+  icon,
+  title,
+  stats,
+  backgroundColor,
+  cardStatKey,
+  loggedInUserData,
+}) => {
   return (
     <>
       <Card
@@ -45,17 +52,20 @@ const StatCard = ({ icon, title, stats, backgroundColor, cardStatKey }) => {
           <TabPanels textAlign="center" w="cover">
             <TabPanel p="2px">
               <Text fontSize="4xl">
-                {stats?.getWeeklyStats?.lastWeek[cardStatKey]}
+                {!!loggedInUserData?.loggedInUser &&
+                  stats?.getWeeklyStats?.lastWeek[cardStatKey]}
               </Text>
             </TabPanel>
             <TabPanel p="2px">
               <Text fontSize="4xl">
-                {stats?.getWeeklyStats?.thisWeek[cardStatKey]}
+                {!!loggedInUserData?.loggedInUser &&
+                  stats?.getWeeklyStats?.thisWeek[cardStatKey]}
               </Text>
             </TabPanel>
             <TabPanel p="2px">
               <Text fontSize="4xl">
-                {stats?.getWeeklyStats?.totals[cardStatKey]}
+                {!!loggedInUserData?.loggedInUser &&
+                  stats?.getWeeklyStats?.totals[cardStatKey]}
               </Text>
             </TabPanel>
           </TabPanels>
