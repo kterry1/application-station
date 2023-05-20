@@ -79,7 +79,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
   const { data: dataImportProgress, loading: loadingImportProgress } =
     useSubscription(IMPORT_PROGRESS);
   const toast = useToast();
-  const itemsPerPage = 13;
+  const itemsPerPage = 15;
   const totalPages =
     Math.ceil(data?.companyApplications.length / itemsPerPage) || 1;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -134,7 +134,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
         flex="1"
         mt="1rem"
         h="100%"
-        border="1px solid red"
+        minH="450px"
       >
         <Box
           bgColor="#f6f6f6"
@@ -142,7 +142,8 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
           p="15px"
           color="#2c2c2c"
           flex="1"
-          border="1px solid green"
+          h="100%"
+          w="100%"
         >
           <Box>
             <Heading size="md">Company Applications Tracker</Heading>
@@ -157,7 +158,6 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
             alignItems="center"
             height="90%"
             w="100%"
-            border="1px solid purple"
           >
             <Flex width="100%" mt="2rem" justifyContent="space-between">
               <Stack
@@ -204,15 +204,16 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
             <TableContainer
               mt=".5rem"
               h="100%"
-              minH="300px"
-              p="9px"
+              minH="200px"
+              maxH="450px"
+              p="0px 9px 9px 9px"
               w="100%"
               bgColor="#fff"
               boxShadow="base"
               borderRadius="15px"
-              border="1px solid brown"
+              overflowY="auto"
             >
-              <Table variant="simple" size="sm" width="100%">
+              <Table variant="simple" size="sm" width="100%" overflowY="scroll">
                 <Thead
                   width="100%"
                   height="40px"
@@ -273,10 +274,12 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                               id={id}
                             />
                           </Td>
-                          <Td overflow="hidden">
+                          <Td maxW="120px" overflow="hidden">
                             {truncateString(companyName)}
                           </Td>
-                          <Td overflow="hidden">{truncateString(position)}</Td>
+                          <Td maxW="120px" overflow="hidden">
+                            {truncateString(position)}
+                          </Td>
                           <Td>{tableTestFunc(awaitingResponse)}</Td>
                           <Td>{tableTestFunc(rejected)}</Td>
                           <Td>{tableTestFunc(nextRound)}</Td>
@@ -302,7 +305,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
           p="15px"
           color="#2c2c2c"
           ml="1rem"
-          w="330px"
+          w="300px"
         >
           <Box>
             <Heading size="md">Top Job Sites</Heading>
@@ -320,7 +323,6 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               w="100%"
               maxH="95%"
               minH="85%"
-              border="1px solid blue"
             >
               <List spacing={[1, 1, 1, 2, 2, 3, 12]}>
                 <SiteListItem icon={LinkedInPNG} name="LinkedIn" />

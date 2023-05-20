@@ -17,7 +17,8 @@ const Stats = ({ loggedInUserData }) => {
 
   return (
     <Flex
-      width="100%"
+      w="100%"
+      h="100%"
       justifyContent="space-around"
       bgColor="#f6f6f6"
       p="15px"
