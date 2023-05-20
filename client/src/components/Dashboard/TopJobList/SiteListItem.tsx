@@ -24,20 +24,12 @@ const SiteListItem = ({ name, icon, link, description }: SiteListItemProps) => {
         <Image boxSize="40px" src={icon} alt="LinkedIn" mr="1rem" />
         <Flex flexDir="column">
           <Heading size="md">{name}</Heading>
-          <Text fontSize="xs" color="#5f5f5f" w="250px">
+          <Text fontSize="xs" color="#5f5f5f" w="100px">
             {description}
           </Text>
         </Flex>
       </Box>
       <Flex>
-        <Flex flexDir="column">
-          <Text as="b" fontSize="sm">
-            200 million
-          </Text>
-          <Text fontSize="xs" color="#5f5f5f">
-            Active users
-          </Text>
-        </Flex>
         <Link href={link} isExternal>
           <ExternalLinkIcon mx="1rem" />
         </Link>

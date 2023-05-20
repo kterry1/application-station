@@ -15,7 +15,8 @@ import {
   useToast,
   Center,
   List,
-  useBreakpointValue,
+  useMediaQuery,
+  useTheme,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import SingleCheckbox from "../SingleCheckbox/SingleCheckbox";
@@ -87,7 +88,10 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
     indexOfFirstItem,
     indexOfLastItem
   );
-  const spacing = useBreakpointValue({ base: "12px", md: "16px", lg: "20px" });
+  const theme = useTheme();
+  const [isSmallerThan3xl] = useMediaQuery(
+    `(max-width): ${theme.breakpoints["3xl"]}`
+  );
 
   useEffect(() => {
     refetch();
@@ -113,7 +117,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
     }
   };
   return (
-    <Flex p="20px" bg="#fff" flexDir="column" width="100%" height="100%">
+    <Flex p="20px" bg="#fff" flexDir="column" width="100%" height="100vh">
       <Flex justifyContent="center" w="100%">
         <Box p="40px 80px" width="80%" color="#2c2c2c">
           <Heading size="xl">Application Station</Heading>
@@ -124,13 +128,21 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
         </Box>
         <Stats loggedInUserData={loggedInUserData} />
       </Flex>
-      <Flex width="100%" justifyContent="space-between" flex="1" mt="1rem">
+      <Flex
+        width="100%"
+        justifyContent="space-between"
+        flex="1"
+        mt="1rem"
+        h="100%"
+        border="1px solid red"
+      >
         <Box
           bgColor="#f6f6f6"
           borderRadius="15px"
           p="15px"
           color="#2c2c2c"
           flex="1"
+          border="1px solid green"
         >
           <Box>
             <Heading size="md">Company Applications Tracker</Heading>
@@ -141,9 +153,11 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
           </Box>
           <Flex
             flexDir="column"
-            justifyContent="flex-end"
+            justifyContent="center"
             alignItems="center"
             height="90%"
+            w="100%"
+            border="1px solid purple"
           >
             <Flex width="100%" mt="2rem" justifyContent="space-between">
               <Stack
@@ -190,12 +204,13 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
             <TableContainer
               mt=".5rem"
               h="100%"
-              minH="488px"
+              minH="300px"
               p="9px"
-              minW="60vw"
+              w="100%"
               bgColor="#fff"
               boxShadow="base"
               borderRadius="15px"
+              border="1px solid brown"
             >
               <Table variant="simple" size="sm" width="100%">
                 <Thead
@@ -287,8 +302,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
           p="15px"
           color="#2c2c2c"
           ml="1rem"
-          flex="1"
-          w="100%"
+          w="330px"
         >
           <Box>
             <Heading size="md">Top Job Sites</Heading>
@@ -301,10 +315,12 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               bgColor="#fff"
               boxShadow="base"
               borderRadius="15px"
-              mt="2rem"
+              mt={isSmallerThan3xl ? "2rem" : ".3rem"}
               p="20px"
               w="100%"
-              h="95%"
+              maxH="95%"
+              minH="85%"
+              border="1px solid blue"
             >
               <List spacing={[1, 1, 1, 2, 2, 3, 12]}>
                 <SiteListItem icon={LinkedInPNG} name="LinkedIn" />
