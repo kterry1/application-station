@@ -40,6 +40,7 @@ import ZiprecruiterSVG from "../../assets/icons/ziprecruiter.svg";
 import BehanceSVG from "../../assets/icons/behance.svg";
 import SiteListItem from "./TopJobList/SiteListItem";
 import { Context } from "../../main";
+import Logo from "../../assets/icons/logo.svg";
 
 type Props = {};
 
@@ -123,7 +124,8 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
     <Flex p="20px" bg="#fff" flexDir="column" width="100%" height="100vh">
       <Flex justifyContent="center" w="100%">
         <Box p="40px 80px" width="80%" color="#2c2c2c">
-          <Heading size="xl">Application Station</Heading>
+          {/* <Heading size="xl">Application Station</Heading> */}
+          <img src={Logo} />
           <Text pt="3" fontSize="md" color=" #5f5f5f">
             Manage your applications with ease by importing them into the
             classifier.
