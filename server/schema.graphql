@@ -36,6 +36,7 @@ type User {
   email: String!
   lastLoggedIn: DateTime
   lastImportDate: DateTime
+  isImportLoading: Boolean
   role: UserRole
   companyApplications: [CompanyApplication]
 }

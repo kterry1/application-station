@@ -1,12 +1,12 @@
-import React from "react";
+import { Component } from "react";
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError() {
     return { hasError: true };
   }
 
@@ -16,7 +16,11 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      return <h1>Something went wrong.</h1>;
+      return (
+        <h1>
+          Something went wrong. Refresh the page and contact project owner.
+        </h1>
+      );
     }
 
     return this.props.children;

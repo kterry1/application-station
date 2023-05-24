@@ -85,6 +85,7 @@ export const GET_LOGGED_IN_USER = gql`
       id
       name
       email
+      isImportLoading
       role
     }
   }

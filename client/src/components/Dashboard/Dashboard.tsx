@@ -56,7 +56,7 @@ const truncateString = (str: string, maxLength: number = 20) => {
   return `${str.slice(0, maxLength)}...`;
 };
 
-const Dashboard = ({ loggedInUserData, logOutUser }) => {
+const Dashboard = ({ loggedInUserData, logOutUser, loggedInUserRefetch }) => {
   const [editRow, setEditRow] = useState({});
   const [selectedRows, setSelectedRows] = useState([]);
   const [openDrawer, setOpenDrawer] = useState({
@@ -200,8 +200,12 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                 </Button>
               </Stack>
               <ImportCompanyApplications
+                isImportLoading={
+                  loggedInUserData?.loggedInUser?.isImportLoading
+                }
                 isUserLoggedIn={!!loggedInUserData?.loggedInUser}
                 importProgress={dataImportProgress?.importProgress}
+                loggedInUserRefetch={loggedInUserRefetch}
               />
             </Flex>
 

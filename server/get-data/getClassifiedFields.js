@@ -3,8 +3,8 @@ const { Configuration, OpenAIApi } = require("openai");
 const Bottleneck = require("bottleneck");
 
 const limiter = new Bottleneck({
-  maxConcurrent: 10,
-  minTime: 400,
+  maxConcurrent: 8,
+  minTime: 500,
 });
 
 const configuration = new Configuration({
@@ -55,7 +55,7 @@ const getClassifiedFields = async (text, messageId) => {
         })
         .catch((error) => {
           console.error(
-            `Error(OpenAI) with message ${messageId}. Message: ${error.message}`
+            `Error(OpenAI) with message ${messageId}. Error: ${error}`
           );
         })
     );

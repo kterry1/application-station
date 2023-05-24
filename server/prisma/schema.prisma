@@ -31,6 +31,7 @@ model User {
   email String @unique
   lastLoggedIn DateTime?
   lastImportDate DateTime?
+  isImportLoading Boolean @default(false)
   role String @default("USER")
   companyApplications CompanyApplication[] 
 }

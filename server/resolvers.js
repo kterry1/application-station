@@ -1,9 +1,9 @@
 const { gql } = require("apollo-server-express");
-const { DateTime, DateTimeResolver } = require("graphql-scalars");
+const { DateTimeResolver } = require("graphql-scalars");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const { PubSub } = require("graphql-subscriptions");
-const { getEmails } = require("./get-google-data/getEmails");
+const { getEmails } = require("./get-data/getEmails");
 const { filterItemsThisWeek, filterItemsLastWeek } = require("./utils");
 require("dotenv").config();
 
@@ -239,11 +239,31 @@ const resolvers = {
       __,
       { prisma, jwtDecoded, accessToken }
     ) => {
+      await prisma.user.update({
+        where: {
+          id: jwtDecoded.id,
+        },
+        data: {
+          isImportLoading: true,
+        },
+      });
+
       pubsub.publish("APPLICATION_IMPORTED", {
         importProgress: 0,
       });
       const emails = await getEmails(accessToken);
 
+      if (!emails.length) {
+        // Update isImportLoading to false and return early
+        await prisma.user.update({
+          where: {
+            id: jwtDecoded.id,
+          },
+          data: {
+            isImportLoading: false,
+          },
+        });
+      }
       // 'createMany' is not supported with SQLite
       // const newCompanyApplications = await prisma.companyApplication.createMany(
       //   {
@@ -255,7 +275,7 @@ const resolvers = {
       //     },
       //   }
       // );
-      let numOfImportedApplications = 0;
+      let numOfHandledApplications = 0;
       let unableToClassifyCount = 0;
       const totalEmails = emails?.length;
 
@@ -281,16 +301,28 @@ const resolvers = {
               unableToClassifyCount++;
             }
           }
-          numOfImportedApplications++;
+          numOfHandledApplications++;
           let importProgress = Math.round(
-            (numOfImportedApplications / totalEmails) * 100
+            (numOfHandledApplications / totalEmails) * 100
           );
 
           pubsub.publish("APPLICATION_IMPORTED", {
             importProgress: importProgress,
           });
+
+          if (numOfHandledApplications === totalEmails) {
+            await prisma.user.update({
+              where: {
+                id: jwtDecoded.id,
+              },
+              data: {
+                isImportLoading: false,
+              },
+            });
+          }
         })
       );
+
       return {
         status: 200,
         message: "Successfully Imported New Company Applications",

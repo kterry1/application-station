@@ -13,17 +13,21 @@ import {
 } from "@chakra-ui/react";
 import { FaFileImport } from "react-icons/fa";
 import { toastNotification } from "../../utils/toastNotication/toastNotification";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../../main";
 
 interface ImportCompanyApplicationsProps {
   importProgress: number;
   isUserLoggedIn: boolean;
+  isImportLoading: boolean;
+  loggedInUserRefetch: () => void;
 }
 
 const ImportCompanyApplications = ({
   importProgress,
   isUserLoggedIn,
+  isImportLoading,
+  loggedInUserRefetch,
 }: ImportCompanyApplicationsProps) => {
   const toast = useToast();
   const [importCompanyApplications, { loading, error: importError }] =
@@ -68,9 +72,15 @@ const ImportCompanyApplications = ({
       });
     }
   };
+  useEffect(() => {
+    loggedInUserRefetch();
+  }, [loading, importCompanyApplications]);
 
   const importProgressDisplay = () => {
-    if (importProgress === 0) {
+    if (
+      isImportLoading &&
+      (importProgress < 1 || importProgress === undefined)
+    ) {
       return "Gathering Emails";
     } else if (importProgress > 0 && importProgress < 100) {
       return `${importProgress}%`;
@@ -83,7 +93,11 @@ const ImportCompanyApplications = ({
     <>
       <Button
         px="20px"
-        isLoading={typeof importProgress === "number" && importProgress < 100}
+        isLoading={
+          (isImportLoading &&
+            (importProgress < 1 || importProgress === undefined)) ||
+          importProgress < 100
+        }
         loadingText={importProgressDisplay()}
         size="sm"
         rightIcon={<FaFileImport />}

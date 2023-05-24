@@ -43,6 +43,7 @@ function App() {
           />
           <Dashboard
             logOutUser={logOutUser}
+            loggedInUserRefetch={loggedInUserRefetch}
             loggedInUserData={loggedInUserData}
           />
         </Flex>
