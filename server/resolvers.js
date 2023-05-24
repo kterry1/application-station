@@ -248,7 +248,7 @@ const resolvers = {
         },
       });
 
-      pubsub.publish("APPLICATION_IMPORTED", {
+      pubsub.publish("APPLICATION_HANDLED", {
         importProgress: 0,
       });
       const emails = await getEmails(accessToken);
@@ -306,7 +306,7 @@ const resolvers = {
             (numOfHandledApplications / totalEmails) * 100
           );
 
-          pubsub.publish("APPLICATION_IMPORTED", {
+          pubsub.publish("APPLICATION_HANDLED", {
             importProgress: importProgress,
           });
 
@@ -364,7 +364,7 @@ const resolvers = {
   },
   Subscription: {
     importProgress: {
-      subscribe: () => pubsub.asyncIterator(["APPLICATION_IMPORTED"]),
+      subscribe: () => pubsub.asyncIterator(["APPLICATION_HANDLED"]),
     },
   },
   User: {
