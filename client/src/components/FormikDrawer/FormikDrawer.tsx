@@ -27,6 +27,7 @@ import { toastNotification } from "../../utils/toastNotication/toastNotification
 import { useMutation } from "@apollo/client";
 import { useContext } from "react";
 import { Context } from "../../main";
+import { capitalizeText } from "../../utils/helperFunctions/helperFunctions";
 const appliedAtTransformer = (appliedAt: Date) => {
   if (appliedAt) {
     return new Date(appliedAt).toISOString().substring(0, 10);
@@ -141,7 +142,7 @@ function DrawerExample(props: any) {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader borderBottomWidth="1px">
-            {openDrawer.reason.toUpperCase()}
+            {capitalizeText(openDrawer.reason)}
           </DrawerHeader>
           <form onSubmit={formik.handleSubmit}>
             <DrawerBody>
@@ -152,9 +153,8 @@ function DrawerExample(props: any) {
                       <FormLabel htmlFor="companyName">Company</FormLabel>
                       <Input
                         w="300px"
-                        isRequired={true}
-                        focusBorderColor="gray.400"
-                        errorBorderColor="red.500"
+                        focusBorderColor="#2c2c2c"
+                        errorBorderColor="#f24d62"
                         id="companyName"
                         placeholder="Company Name"
                         {...formik.getFieldProps("companyName")}
@@ -165,8 +165,8 @@ function DrawerExample(props: any) {
                       <Input
                         w="350px"
                         isRequired={true}
-                        focusBorderColor="gray.400"
-                        errorBorderColor="red.500"
+                        focusBorderColor="#2c2c2c"
+                        errorBorderColor="#f24d62"
                         id="position"
                         placeholder="Position"
                         {...formik.getFieldProps("position")}
@@ -180,8 +180,8 @@ function DrawerExample(props: any) {
                         placeholder="Select Date"
                         size="md"
                         type="date"
-                        focusBorderColor="gray.400"
-                        errorBorderColor="red.500"
+                        focusBorderColor="#2c2c2c"
+                        errorBorderColor="#f24d62"
                       />
                     </Box>
                   </Flex>
@@ -194,7 +194,7 @@ function DrawerExample(props: any) {
                     <Switch
                       {...formik.getFieldProps("awaitingResponse")}
                       isChecked={formik.values.awaitingResponse}
-                      colorScheme="greenSwitch"
+                      colorScheme="logoLightBlue"
                       id="awaitingResponse"
                     />
 
@@ -202,7 +202,7 @@ function DrawerExample(props: any) {
                     <Switch
                       {...formik.getFieldProps("rejected")}
                       isChecked={formik.values.rejected}
-                      colorScheme="greenSwitch"
+                      colorScheme="logoLightBlue"
                       id="rejected"
                     />
 
@@ -210,7 +210,7 @@ function DrawerExample(props: any) {
                     <Switch
                       {...formik.getFieldProps("nextRound")}
                       isChecked={formik.values.nextRound}
-                      colorScheme="greenSwitch"
+                      colorScheme="logoLightBlue"
                       id="isFocusable"
                     />
 
@@ -220,7 +220,7 @@ function DrawerExample(props: any) {
                     <Switch
                       {...formik.getFieldProps("receivedOffer")}
                       isChecked={formik.values.receivedOffer}
-                      colorScheme="greenSwitch"
+                      colorScheme="logoLightBlue"
                       id="receivedOffer"
                     />
                   </FormControl>
@@ -230,8 +230,8 @@ function DrawerExample(props: any) {
                   <Textarea
                     {...formik.getFieldProps("notes")}
                     value={formik.values.notes}
-                    focusBorderColor="gray.400"
-                    errorBorderColor="red.500"
+                    focusBorderColor="#2c2c2c"
+                    errorBorderColor="#f24d62"
                     id="notes"
                   />
                 </Box>
@@ -252,7 +252,7 @@ function DrawerExample(props: any) {
               >
                 Cancel
               </Button>
-              <Button type="submit" colorScheme="greenSwitch">
+              <Button type="submit" variant="outline" colorScheme="#2c2c2c">
                 Submit
               </Button>
             </DrawerFooter>

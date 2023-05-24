@@ -174,7 +174,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                 <Button
                   size="sm"
                   rightIcon={<AddIcon />}
-                  color="#1668fc"
+                  color="#003366"
                   variant="ghost"
                   onClick={() => {
                     setEditRow({});
@@ -273,7 +273,7 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
                         >
                           <Td>
                             <SingleCheckbox
-                              color="#f24d62"
+                              colorScheme="logoLightBlue"
                               setSelectedRows={setSelectedRows}
                               id={id}
                             />
@@ -328,13 +328,37 @@ const Dashboard = ({ loggedInUserData, logOutUser }) => {
               maxH="95%"
               minH="85%"
             >
-              <List spacing={[1, 1, 1, 2, 2, 3, 12]}>
-                <SiteListItem icon={LinkedInPNG} name="LinkedIn" />
-                <SiteListItem icon={GlassdoorPNG} name="Glassdoor" />
-                <SiteListItem icon={IndeedPNG} name="Indeed" />
-                <SiteListItem icon={AngelListSVG} name="Angel List" />
-                <SiteListItem icon={ZiprecruiterSVG} name="Zip Recruiter" />
-                <SiteListItem icon={BehanceSVG} name="Behance" />
+              <List spacing={[1, 1, 1, 2, 2, 3, 10]}>
+                <SiteListItem
+                  icon={LinkedInPNG}
+                  name="LinkedIn"
+                  link="https://www.linkedin.com/jobs"
+                />
+                <SiteListItem
+                  icon={GlassdoorPNG}
+                  name="Glassdoor"
+                  link="https://www.glassdoor.com/Job"
+                />
+                <SiteListItem
+                  icon={IndeedPNG}
+                  name="Indeed"
+                  link="https://www.indeed.com/?from=gnav-jobsearch"
+                />
+                <SiteListItem
+                  icon={AngelListSVG}
+                  name="Angel List"
+                  link="https://wellfound.com/jobs"
+                />
+                <SiteListItem
+                  icon={ZiprecruiterSVG}
+                  name="Zip Recruiter"
+                  link="https://www.ziprecruiter.com/jobs-search"
+                />
+                <SiteListItem
+                  icon={BehanceSVG}
+                  name="Behance"
+                  link="https://www.behance.net/joblist"
+                />
               </List>
             </Box>
           </Center>

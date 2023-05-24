@@ -4,7 +4,7 @@ const Bottleneck = require("bottleneck");
 
 const limiter = new Bottleneck({
   maxConcurrent: 10,
-  minTime: 600,
+  minTime: 400,
 });
 
 const configuration = new Configuration({
@@ -36,7 +36,7 @@ const getClassifiedFields = async (text, messageId) => {
     const extractedData = await limiter.schedule(() =>
       openai
         .createChatCompletion({
-          model: "gpt-3.5-turbo",
+          model: "gpt-4",
           messages: [{ role: "user", content: prompt }],
         })
         .then((response) => {
