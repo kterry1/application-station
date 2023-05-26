@@ -127,7 +127,7 @@ const resolvers = {
           return response;
         })
         .catch((error) => {
-          console.log("Error authenticating user", error);
+          console.error("Error authenticating user", error);
         });
 
       res.cookie("access_token", input.accessToken, {
@@ -282,23 +282,62 @@ const resolvers = {
       await Promise.all(
         emails?.map(async (companyApplication, index) => {
           await new Promise((resolve) => setTimeout(resolve, index * 400));
-          const checkForDulicates = await prisma.companyApplication.findUnique({
-            where: {
-              externalId: companyApplication.externalId,
-            },
-          });
-          if (!checkForDulicates) {
-            await new Promise((resolve) => setTimeout(resolve, index * 400));
-            const importedApplication = await prisma.companyApplication.create({
-              data: {
-                ...companyApplication,
-                user: {
-                  connect: { id: jwtDecoded.id },
-                },
+          const checkForDuplicates = await prisma.companyApplication.findUnique(
+            {
+              where: {
+                externalId: companyApplication.externalId,
               },
-            });
-            if (importedApplication.unableToClassify === true) {
-              unableToClassifyCount++;
+            }
+          );
+          if (!checkForDuplicates) {
+            const {
+              appliedAt,
+              externalId,
+              companyName,
+              position,
+              ...classifications
+            } = companyApplication;
+            const searchCurrentApplicationToUpdate =
+              await prisma.companyApplication.findFirst({
+                where: {
+                  user: {
+                    id: jwtDecoded.id,
+                  },
+                  companyName: companyName,
+                  position: position,
+                },
+              });
+            if (!searchCurrentApplicationToUpdate) {
+              await new Promise((resolve) => setTimeout(resolve, index * 400));
+              const createdApplication = await prisma.companyApplication.create(
+                {
+                  data: {
+                    ...companyApplication,
+                    user: {
+                      connect: { id: jwtDecoded.id },
+                    },
+                  },
+                }
+              );
+              if (createdApplication.unableToClassify === true) {
+                unableToClassifyCount++;
+              }
+            } else if (
+              searchCurrentApplicationToUpdate.appliedAt < new Date(appliedAt)
+            ) {
+              await new Promise((resolve) => setTimeout(resolve, index * 400));
+              const updatedApplication = await prisma.companyApplication.update(
+                {
+                  where: {
+                    id: searchCurrentApplicationToUpdate.id,
+                    // userId: jwtDecoded.id,
+                  },
+                  data: {
+                    ...classifications,
+                  },
+                }
+              );
+              console.log("updatedApplication", updatedApplication);
             }
           }
           numOfHandledApplications++;

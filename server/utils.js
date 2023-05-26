@@ -50,8 +50,21 @@ const replaceNullWithFalseInObj = (obj) => {
   return obj;
 };
 
+const normalizeCompanyName = (name) => {
+  if (/[,\s](inc|llc|ltd|co)\b/i.test(name)) {
+    return `${name.charAt(0).toUpperCase()}${name
+      .slice(1)
+      .replace(/[,\.]/g, "")
+      .toLowerCase()
+      .replace(/\s+(inc|llc|ltd|co)\b/g, "")}`;
+  } else {
+    return name;
+  }
+};
+
 module.exports = {
   filterItemsThisWeek,
   filterItemsLastWeek,
   replaceNullWithFalseInObj,
+  normalizeCompanyName,
 };
