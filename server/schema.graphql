@@ -43,6 +43,7 @@ type User {
 
 input GoogleAuthInput {
   accessToken: String!
+  isDemoAccount: Boolean
 }
 
 type GoogleAuthResponse {

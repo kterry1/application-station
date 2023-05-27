@@ -11,6 +11,7 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineLogout } from "react-icons/ai";
 import { toastNotification } from "../../utils/toastNotication/toastNotification";
+import DemoAccount from "../DemoAccount/DemoAccount";
 
 const transformEnum = (str: string = "") =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -45,12 +46,13 @@ const GoogleLoginButton = ({
       console.error(error);
     }
   };
-  const handleLogin = async ({ accessToken }) => {
+  const handleLogin = async ({ accessToken = "", isDemoAccount = false }) => {
     try {
       const result = await authenticateWithGoogle({
         variables: {
           input: {
-            accessToken: accessToken,
+            accessToken: isDemoAccount ? "DEMO_ACCESS_TOKEN" : accessToken,
+            isDemoAccount: !!isDemoAccount,
           },
         },
       });
@@ -119,17 +121,20 @@ const GoogleLoginButton = ({
           </Button>
         </>
       ) : (
-        <Button
-          mt={4}
-          className={navSize === "small" && "logout-button"}
-          size="sm"
-          bg="#2c2c2c"
-          color="#fff"
-          onClick={login}
-          rightIcon={<FcGoogle />}
-        >
-          {navSize !== "small" && "Log in with"}
-        </Button>
+        <>
+          <Button
+            mt={4}
+            className={navSize === "small" && "logout-button"}
+            size="sm"
+            bg="#2c2c2c"
+            color="#fff"
+            onClick={login}
+            rightIcon={<FcGoogle />}
+          >
+            {navSize !== "small" && "Log in with"}
+          </Button>
+          <DemoAccount onClick={() => handleLogin({ isDemoAccount: true })} />
+        </>
       )}
     </>
   );

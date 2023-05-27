@@ -12,7 +12,7 @@ const limiter = new Bottleneck({
   minTime: 200,
 });
 
-const maxResults = 1;
+const maxResults = 3;
 
 async function getEmails(accessToken) {
   try {
@@ -28,6 +28,7 @@ async function getEmails(accessToken) {
     const messageListResponse = await axios.get(`${baseUrl}${queryParams}`, {
       headers,
     });
+
     const messageIds = messageListResponse?.data?.messages?.map(
       (message) => message.id
     );
@@ -35,7 +36,7 @@ async function getEmails(accessToken) {
     //  Fetch email details for each message ID
     const emails = [];
     await Promise.all(
-      messageIds.map(async (messageId) => {
+      messageIds?.map(async (messageId) => {
         const messageResponse = await limiter.schedule(() =>
           axios
             .get(`${baseUrl}/${messageId}`, {
@@ -103,7 +104,6 @@ async function getEmails(accessToken) {
           }
         }
       })
-      // }
     );
     return emails;
   } catch (error) {

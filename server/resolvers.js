@@ -1,10 +1,10 @@
-const { gql } = require("apollo-server-express");
 const { DateTimeResolver } = require("graphql-scalars");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const { PubSub } = require("graphql-subscriptions");
 const { getEmails } = require("./get-data/getEmails");
 const { filterItemsThisWeek, filterItemsLastWeek } = require("./utils");
+const { getDemoEmails } = require("./demo-account/getDemoEmails");
 require("dotenv").config();
 
 const pubsub = new PubSub();
@@ -49,12 +49,15 @@ const resolvers = {
               (companyApplication) =>
                 companyApplication[classification] === true
             );
-            return { ...acc, [`${classification}Count`]: filteredTotal.length };
+            return {
+              ...acc,
+              [`${classification}Count`]: filteredTotal?.length,
+            };
           },
           {}
         );
 
-        const applicationCountTotal = companyApplications.length;
+        const applicationCountTotal = companyApplications?.length;
         return {
           applicationCount: applicationCountTotal,
           ...classificationTotals,
@@ -65,28 +68,28 @@ const resolvers = {
         filterItemsThisWeek(companyApplications);
       const filteredLastWeekCompanyApplications =
         filterItemsLastWeek(companyApplications);
-      const applicationCountTW = filteredThisWeekCompanyApplications.length;
+      const applicationCountTW = filteredThisWeekCompanyApplications?.length;
       const awaitingResponseCountTW =
         filteredThisWeekCompanyApplications.filter(
           (companyApplication) => companyApplication.awaitingReponse === false
-        ).length;
+        )?.length;
       const nextRoundCountTW = filteredThisWeekCompanyApplications.filter(
         (companyApplication) => companyApplication.nextRound === true
-      ).length;
+      )?.length;
       const rejectedCountTW = filteredThisWeekCompanyApplications.filter(
         (companyApplication) => companyApplication.rejected === true
-      ).length;
-      const applicationCountLW = filteredLastWeekCompanyApplications.length;
+      )?.length;
+      const applicationCountLW = filteredLastWeekCompanyApplications?.length;
       const awaitingResponseCountLW =
         filteredLastWeekCompanyApplications.filter(
           (companyApplication) => companyApplication.awaitingReponse === false
-        ).length;
+        )?.length;
       const nextRoundCountLW = filteredLastWeekCompanyApplications.filter(
         (companyApplication) => companyApplication.nextRound === true
-      ).length;
+      )?.length;
       const rejectedCountLW = filteredLastWeekCompanyApplications.filter(
         (companyApplication) => companyApplication.rejected === true
-      ).length;
+      )?.length;
 
       return {
         thisWeek: {
@@ -117,18 +120,18 @@ const resolvers = {
         );
       };
 
-      // @TODO: Validate the accessToken first before running it through googleapi
-
-      const userInfo = await axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${input.accessToken}`
-        )
-        .then((response) => {
-          return response;
-        })
-        .catch((error) => {
-          console.error("Error authenticating user", error);
-        });
+      const userInfo = !input.isDemoAccount
+        ? await axios
+            .get(
+              `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${input.accessToken}`
+            )
+            .then((response) => {
+              return response;
+            })
+            .catch((error) => {
+              console.error("Error authenticating user", error);
+            })
+        : { data: { name: "Demo User", email: "demo-user@demo.com" } };
 
       res.cookie("access_token", input.accessToken, {
         httpOnly: true,
@@ -228,7 +231,7 @@ const resolvers = {
           }
         })
       );
-      const count = await companyApplications.length;
+      const count = await companyApplications?.length;
       return {
         status: 200,
         message: `Successfully Deleted ${count} Company Application(s)`,
@@ -251,10 +254,11 @@ const resolvers = {
       pubsub.publish("APPLICATION_HANDLED", {
         importProgress: 0,
       });
-      const emails = await getEmails(accessToken);
+      const emails = jwtDecoded.email.includes("@demo.com")
+        ? getDemoEmails()
+        : await getEmails(accessToken);
 
-      if (!emails.length) {
-        // Update isImportLoading to false and return early
+      if (!emails?.length) {
         await prisma.user.update({
           where: {
             id: jwtDecoded.id,
@@ -263,6 +267,14 @@ const resolvers = {
             isImportLoading: false,
           },
         });
+        pubsub.publish("APPLICATION_HANDLED", {
+          importProgress: 100,
+        });
+        return {
+          status: 200,
+          message: "No Emails Left to Import",
+          unableToClassifyCount: 0,
+        };
       }
       // 'createMany' is not supported with SQLite
       // const newCompanyApplications = await prisma.companyApplication.createMany(
@@ -326,18 +338,14 @@ const resolvers = {
               searchCurrentApplicationToUpdate.appliedAt < new Date(appliedAt)
             ) {
               await new Promise((resolve) => setTimeout(resolve, index * 400));
-              const updatedApplication = await prisma.companyApplication.update(
-                {
-                  where: {
-                    id: searchCurrentApplicationToUpdate.id,
-                    // userId: jwtDecoded.id,
-                  },
-                  data: {
-                    ...classifications,
-                  },
-                }
-              );
-              console.log("updatedApplication", updatedApplication);
+              await prisma.companyApplication.update({
+                where: {
+                  id: searchCurrentApplicationToUpdate.id,
+                },
+                data: {
+                  ...classifications,
+                },
+              });
             }
           }
           numOfHandledApplications++;
@@ -370,18 +378,17 @@ const resolvers = {
     },
     logOutUser: async (_, __, { res, accessToken }) => {
       try {
-        const response = await axios.post(
-          "https://oauth2.googleapis.com/revoke",
-          null,
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            params: {
-              token: accessToken,
-            },
-          }
-        );
+        const response =
+          accessToken === "DEMO_ACCESS_TOKEN"
+            ? { status: 200, message: "Log Out Successful" }
+            : await axios.post("https://oauth2.googleapis.com/revoke", null, {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+                params: {
+                  token: accessToken,
+                },
+              });
 
         if (response.status === 200) {
           res.cookie("jwt", "", {
