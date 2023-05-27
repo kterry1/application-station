@@ -3,7 +3,11 @@ const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const { PubSub } = require("graphql-subscriptions");
 const { getEmails } = require("./get-data/getEmails");
-const { filterItemsThisWeek, filterItemsLastWeek } = require("./utils");
+const {
+  filterItemsThisWeek,
+  filterItemsLastWeek,
+  generateRandomString,
+} = require("./utils");
 const { getDemoEmails } = require("./demo-account/getDemoEmails");
 require("dotenv").config();
 
@@ -131,7 +135,12 @@ const resolvers = {
             .catch((error) => {
               console.error("Error authenticating user", error);
             })
-        : { data: { name: "Demo User", email: "demo-user@demo.com" } };
+        : {
+            data: {
+              name: "Demo User",
+              email: `demo-user-${generateRandomString(8)}@demo.com`,
+            },
+          };
 
       res.cookie("access_token", input.accessToken, {
         httpOnly: true,
@@ -254,8 +263,9 @@ const resolvers = {
       pubsub.publish("APPLICATION_HANDLED", {
         importProgress: 0,
       });
+
       const emails = jwtDecoded.email.includes("@demo.com")
-        ? getDemoEmails()
+        ? getDemoEmails(jwtDecoded.email.match(/demo-user-(.*?)@demo.com/)[1])
         : await getEmails(accessToken);
 
       if (!emails?.length) {
@@ -301,6 +311,7 @@ const resolvers = {
               },
             }
           );
+          console.log("checkForDuplicates", checkForDuplicates);
           if (!checkForDuplicates) {
             const {
               appliedAt,
@@ -319,6 +330,7 @@ const resolvers = {
                   position: position,
                 },
               });
+
             if (!searchCurrentApplicationToUpdate) {
               await new Promise((resolve) => setTimeout(resolve, index * 400));
               const createdApplication = await prisma.companyApplication.create(
@@ -331,6 +343,7 @@ const resolvers = {
                   },
                 }
               );
+
               if (createdApplication.unableToClassify === true) {
                 unableToClassifyCount++;
               }

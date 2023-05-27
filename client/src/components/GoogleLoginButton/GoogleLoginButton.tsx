@@ -115,7 +115,7 @@ const GoogleLoginButton = ({
             onClick={handleLogout}
             rightIcon={<AiOutlineLogout />}
             bg="#2c2c2c"
-            color="#fff"
+            color="logoLightBlue.500"
           >
             {navSize !== "small" && "Logout"}
           </Button>
@@ -124,16 +124,22 @@ const GoogleLoginButton = ({
         <>
           <Button
             mt={4}
+            mb={1}
             className={navSize === "small" && "logout-button"}
             size="sm"
             bg="#2c2c2c"
-            color="#fff"
+            color="logoLightBlue.500"
+            _hover={{ background: "#fff" }}
             onClick={login}
             rightIcon={<FcGoogle />}
           >
             {navSize !== "small" && "Log in with"}
           </Button>
-          <DemoAccount onClick={() => handleLogin({ isDemoAccount: true })} />
+          <Text fontSize="xs">OR</Text>
+          <DemoAccount
+            navSize={navSize}
+            onClick={() => handleLogin({ isDemoAccount: true })}
+          />
         </>
       )}
     </>

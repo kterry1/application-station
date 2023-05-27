@@ -1,7 +1,9 @@
-const demoEmails = [
+const { generateRandomString } = require("../utils");
+
+const demoEmails = (demoAccountRandomString) => [
   {
     appliedAt: "2023-05-01T17:00:00.000Z",
-    externalId: "1a7859cbfe40149c",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Amazon",
     position: "Backend Developer",
     rejected: false,
@@ -12,7 +14,7 @@ const demoEmails = [
   },
   {
     appliedAt: "2023-05-27T10:30:00.000Z",
-    externalId: "2b796adeff20148d",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Microsoft",
     position: "Full Stack Developer",
     rejected: true,
@@ -23,7 +25,7 @@ const demoEmails = [
   },
   {
     appliedAt: "2023-05-28T11:15:00.000Z",
-    externalId: "3c707be1ff30147e",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Netflix",
     position: "Frontend Developer",
     rejected: false,
@@ -34,18 +36,18 @@ const demoEmails = [
   },
   {
     appliedAt: "2023-05-29T12:00:00.000Z",
-    externalId: "4d718be2ff40146f",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Spotify",
     position: "Data Scientist",
     rejected: false,
     nextRound: false,
     receivedOffer: false,
-    awaitingResponse: false,
-    unableToClassify: true,
+    awaitingResponse: true,
+    unableToClassify: false,
   },
   {
     appliedAt: "2023-05-30T13:45:00.000Z",
-    externalId: "5e729be3ff50145e",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Twitter",
     position: "ML/AI Engineer",
     rejected: false,
@@ -56,7 +58,7 @@ const demoEmails = [
   },
   {
     appliedAt: "2023-05-31T14:30:00.000Z",
-    externalId: "6f73abe4ff60144d",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Facebook",
     position: "iOS Developer",
     rejected: false,
@@ -67,7 +69,7 @@ const demoEmails = [
   },
   {
     appliedAt: "2023-06-01T15:15:00.000Z",
-    externalId: "7g74bbe5ff70143c",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Google",
     position: "Android Developer",
     rejected: false,
@@ -78,18 +80,18 @@ const demoEmails = [
   },
   {
     appliedAt: "2023-06-02T16:00:00.000Z",
-    externalId: "8h75cbe6ff80142b",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "IBM",
     position: "Software Tester",
-    rejected: true,
+    rejected: false,
     nextRound: false,
-    receivedOffer: false,
+    receivedOffer: true,
     awaitingResponse: false,
-    unableToClassify: true,
+    unableToClassify: false,
   },
   {
     appliedAt: "2023-06-04T09:00:00.000Z",
-    externalId: "9i76dbe7ff90121a",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Airbnb",
     position: "Product Manager",
     rejected: true,
@@ -100,18 +102,18 @@ const demoEmails = [
   },
   {
     appliedAt: "2023-06-05T11:30:00.000Z",
-    externalId: "10j77ebe8fa01209",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Uber",
     position: "Data Analyst",
     rejected: false,
-    nextRound: true,
+    nextRound: false,
     receivedOffer: false,
     awaitingResponse: false,
     unableToClassify: true,
   },
   {
     appliedAt: "2023-06-06T13:00:00.000Z",
-    externalId: "11k78fbe9fb012f8",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Lyft",
     position: "UI/UX Designer",
     rejected: false,
@@ -122,7 +124,7 @@ const demoEmails = [
   },
   {
     appliedAt: "2023-06-07T15:30:00.000Z",
-    externalId: "12l79gbeafc012e7",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Slack",
     position: "Security Engineer",
     rejected: false,
@@ -133,7 +135,7 @@ const demoEmails = [
   },
   {
     appliedAt: "2023-06-08T17:00:00.000Z",
-    externalId: "13m80hbebfd012d6",
+    externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Zoom",
     position: "Network Engineer",
     rejected: false,
@@ -144,11 +146,21 @@ const demoEmails = [
   },
 ];
 
-let currentIndex = 0;
+let indexObject = { currentIndex: 0, lastDemoAccount: "" };
 
-const getDemoEmails = () => {
-  const emails = demoEmails.slice(currentIndex, currentIndex + 3);
-  currentIndex += 3;
+const getDemoEmails = (demoAccountRandomString) => {
+  if (demoAccountRandomString !== indexObject.lastDemoAccount) {
+    indexObject.currentIndex = 0;
+  }
+
+  const emails = demoEmails(demoAccountRandomString).slice(
+    indexObject.currentIndex,
+    indexObject.currentIndex + 3
+  );
+
+  indexObject.currentIndex += 3;
+  indexObject.lastDemoAccount = demoAccountRandomString;
+
   return emails;
 };
 
