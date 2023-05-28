@@ -8,8 +8,8 @@ import { useContext, useEffect } from "react";
 import StatCard from "./StatCard";
 import { Context } from "../../main";
 
-const Stats = ({ loggedInUserData }) => {
-  const { loading, error, data, refetch } = useQuery(GET_WEEKLY_STATS);
+const Stats = ({ loggedInUserData }: any) => {
+  const { data, refetch } = useQuery(GET_WEEKLY_STATS);
   const { toggleForImport } = useContext(Context);
 
   useEffect(() => {

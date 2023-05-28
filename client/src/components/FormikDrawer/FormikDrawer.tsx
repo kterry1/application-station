@@ -49,20 +49,12 @@ function DrawerExample(props: any) {
     openDrawer,
     setOpenDrawer,
   } = props;
-  const [
-    addSingleCompanyApplication,
-    {
-      loading: loadingAddSingleCompanyApplication,
-      error: errorAddSingleCompanyApplication,
-    },
-  ] = useMutation(ADD_SINGLE_COMPANY_APPLICATION);
-  const [
-    updateSingleCompanyApplication,
-    {
-      loading: loadingUpdateSingleCompanyApplication,
-      error: errorUpdateSingleCompanyApplication,
-    },
-  ] = useMutation(UPDATE_SINGLE_COMPANY_APPLICATION);
+  const [addSingleCompanyApplication] = useMutation(
+    ADD_SINGLE_COMPANY_APPLICATION
+  );
+  const [updateSingleCompanyApplication] = useMutation(
+    UPDATE_SINGLE_COMPANY_APPLICATION
+  );
   const { setToggleForImport } = useContext(Context);
   const todayDate = new Date().toISOString().substring(0, 10);
   const toast = useToast();

@@ -23,7 +23,7 @@ const GoogleLoginButton = ({
   authenticateWithGoogle,
   loggedInUserData,
   client,
-}) => {
+}: any) => {
   const toast = useToast();
 
   const handleLogout = async () => {
@@ -110,6 +110,7 @@ const GoogleLoginButton = ({
           </Flex>
           <Button
             mt={4}
+            // @ts-ignore
             className={navSize === "small" && "logout-button"}
             size={navSize === "small" ? "xs" : "sm"}
             onClick={handleLogout}
@@ -125,11 +126,13 @@ const GoogleLoginButton = ({
           <Button
             mt={4}
             mb={1}
+            // @ts-ignore
             className={navSize === "small" && "logout-button"}
             size="sm"
             bg="#2c2c2c"
             color="logoLightBlue.500"
             _hover={{ background: "#fff" }}
+            // @ts-ignore
             onClick={login}
             rightIcon={<FcGoogle />}
           >

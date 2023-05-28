@@ -42,8 +42,6 @@ import SiteListItem from "./TopJobList/SiteListItem";
 import { Context } from "../../main";
 import Logo from "../../assets/icons/logo.svg";
 
-type Props = {};
-
 const tableTestFunc = (property: boolean) => {
   return property ? "Yes" : "No";
 };
@@ -56,30 +54,24 @@ const truncateString = (str: string, maxLength: number = 20) => {
   return `${str.slice(0, maxLength)}...`;
 };
 
-const Dashboard = ({ loggedInUserData, logOutUser, loggedInUserRefetch }) => {
+const Dashboard = ({ loggedInUserData, loggedInUserRefetch }: any) => {
   const [editRow, setEditRow] = useState({});
-  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [openDrawer, setOpenDrawer] = useState({
     reason: "",
     status: false,
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const { loading, error, data, refetch } = useQuery(GET_COMPANY_APPLICATIONS);
-  const [
-    deleteCompanyApplications,
-    {
-      loading: loadingCompanyApplications,
-      error: errorDeleteCompanyApplications,
-    },
-  ] = useMutation(DELETE_COMPANY_APPLICATIONS, {
-    variables: {
-      input: {
-        ids: selectedRows,
+  const { data, refetch } = useQuery(GET_COMPANY_APPLICATIONS);
+  const [deleteCompanyApplications, { loading: loadingCompanyApplications }] =
+    useMutation(DELETE_COMPANY_APPLICATIONS, {
+      variables: {
+        input: {
+          ids: selectedRows,
+        },
       },
-    },
-  });
-  const { data: dataImportProgress, loading: loadingImportProgress } =
-    useSubscription(IMPORT_PROGRESS);
+    });
+  const { data: dataImportProgress } = useSubscription(IMPORT_PROGRESS);
   const toast = useToast();
   const itemsPerPage = 15;
   const totalPages =
@@ -124,7 +116,6 @@ const Dashboard = ({ loggedInUserData, logOutUser, loggedInUserRefetch }) => {
     <Flex p="20px" bg="#fff" flexDir="column" width="100%" height="100vh">
       <Flex justifyContent="center" w="100%">
         <Box p="40px 80px" width="80%" color="#2c2c2c">
-          {/* <Heading size="xl">Application Station</Heading> */}
           <img src={Logo} />
           <Text pt="3" fontSize="md" color=" #5f5f5f">
             Manage your applications with ease by importing them into the

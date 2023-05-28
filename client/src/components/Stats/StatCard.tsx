@@ -19,7 +19,7 @@ const StatCard = ({
   backgroundColor,
   cardStatKey,
   loggedInUserData,
-}) => {
+}: any) => {
   return (
     <>
       <Card

@@ -12,23 +12,12 @@ import {
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 
 function App() {
-  const {
-    loading: loggedInUserLoading,
-    error: loggedInUserError,
-    data: loggedInUserData,
-    refetch: loggedInUserRefetch,
-  } = useQuery(GET_LOGGED_IN_USER);
-  const [authenticateWithGoogle, { loading, error }] = useMutation(
+  const { data: loggedInUserData, refetch: loggedInUserRefetch } =
+    useQuery(GET_LOGGED_IN_USER);
+  const [authenticateWithGoogle] = useMutation(
     AUTHENTICATE_WITH_GOOGLE_MUTATION
   );
-  const [
-    logOutUser,
-    {
-      loading: loadingLogOutUser,
-      error: errorLogOutUser,
-      data: loggedOutUserData,
-    },
-  ] = useMutation(LOG_OUT_USER);
+  const [logOutUser] = useMutation(LOG_OUT_USER);
   const client = useApolloClient();
   return (
     <ChakraProvider theme={customTheme}>

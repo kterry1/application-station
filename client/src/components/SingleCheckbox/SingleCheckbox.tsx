@@ -7,9 +7,12 @@ type SingleCheckboxProps = {
   setSelectedRows: React.Dispatch<React.SetStateAction<any[]>>;
 };
 
-const filterSelectedRows = (id, setSelectedRows) => {
-  setSelectedRows((prevSelectedRows) =>
-    prevSelectedRows.filter((rowId) => rowId !== id)
+const filterSelectedRows = (
+  id: string,
+  setSelectedRows: React.Dispatch<React.SetStateAction<any[]>>
+) => {
+  setSelectedRows((prevSelectedRows: any[]) =>
+    prevSelectedRows.filter((rowId: string) => rowId !== id)
   );
 };
 

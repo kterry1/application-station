@@ -4,9 +4,6 @@ import { useState } from "react";
 import NavItem from "../NavItem/NavItem.js";
 import { FaHome } from "react-icons/fa";
 import GoogleLoginButton from "../GoogleLoginButton/GoogleLoginButton.js";
-import DemoAccount from "../DemoAccount";
-
-type Props = {};
 
 const Sidebar = ({
   logOutUser,
@@ -14,7 +11,7 @@ const Sidebar = ({
   authenticateWithGoogle,
   loggedInUserData,
   client,
-}) => {
+}: any) => {
   const [navSize, setNavSize] = useState("large");
 
   const handleNavIconClick = () => {
