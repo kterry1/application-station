@@ -144,7 +144,8 @@ const resolvers = {
 
       res.cookie("access_token", input.accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // Set 'secure' flag in production environment
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 60 * 60 * 1000,
       });
 
@@ -177,7 +178,8 @@ const resolvers = {
 
       res.cookie("jwt", getSignedToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // Set 'secure' flag in production environment
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 60 * 60 * 1000,
       });
       return { status: 200, message: "Authorization Successful" };
@@ -405,10 +407,14 @@ const resolvers = {
         if (response.status === 200) {
           res.cookie("jwt", "", {
             httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             expires: new Date(0),
           });
           res.cookie("access_token", "", {
             httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             expires: new Date(0),
           });
           return { status: 200, message: "Log Out Successful" };
