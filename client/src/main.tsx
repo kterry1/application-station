@@ -26,7 +26,7 @@ const httpLink = new HttpLink({
 const wsLink = new GraphQLWsLink(
   createClient({
     // url: "ws://localhost:4000/subscriptions",
-    url: "wss://https://application-station-database.herokuapp.com/subscriptions",
+    url: "wss://application-station-database.herokuapp.com/subscriptions",
     lazy: true,
   })
 );
@@ -54,7 +54,10 @@ interface ContextValue {
   setToggleForImport: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Context = createContext<ContextValue | null>(null);
+export const Context = createContext<ContextValue>({
+  toggleForImport: false,
+  setToggleForImport: () => {},
+});
 
 interface ContextProviderProps {
   children: ReactNode;

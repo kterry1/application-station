@@ -1,14 +1,24 @@
+import { ToastPosition } from "@chakra-ui/react";
+
+type ToastStatusType =
+  | "loading"
+  | "error"
+  | "info"
+  | "warning"
+  | "success"
+  | undefined;
+
 interface ToastNotificationProps {
   toast: (options: {
     title: string;
-    status: string;
-    position: string;
+    status: ToastStatusType;
+    position: ToastPosition;
     variant: string;
     duration: number;
     isClosable: boolean;
   }) => void;
   message: string;
-  status: string;
+  status: ToastStatusType;
 }
 
 export const toastNotification = ({
