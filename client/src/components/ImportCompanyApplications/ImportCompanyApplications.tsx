@@ -69,8 +69,10 @@ const ImportCompanyApplications = ({
     }
   };
   useEffect(() => {
-    loggedInUserRefetch();
-  }, [loading, importCompanyApplications]);
+    if (importProgress === 0 || importProgress === 100) {
+      loggedInUserRefetch();
+    }
+  }, [loading, importCompanyApplications, importProgress]);
 
   const importProgressDisplay = () => {
     if (
@@ -84,6 +86,9 @@ const ImportCompanyApplications = ({
       return;
     }
   };
+  console.log("isImportLoading", isImportLoading);
+  console.log("importProgress", importProgress);
+  console.log("loading", loading);
 
   return (
     <>
@@ -92,7 +97,7 @@ const ImportCompanyApplications = ({
         isLoading={
           (isImportLoading &&
             (importProgress < 1 || importProgress === undefined)) ||
-          importProgress < 100
+          (isImportLoading && importProgress < 100)
         }
         loadingText={importProgressDisplay()}
         size="sm"

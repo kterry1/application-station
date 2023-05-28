@@ -223,7 +223,6 @@ const resolvers = {
     deleteCompanyApplications: async (_, { input }, { prisma, jwtDecoded }) => {
       const companyApplications = await Promise.all(
         input.ids.map(async (id, index) => {
-          await new Promise((resolve) => setTimeout(resolve, index * 400));
           const foundCompanyApplcation =
             await prisma.companyApplication.findUnique({
               where: {
@@ -305,7 +304,6 @@ const resolvers = {
 
       await Promise.all(
         emails?.map(async (companyApplication, index) => {
-          await new Promise((resolve) => setTimeout(resolve, index * 400));
           const checkForDuplicates = await prisma.companyApplication.findUnique(
             {
               where: {

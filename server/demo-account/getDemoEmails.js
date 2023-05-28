@@ -155,10 +155,10 @@ const getDemoEmails = (demoAccountRandomString) => {
 
   const emails = demoEmails(demoAccountRandomString).slice(
     indexObject.currentIndex,
-    indexObject.currentIndex + 3
+    indexObject.currentIndex + 5
   );
 
-  indexObject.currentIndex += 3;
+  indexObject.currentIndex += 5;
   indexObject.lastDemoAccount = demoAccountRandomString;
 
   return emails;
