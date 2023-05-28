@@ -12,7 +12,7 @@ const limiter = new Bottleneck({
   minTime: 200,
 });
 
-const maxResults = 10;
+const maxResults = 15;
 
 async function getEmails(accessToken) {
   try {
