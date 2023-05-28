@@ -31,7 +31,11 @@ const serverCleanUp = useServer({ schema }, wsServer); // Gives access to a disp
 
 // enable cors
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://studio.apollographql.com"],
+  origin: [
+    "http://localhost:3000",
+    "https://studio.apollographql.com",
+    "https://application-database.herokuapp.com/",
+  ],
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -72,7 +76,11 @@ async function startServer() {
   server.applyMiddleware({
     app,
     cors: {
-      origin: ["http://localhost:3000", "https://studio.apollographql.com"],
+      origin: [
+        "http://localhost:3000",
+        "https://studio.apollographql.com",
+        "https://application-database.herokuapp.com/",
+      ],
       credentials: true,
     },
   });
