@@ -47,7 +47,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 const clientId = import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID;
-
 interface ContextValue {
   toggleForImport: boolean;
   setToggleForImport: React.Dispatch<React.SetStateAction<boolean>>;
