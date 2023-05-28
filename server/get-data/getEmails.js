@@ -12,13 +12,13 @@ const limiter = new Bottleneck({
   minTime: 200,
 });
 
-const maxResults = 3;
+const maxResults = 10;
 
 async function getEmails(accessToken) {
   try {
     const baseUrl = "https://www.googleapis.com/gmail/v1/users/me/messages";
     // const queryParams = "?q=after:2023/05/13&maxResults=20&labelIds=INBOX"; // Adjust maxResults to fetch the desired number of emails
-    const queryParams = `?maxResults=${maxResults}&labelIds=STARRED`; // Adjust maxResults to fetch the desired number of emails
+    const queryParams = `?maxResults=${maxResults}&labelIds=INBOX`; // Adjust maxResults to fetch the desired number of emails
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",

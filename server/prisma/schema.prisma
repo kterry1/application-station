@@ -5,6 +5,9 @@
 // To seed the test-database
 // npx prisma db seed --preview-feature
 
+// To remove current migrations folder
+// rm -rf prisma/migrations
+
 
 
 generator client {
@@ -12,14 +15,17 @@ generator client {
     seed   = "node prisma/seed.js"
 }
 
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
+// **Production**
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// **Development**
+// datasource db {
+//   provider = "sqlite"
+//   url      = env("DATABASE_URL")
+// }
 
 /// Represents a user in the system
 model User {

@@ -311,7 +311,6 @@ const resolvers = {
               },
             }
           );
-          console.log("checkForDuplicates", checkForDuplicates);
           if (!checkForDuplicates) {
             const {
               appliedAt,
