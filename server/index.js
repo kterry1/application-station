@@ -34,7 +34,7 @@ const corsOptions = {
   origin: [
     "http://localhost:3000",
     "https://studio.apollographql.com",
-    "https://application-database.herokuapp.com/",
+    "https://application-database.herokuapp.com",
   ],
   credentials: true,
 };
@@ -79,9 +79,10 @@ async function startServer() {
       origin: [
         "http://localhost:3000",
         "https://studio.apollographql.com",
-        "https://application-database.herokuapp.com/",
+        "https://application-database.herokuapp.com",
       ],
       credentials: true,
+      allowedHeaders: ["Content-Type", "Authorization", "Origin", "Accept"],
     },
   });
 
