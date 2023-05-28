@@ -72,7 +72,11 @@ async function startServer() {
   server.applyMiddleware({
     app,
     cors: {
-      origin: ["http://localhost:3000", "https://studio.apollographql.com"],
+      origin: [
+        "http://localhost:3000",
+        "https://studio.apollographql.com",
+        "https://application-station-database.herokuapp.com",
+      ],
       credentials: true,
     },
   });
