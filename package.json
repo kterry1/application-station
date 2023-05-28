@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "heroku-login": "heroku login",
+    "deploy-client": " heroku git:remote -a application-database && git subtree push --prefix client heroku main",
+    "deploy-server": " heroku git:remote -a application-station-database && git subtree push --prefix server heroku main"
+  }
+}
