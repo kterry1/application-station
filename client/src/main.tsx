@@ -11,7 +11,6 @@ import { getMainDefinition } from "@apollo/client/utilities";
 import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import App from "./App.tsx";
-import "./index.css";
 import { ReactNode, createContext, useState } from "react";
 
 const httpLink = new HttpLink({
