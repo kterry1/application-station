@@ -12,6 +12,12 @@ import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import App from "./App.tsx";
 import { ReactNode, createContext, useState } from "react";
+declare global {
+  interface Window {
+    global: any;
+  }
+}
+
 if (typeof window !== "undefined") {
   window.global = window;
 }
