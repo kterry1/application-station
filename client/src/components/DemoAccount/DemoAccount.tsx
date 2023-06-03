@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 
 interface DemoAccountProps {
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   navSize: string;
 }
 
@@ -13,6 +13,7 @@ const DemoAccount = ({ onClick, navSize }: DemoAccountProps) => {
       onClick={onClick}
       color="logoLightBlue.500"
       bg="#2c2c2c"
+      className="second-step-tour"
     >
       {navSize === "small" ? "Demo" : "Demo Account"}
     </Button>
