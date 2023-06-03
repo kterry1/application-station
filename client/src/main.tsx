@@ -12,6 +12,9 @@ import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import App from "./App.tsx";
 import { ReactNode, createContext, useState } from "react";
+if (typeof window !== "undefined") {
+  window.global = window;
+}
 
 const httpLink = new HttpLink({
   // uri: "http://localhost:4000/graphql",
