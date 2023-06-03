@@ -23,6 +23,7 @@ const GoogleLoginButton = ({
   authenticateWithGoogle,
   loggedInUserData,
   client,
+  handleDemoAccountBtnClick,
 }: any) => {
   const toast = useToast();
 
@@ -141,7 +142,10 @@ const GoogleLoginButton = ({
           <Text fontSize="xs">OR</Text>
           <DemoAccount
             navSize={navSize}
-            onClick={() => handleLogin({ isDemoAccount: true })}
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              handleLogin({ isDemoAccount: true });
+              handleDemoAccountBtnClick(e);
+            }}
           />
         </>
       )}

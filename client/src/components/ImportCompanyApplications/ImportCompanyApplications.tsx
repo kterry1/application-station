@@ -21,6 +21,8 @@ interface ImportCompanyApplicationsProps {
   isUserLoggedIn: boolean;
   isImportLoading: boolean;
   loggedInUserRefetch: () => void;
+  handleDemoAccountBtnClick: () => void;
+  setRun: (value: boolean) => void;
 }
 
 const ImportCompanyApplications = ({
@@ -28,6 +30,7 @@ const ImportCompanyApplications = ({
   isUserLoggedIn,
   isImportLoading,
   loggedInUserRefetch,
+  setRun,
 }: ImportCompanyApplicationsProps) => {
   const toast = useToast();
   const [importCompanyApplications, { loading, error: importError }] =
@@ -67,6 +70,8 @@ const ImportCompanyApplications = ({
         status: "info",
       });
     }
+    localStorage.setItem("show-tour", "false");
+    setRun(false);
   };
   useEffect(() => {
     if (importProgress === 0 || importProgress === 100) {
@@ -86,9 +91,6 @@ const ImportCompanyApplications = ({
       return;
     }
   };
-  console.log("isImportLoading", isImportLoading);
-  console.log("importProgress", importProgress);
-  console.log("loading", loading);
 
   return (
     <>
@@ -104,8 +106,9 @@ const ImportCompanyApplications = ({
         rightIcon={<FaFileImport />}
         color="#2c2c2c"
         variant="ghost"
-        onClick={() => handleImport()}
+        onClick={handleImport}
         isDisabled={!isUserLoggedIn}
+        className="fourth-step-tour"
       >
         Import Emails
       </Button>

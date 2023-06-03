@@ -11,6 +11,7 @@ const Sidebar = ({
   authenticateWithGoogle,
   loggedInUserData,
   client,
+  handleDemoAccountBtnClick,
 }: any) => {
   const [navSize, setNavSize] = useState("large");
 
@@ -64,6 +65,7 @@ const Sidebar = ({
           loggedInUserData={loggedInUserData}
           client={client}
           navSize={navSize}
+          handleDemoAccountBtnClick={handleDemoAccountBtnClick}
         />
       </Flex>
     </Flex>

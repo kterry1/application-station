@@ -40,21 +40,19 @@ import ZiprecruiterSVG from "../../assets/icons/ziprecruiter.svg";
 import BehanceSVG from "../../assets/icons/behance.svg";
 import SiteListItem from "./TopJobList/SiteListItem";
 import { Context } from "../../main";
+import { truncateString } from "../../utils/helperFunctions/helperFunctions";
 import Logo from "../../assets/icons/logo.svg";
 
 const tableTestFunc = (property: boolean) => {
   return property ? "Yes" : "No";
 };
 
-const truncateString = (str: string, maxLength: number = 20) => {
-  if (str.length <= maxLength) {
-    return str;
-  }
-
-  return `${str.slice(0, maxLength)}...`;
-};
-
-const Dashboard = ({ loggedInUserData, loggedInUserRefetch }: any) => {
+const Dashboard = ({
+  loggedInUserData,
+  loggedInUserRefetch,
+  handleDemoAccountBtnClick,
+  setRun,
+}: any) => {
   const [editRow, setEditRow] = useState({});
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [openDrawer, setOpenDrawer] = useState({
@@ -115,7 +113,12 @@ const Dashboard = ({ loggedInUserData, loggedInUserRefetch }: any) => {
   return (
     <Flex p="20px" bg="#fff" flexDir="column" width="100%" height="100vh">
       <Flex justifyContent="center" w="100%">
-        <Box p="40px 80px" width="80%" color="#2c2c2c">
+        <Box
+          className="first-step-tour"
+          p="40px 80px"
+          width="80%"
+          color="#2c2c2c"
+        >
           <img src={Logo} />
           <Text pt="3" fontSize="md" color=" #5f5f5f">
             Manage your applications with ease by importing them into the
@@ -130,7 +133,7 @@ const Dashboard = ({ loggedInUserData, loggedInUserRefetch }: any) => {
         flex="1"
         mt="1rem"
         h="100%"
-        minH="450px"
+        minH="350px"
       >
         <Box
           bgColor="#f6f6f6"
@@ -141,7 +144,7 @@ const Dashboard = ({ loggedInUserData, loggedInUserRefetch }: any) => {
           h="100%"
           w="100%"
         >
-          <Box>
+          <Box className="third-step-tour">
             <Heading size="md">Company Applications Tracker</Heading>
             <Text pt="2" fontSize="sm" color="#5f5f5f">
               Add, edit, delete, and track all your applications with this
@@ -197,6 +200,8 @@ const Dashboard = ({ loggedInUserData, loggedInUserRefetch }: any) => {
                 isUserLoggedIn={!!loggedInUserData?.loggedInUser}
                 importProgress={dataImportProgress?.importProgress}
                 loggedInUserRefetch={loggedInUserRefetch}
+                handleDemoAccountBtnClick={handleDemoAccountBtnClick}
+                setRun={setRun}
               />
             </Flex>
 
