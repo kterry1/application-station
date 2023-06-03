@@ -14,8 +14,8 @@ import App from "./App.tsx";
 import { ReactNode, createContext, useState } from "react";
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
-  // uri: "https://application-station-database.herokuapp.com/graphql",
+  // uri: "http://localhost:4000/graphql",
+  uri: "https://application-station-database.herokuapp.com/graphql",
   credentials: "include",
   fetchOptions: {
     mode: "cors",
@@ -24,8 +24,8 @@ const httpLink = new HttpLink({
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: "ws://localhost:4000/subscriptions",
-    // url: "wss://application-station-database.herokuapp.com/subscriptions",
+    // url: "ws://localhost:4000/subscriptions",
+    url: "wss://application-station-database.herokuapp.com/subscriptions",
     lazy: true,
   })
 );
