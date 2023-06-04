@@ -108,7 +108,7 @@ const Dashboard = ({
         <Box
           className="first-step-tour"
           p="40px 80px"
-          width="80%"
+          width="50%"
           color="#2c2c2c"
         >
           <img src={Logo} />
