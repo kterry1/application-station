@@ -206,13 +206,32 @@ const resolvers = {
     ) => {
       if (jwtDecoded.id) {
         const { id, ...restInputFields } = input;
+        const updatedData = (restInputFields) => {
+          const {
+            companyName,
+            position,
+            notes,
+            appliedAt,
+            ...classifications
+          } = restInputFields;
+          const isClassified = Object.values(classifications).some(
+            (value) => value === true
+          );
+          if (isClassified) {
+            return {
+              ...restInputFields,
+              unableToClassify: false,
+            };
+          }
+          return restInputFields;
+        };
         const updatedCompanyApplication =
           await prisma.companyApplication.update({
             where: {
               id: parseInt(id),
             },
             data: {
-              ...restInputFields,
+              ...updatedData(restInputFields),
             },
           });
         return updatedCompanyApplication;
