@@ -111,7 +111,14 @@ const Dashboard = ({
     }
   };
   return (
-    <Flex p="20px" bg="#fff" flexDir="column" width="100%" height="100vh">
+    <Flex
+      overflowY="auto"
+      p="20px"
+      bg="#fff"
+      flexDir="column"
+      width="100%"
+      height="100vh"
+    >
       <Flex justifyContent="center" w="100%">
         <Box
           className="first-step-tour"
@@ -302,66 +309,6 @@ const Dashboard = ({
               onPageChange={handlePageChange}
             />
           </Flex>
-        </Box>
-        <Box
-          bgColor="#f6f6f6"
-          borderRadius="15px"
-          p="15px"
-          color="#2c2c2c"
-          ml="1rem"
-          w="300px"
-        >
-          <Box>
-            <Heading size="md">Top Job Sites</Heading>
-            <Text pt="2" fontSize="sm" color="#5f5f5f">
-              List of most commonly used websites for job searching.
-            </Text>
-          </Box>
-          <Center h="90%" w="100%">
-            <Box
-              bgColor="#fff"
-              boxShadow="base"
-              borderRadius="15px"
-              mt={isSmallerThan3xl ? "2rem" : ".3rem"}
-              p="20px"
-              w="100%"
-              maxH="95%"
-              minH="85%"
-            >
-              <List spacing={[1, 1, 1, 2, 2, 3, 10]}>
-                <SiteListItem
-                  icon={LinkedInPNG}
-                  name="LinkedIn"
-                  link="https://www.linkedin.com/jobs"
-                />
-                <SiteListItem
-                  icon={GlassdoorPNG}
-                  name="Glassdoor"
-                  link="https://www.glassdoor.com/Job"
-                />
-                <SiteListItem
-                  icon={IndeedPNG}
-                  name="Indeed"
-                  link="https://www.indeed.com/?from=gnav-jobsearch"
-                />
-                <SiteListItem
-                  icon={AngelListSVG}
-                  name="Angel List"
-                  link="https://wellfound.com/jobs"
-                />
-                <SiteListItem
-                  icon={ZiprecruiterSVG}
-                  name="Zip Recruiter"
-                  link="https://www.ziprecruiter.com/jobs-search"
-                />
-                <SiteListItem
-                  icon={BehanceSVG}
-                  name="Behance"
-                  link="https://www.behance.net/joblist"
-                />
-              </List>
-            </Box>
-          </Center>
         </Box>
       </Flex>
       <FormikDrawer
