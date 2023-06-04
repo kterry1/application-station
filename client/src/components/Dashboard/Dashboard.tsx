@@ -13,7 +13,6 @@ import {
   Text,
   Tr,
   useToast,
-  useMediaQuery,
   useTheme,
 } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
@@ -72,9 +71,6 @@ const Dashboard = ({
     indexOfLastItem
   );
   const theme = useTheme();
-  const [isSmallerThan3xl] = useMediaQuery(
-    `(max-width): ${theme.breakpoints["3xl"]}`
-  );
   const { toggleForImport, setToggleForImport } = useContext(Context);
 
   useEffect(() => {
