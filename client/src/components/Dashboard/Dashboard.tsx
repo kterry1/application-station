@@ -13,7 +13,6 @@ import {
   Text,
   Tr,
   useToast,
-  useTheme,
 } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
 import SingleCheckbox from "../SingleCheckbox/SingleCheckbox";
@@ -70,7 +69,6 @@ const Dashboard = ({
     indexOfFirstItem,
     indexOfLastItem
   );
-  const theme = useTheme();
   const { toggleForImport, setToggleForImport } = useContext(Context);
 
   useEffect(() => {
