@@ -97,12 +97,12 @@ const Dashboard = ({
   };
   return (
     <Flex
-      overflowY="auto"
       p="20px"
       bg="#fff"
       flexDir="column"
       width="100%"
       height="100vh"
+      style={{ overflowY: "auto" }}
     >
       <Flex justifyContent="center" w="100%">
         <Box
