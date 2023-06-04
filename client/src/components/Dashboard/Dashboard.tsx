@@ -102,7 +102,9 @@ const Dashboard = ({
       flexDir="column"
       width="100%"
       height="100vh"
+      overflowY="auto"
       style={{ overflowY: "auto" }}
+      className="dashboard-container"
     >
       <Flex justifyContent="center" w="100%">
         <Box
