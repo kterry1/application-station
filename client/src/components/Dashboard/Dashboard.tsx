@@ -13,8 +13,6 @@ import {
   Text,
   Tr,
   useToast,
-  Center,
-  List,
   useMediaQuery,
   useTheme,
 } from "@chakra-ui/react";
@@ -32,13 +30,6 @@ import ImportCompanyApplications from "../ImportCompanyApplications/ImportCompan
 import Stats from "../Stats/Stats";
 import FormikDrawer from "../FormikDrawer/FormikDrawer";
 import { toastNotification } from "../../utils/toastNotication/toastNotification";
-import LinkedInPNG from "../../assets/icons/linkedin.png";
-import GlassdoorPNG from "../../assets/icons/glassdoor.png";
-import IndeedPNG from "../../assets/icons/indeed.png";
-import AngelListSVG from "../../assets/icons/angellist.svg";
-import ZiprecruiterSVG from "../../assets/icons/ziprecruiter.svg";
-import BehanceSVG from "../../assets/icons/behance.svg";
-import SiteListItem from "./TopJobList/SiteListItem";
 import { Context } from "../../main";
 import { truncateString } from "../../utils/helperFunctions/helperFunctions";
 import Logo from "../../assets/icons/logo.svg";
