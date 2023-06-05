@@ -26,8 +26,8 @@ const StatCard = ({
         bg={backgroundColor}
         color="#2c2c2c"
         maxW="sm"
-        w="11em"
-        minW="10em"
+        w="12em"
+        minW="11em"
         h="14em"
         borderRadius="15px"
       >

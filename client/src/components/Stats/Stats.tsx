@@ -43,7 +43,7 @@ const Stats = ({ loggedInUserData }: any) => {
       />
       <StatCard
         icon={<IoMdClock />}
-        title="Awaiting Reply"
+        title="Awaiting Response"
         stats={data}
         backgroundColor="#fff"
         cardStatKey="awaitingResponseCount"

@@ -229,7 +229,7 @@ const Dashboard = ({
                     <Th></Th>
                     <Th>Company</Th>
                     <Th>Position</Th>
-                    <Th>Awaiting Reply</Th>
+                    <Th>Awaiting Response</Th>
                     <Th>Rejected</Th>
                     <Th>Next Round</Th>
                     <Th>Received Offer</Th>
