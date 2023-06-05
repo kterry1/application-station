@@ -62,19 +62,6 @@ const testClassifier = async () => {
       )
     );
   });
-
-  // testStringsRejected.map((string) => {
-  //   console.log("Rejected", classifier.classify(string));
-  // });
-  // testStringsNextRound.map((string) => {
-  //   console.log("Next Round", classifier.classify(string));
-  // });
-  // testStringsAwaitingResponse.map((string) => {
-  //   console.log("Awaiting Response", classifier.classify(string));
-  // });
-  // testStringsReceivedOffer.map((string) => {
-  //   console.log("Received Offer", classifier.classify(string));
-  // });
 };
 
 trainClassifier();

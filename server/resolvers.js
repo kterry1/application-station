@@ -75,7 +75,7 @@ const resolvers = {
       const applicationCountTW = filteredThisWeekCompanyApplications?.length;
       const awaitingResponseCountTW =
         filteredThisWeekCompanyApplications.filter(
-          (companyApplication) => companyApplication.awaitingReponse === false
+          (companyApplication) => companyApplication.awaitingResponse === true
         )?.length;
       const nextRoundCountTW = filteredThisWeekCompanyApplications.filter(
         (companyApplication) => companyApplication.nextRound === true
@@ -86,7 +86,7 @@ const resolvers = {
       const applicationCountLW = filteredLastWeekCompanyApplications?.length;
       const awaitingResponseCountLW =
         filteredLastWeekCompanyApplications.filter(
-          (companyApplication) => companyApplication.awaitingReponse === false
+          (companyApplication) => companyApplication.awaitingResponse === true
         )?.length;
       const nextRoundCountLW = filteredLastWeekCompanyApplications.filter(
         (companyApplication) => companyApplication.nextRound === true

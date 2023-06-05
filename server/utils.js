@@ -1,39 +1,48 @@
-const getWeekNumber = (date) => {
-  const d = new Date(
-    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
-  );
-  const dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+function getWeekNumber(d) {
+  // Copy date so original is not modified
+  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+
+  // Set to nearest Thursday: current date + 4 - current day number
+  // Make Sunday's day number 7
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+
+  // Get first day of year
   const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-};
+
+  // Calculate full weeks to nearest Thursday
+  const weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+
+  // Return array of year and week number
+  return [d.getUTCFullYear(), weekNo];
+}
 
 const filterItemsThisWeek = (items) => {
   const currentDate = new Date();
-  const currentWeekNumber = getWeekNumber(currentDate);
-  const currentYear = currentDate.getFullYear();
+  const [currentYear, currentWeekNumber] = getWeekNumber(currentDate);
 
   return items.filter((item) => {
     const itemDate = new Date(item.appliedAt);
-    return (
-      getWeekNumber(itemDate) === currentWeekNumber &&
-      itemDate.getFullYear() === currentYear
-    );
+    const [itemYear, itemWeekNumber] = getWeekNumber(itemDate);
+
+    return itemWeekNumber === currentWeekNumber && itemYear === currentYear;
   });
 };
 
 const filterItemsLastWeek = (items) => {
   const currentDate = new Date();
-  const currentWeekNumber = getWeekNumber(currentDate);
-  const previousWeekNumber =
-    currentWeekNumber === 1 ? 52 : currentWeekNumber - 1;
-  const currentYear = currentDate.getFullYear();
-  const previousYear = currentWeekNumber === 1 ? currentYear - 1 : currentYear;
+  const [currentYear, currentWeekNumber] = getWeekNumber(currentDate);
+
+  let previousWeekNumber = currentWeekNumber - 1;
+  let previousYear = currentYear;
+
+  if (previousWeekNumber === 0) {
+    previousWeekNumber = 52;
+    previousYear = currentYear - 1;
+  }
 
   return items.filter((item) => {
-    const itemDate = new Date(item.date);
-    const itemWeekNumber = getWeekNumber(itemDate);
-    const itemYear = itemDate.getFullYear();
+    const itemDate = new Date(item.appliedAt);
+    const [itemYear, itemWeekNumber] = getWeekNumber(itemDate);
 
     return itemWeekNumber === previousWeekNumber && itemYear === previousYear;
   });

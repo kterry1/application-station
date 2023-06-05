@@ -101,7 +101,7 @@ const demoEmails = (demoAccountRandomString) => [
     unableToClassify: false,
   },
   {
-    appliedAt: "2023-06-05T11:30:00.000Z",
+    appliedAt: "2023-06-02T11:30:00.000Z",
     externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Uber",
     position: "Data Analyst",
@@ -112,7 +112,7 @@ const demoEmails = (demoAccountRandomString) => [
     unableToClassify: true,
   },
   {
-    appliedAt: "2023-06-06T13:00:00.000Z",
+    appliedAt: "2023-06-03T13:00:00.000Z",
     externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Lyft",
     position: "UI/UX Designer",
@@ -123,7 +123,7 @@ const demoEmails = (demoAccountRandomString) => [
     unableToClassify: false,
   },
   {
-    appliedAt: "2023-06-07T15:30:00.000Z",
+    appliedAt: "2023-06-01T15:30:00.000Z",
     externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Slack",
     position: "Security Engineer",
@@ -134,7 +134,7 @@ const demoEmails = (demoAccountRandomString) => [
     unableToClassify: false,
   },
   {
-    appliedAt: "2023-06-08T17:00:00.000Z",
+    appliedAt: "2023-06-03T17:00:00.000Z",
     externalId: `${generateRandomString(11)}${demoAccountRandomString}`,
     companyName: "Zoom",
     position: "Network Engineer",
